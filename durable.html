@@ -1,0 +1,11 @@
+<script>
+function requestPermission() {
+  navigator.storage.requestPersistent().then(function (result) {
+    document.write("Result was " + result + "<br>\n");
+  });
+}
+window.onload = function() {
+  document.getElementById("someButton").onclick = requestPermission;
+}
+</script>
+<button id="someButton">Request</button>
