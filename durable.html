@@ -1,7 +1,11 @@
 <script>
 function requestPermission() {
+  if (!navigator.storage) {
+    document.getElementById("log").innerText = "Can't find navigator.storage," +
+    " maybe you aren't running with --enable-experimental-web-platform-features";
+  }
   navigator.storage.requestPersistent().then(function (result) {
-    document.write("Result was " + result + "<br>\n");
+    document.write("Result was " + result);
   });
 }
 window.onload = function() {
@@ -9,3 +13,4 @@ window.onload = function() {
 }
 </script>
 <button id="someButton">Request</button>
+<div id="log"></div>
