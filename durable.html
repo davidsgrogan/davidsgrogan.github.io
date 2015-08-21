@@ -2,10 +2,15 @@
 function requestPermission() {
   if (!navigator.storage) {
     document.getElementById("log").innerText = "Can't find navigator.storage," +
-    " maybe you aren't running with --enable-experimental-web-platform-features";
+    " maybe you aren't running with " +
+    "--enable-experimental-web-platform-features or your version of chrome " +
+    "is too old. You need at least ~46.0.2486."
   }
   navigator.storage.requestPersistent().then(function (result) {
     document.write("Result was " + result);
+  },
+  function (error) {
+    document.getElementById("log").innerText += (error + "\n");
   });
 }
 window.onload = function() {
