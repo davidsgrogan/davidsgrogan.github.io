@@ -1,21 +1,37 @@
 <script>
-function requestPermission() {
-  if (!navigator.storage) {
-    document.getElementById("log").innerText = "Can't find navigator.storage," +
-    " maybe you aren't running with " +
-    "--enable-experimental-web-platform-features or your version of chrome " +
-    "is too old. You need at least ~46.0.2486."
-  }
-  navigator.storage.requestPersistent().then(function (result) {
-    document.write("Result was " + result);
+function log(str) {
+  document.getElementById("log").innerText += (str + "\n");
+}
+
+function checkPermission() {
+  navigator.storage.persistentPermission().then(function (result) {
+    log("Query result was " + result);
   },
   function (error) {
-    document.getElementById("log").innerText += (error + "\n");
+    log(error);
   });
 }
+
+function requestPermission() {
+  navigator.storage.requestPersistent().then(function (result) {
+    log("Request result was " + result);
+  },
+  function (error) {
+    log(error);
+  });
+}
+
 window.onload = function() {
   document.getElementById("someButton").onclick = requestPermission;
+  document.getElementById("checkButton").onclick = checkPermission;
+  if (!navigator.storage) {
+    log("Can't find navigator.storage," +
+    " maybe you aren't running with " +
+    "--enable-experimental-web-platform-features or your version of chrome " +
+    "is too old. You need at least ~46.0.2486.")
+  }
 }
 </script>
 <button id="someButton">Request</button>
+<button id="checkButton">Query</button>
 <div id="log"></div>
