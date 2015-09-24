@@ -25,10 +25,10 @@ window.onload = function() {
   document.getElementById("someButton").onclick = requestPermission;
   document.getElementById("checkButton").onclick = checkPermission;
   if (!navigator.storage) {
-    log("Can't find navigator.storage," +
-    " maybe you aren't running with " +
-    "--enable-experimental-web-platform-features or your version of chrome " +
-    "is too old. You need at least ~46.0.2486.")
+    log("Can't find navigator.storage, maybe you aren't running with " +
+    "--enable-experimental-web-platform-features (or " +
+    "chrome://flags/#enable-experimental-web-platform-features) or your " +
+    "version of chrome is too old. You need at least ~46.0.2486.")
   }
 }
 </script>
