@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<script src="jquery-3.2.1.js"></script>
+<style>
+td, th, table {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+
+<table class="aTable">
+  <thead>
+    <tr>
+      <td colspan=2>Game Location:</td>
+      <td class="stadium"></td>
+      <td class="stadium"></td>
+      <td class="stadium"></td>
+      <td class="stadium"></td>
+      <td class="stadium"></td>
+      <td class="stadium"></td>
+      <td class="stadium"></td>
+    </tr>
+    <tr>
+      <td colspan=2></td>
+      <td class="team1prob"></td>
+      <td class="team1prob"></td>
+      <td class="team1prob"></td>
+      <td class="team1prob"></td>
+      <td class="team1prob"></td>
+      <td class="team1prob"></td>
+      <td class="team1prob"></td>
+    </tr>
+    <tr>
+      <td>↓k n→</td>
+      <td class="nindex">0</td>
+      <td class="nindex">1</td>
+      <td class="nindex">2</td>
+      <td class="nindex">3</td>
+      <td class="nindex">4</td>
+      <td class="nindex">5</td>
+      <td class="nindex">6</td>
+      <td class="nindex">7</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class=kindex>0</td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+    </tr>
+    <tr>
+      <td class=kindex>1</td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+    </tr>
+    <tr>
+      <td class=kindex>2</td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+    </tr>
+    <tr>
+      <td class=kindex>3</td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+    </tr>
+    <tr>
+      <td class=kindex>4</td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+    </tr>
+    <tr>
+      <td class=kindex>5</td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+    </tr>
+    <tr>
+      <td class=kindex>6</td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+    </tr>
+    <tr>
+      <td class=kindex>7</td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+      <td class=value></td>
+    </tr>
+  </tbody>
+</table>
+
+<script>
+var phome = .55;
+var paway = .4;
+
+let patterns = createListOfPatterns();
+let results = {};
+for (const pattern of patterns) {
+  matrix = generateMatrixForOnePattern(pattern, phome, paway);
+  p_game_7 = matrix[3][6];
+  console.log(pattern + " " + p_game_7);
+}
+
+function generateMatrixForOnePattern(pattern, phome, paway) {
+  let matrix = new Array(5);
+  for (let i = 0; i < matrix.length; i++) {
+    matrix[i] = new Array(8).fill(0);
+  }
+  matrix[0][0] = 1;
+  for (let col = 1; col < matrix[0].length; col++) {
+    var team1_win_prob = pattern[col - 1] == 'H' ? phome : paway;
+    matrix[0][col] = matrix[0][col - 1] * (1 - team1_win_prob);
+    for (let row = 1; row < matrix.length; row++) {
+      matrix[row][col] = matrix[row - 1][col - 1] * team1_win_prob +
+        matrix[row][col - 1] * (1 - team1_win_prob);
+    }
+  }
+  return matrix;
+}
+
+function createListOfPatterns() {
+  let toReturn = new Array();
+  for (let first = 0; first < 5; first++) {
+    for (let second = first + 1; second < 6; second++) {
+      for (let third = second + 1; third < 7; third++) {
+        let initial = new Array(7).fill("H");
+        initial[first] = initial[second] = initial[third] = "A";
+        toReturn.push(initial);
+      }
+    }
+  }
+  return toReturn;
+}
+
+</script>
