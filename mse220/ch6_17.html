@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<div id=log></div>
+
+<script>
+
+pdf = generatePDFMatrix();
+//console.log(pdf);
+cdf = generateCDF(pdf);
+
+function generateCDF(pdf) {
+  let cdf = new Array(366);
+  for (let i = 0; i < cdf.length; i++) {
+    cdf[i] = new Array(366).fill(0);
+  }
+  for (let row = 2; row < cdf.length; row++) {
+    let closest = 100;
+    let closest_k = -5;
+    for (let col = 1; col < cdf[0].length; col++) {
+      cdf[row][col] = cdf[row][col-1] + pdf[row][col];
+      let distance_from_half = Math.abs(cdf[row][col] - 0.5);
+      if (distance_from_half < closest) {
+        closest = distance_from_half;
+        closest_k = col;
+      }
+    }
+    log.innerHTML=log.innerHTML + "<br> " + row + "," + closest_k +"," + closest;
+  }
+  return cdf;
+}
+
+function generatePDFMatrix() {
+  let matrix = new Array(366);
+  for (let i = 0; i < matrix.length; i++) {
+    matrix[i] = new Array(366).fill(0);
+  }
+  matrix[1][1] = 1;
+  for (let row = 2; row < matrix.length; row++) {
+    for (let col = 1; col < matrix[0].length; col++) {
+      matrix[row][col] = matrix[row - 1][col - 1] * (365 - col + 1) / 365 +
+        matrix[row - 1][col] * (col / 365);
+    }
+  }
+  return matrix;
+}
+
+</script>
