@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8" />
+<style type="text/css">
+@font-face {
+  font-family: 'mplus';
+  src: url('mplus-1p-regular.woff') format('woff');
+}
+</style>
+
+Why is orange block taller than 3em in Chrome, but not in Firefox?
+
+<div style="font-family: mplus">
+  <div style="writing-mode: vertical-rl; background: orange; float:left;">１２３</div>
+  <div style="writing-mode: vertical-rl; background: yellow; float:left; font-family: initial;">１２３</div>
+  <div style="background: green; height: 3em; width: 1em; float: left;"></div>
+</div>
