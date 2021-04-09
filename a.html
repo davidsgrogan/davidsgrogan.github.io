@@ -1,19 +1,6 @@
 <!doctype html>
 
 <style>
-.linear::after {
-  content: linear-gradient(to bottom, #00abeb, #fff 50%, #66cc00 50%, #fff);
-}
-
-.svg::after {
-  content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="green" /></svg>');
-}
-
-/* 10x10 red square */
-.png::after {
-  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mP8z8AARIQB46hC+ioEAGX8E/cKr6qsAAAAAElFTkSuQmCC);
-}
-
 div::after {
   width: 100px;
   height: 100px;
@@ -21,11 +8,34 @@ div::after {
   display: block;
 }
 
+/* 10x10 red square */
+.png::after {
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mP8z8AARIQB46hC+ioEAGX8E/cKr6qsAAAAAElFTkSuQmCC);
+}
+
+.linear::after {
+  content: linear-gradient(to bottom, #00abeb, #fff 50%, #66cc00 50%, #fff);
+}
+
+.linear-background::after {
+  content: '';
+  background-image: linear-gradient(to bottom, #00abeb, #fff 50%, #66cc00 50%, #fff);
+}
+
+.svg::after {
+  content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="green" /></svg>');
+}
+
 div {
   margin-bottom: 10px;
 }
 </style>
 
+content: url(10x10-red.png)
 <div class="png"></div>
+content: linear-gradient
 <div class="linear"></div>
+background: linear-gradient
+<div class="linear-background"></div>
+content: url(svg with no size or aspect ratio)
 <div class="svg"></div>
