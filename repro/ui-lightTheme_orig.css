@@ -1,0 +1,33 @@
+
+  body, .afx-default-background {
+    background-image: -ms-radial-gradient(75% top, ellipse farthest-side, #55a0b9 -100%, #0077a1 40%, #006b91 75%, #006487 100%);
+    background-image: -moz-radial-gradient(75% top, ellipse farthest-side, #55a0b9 -100%, #0077a1 40%, #006b91 75%, #006487 100%);
+    background-image: -o-radial-gradient(75% top, ellipse farthest-side, #55a0b9 -100%, #0077a1 40%, #006b91 75%, #006487 100%);
+    background-image: -webkit-gradient(radial, 75% top, 0, center top, 258, color-stop(-100, #55a0b9), color-stop(40, #0077a1), color-stop(75, #006b91), color-stop(100, #006487));
+    background-image: -webkit-radial-gradient(75% top, ellipse farthest-side, #55a0b9 -100%, #0077a1 40%, #006b91 75%, #006487 100%);
+    background-image: radial-gradient(ellipse farthest-side at 75% top, #55a0b9 -100%, #0077a1 40%, #006b91 75%, #006487 100%);
+    color: #ffffff;
+    fill: #ffffff;
+  }
+  
+  .aw-layout-subLocation, .aw-layout-popup, .afx-content-background {
+    background-color: #ffffff;
+    color: #464646;
+    fill: #464646;
+  }
+  
+  textarea, input[type=text], input[type=password] {
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    color: #1e1e1e;
+    border-color: #8c8c8c;
+  }
+  
+  textarea:hover, input[type=text]:hover, input[type=password]:hover {
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.3);
+  }
+  
+  textarea:focus, input[type=text]:focus, input[type=password]:focus {
+    border-color: #0f789b;
+    caret-color: #8c8c8c;
+  }

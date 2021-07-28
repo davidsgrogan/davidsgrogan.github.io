@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>    
+    <meta http-equiv="x-ua-compatible" content="IE=11">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">    
+    <link type="text/css" rel="stylesheet" href="main.css">
+    <link type="text/css" rel="stylesheet" id="theme" href="ui-lightTheme.css">
+    <title>Showcase</title>
+</head>
+
+<body>    
+  <div id="main-view" class="aw-layout-mainView afx-app-showcase">
+    <div class="aw-layout-include aw-layout-flexbox">
+        <div class="awRoot aw-flex-column afx-fill">                                        
+            <div class="aw-flex-row afx-fill">
+                <div class="aw-order-two aw-flex-column afx-fill">
+                    <div class="aw-flex-row afx-fill">                                
+                        <div class="aw-layout-flexColumn">
+                            <div class="aw-layout-flexbox">                                        
+                                <div class="aw-layout-include aw-layout-flexbox">
+                                    <div class="aw-flex-column afx-fill">
+                                        <div class="aw-layout-subLocation afx-content-background aw-flex-row     aw-layout-nowrap afx-fill"
+                                            data-ng-transclude="" height="fill" wrap-style="nowrap">
+                                            <div class="aw-flex-column     aw-layout-nowrap afx-fill"
+                                                data-ng-transclude="" width="fill" wrap-style="nowrap">
+                                                <div class="aw-layout-flexColumn  ">
+                                                     <div name="showcaseMain"
+                                                        class="aw-layout-flexbox">
+                                                        <div class="aw-layout-include aw-layout-flexbox  "
+                                                            sub-panel-context="subPanelContext"
+                                                            data-ng-include="layoutViewName">                                                                    
+                                                            <div class="aw-layout-flexColumn  ">
+                                                                <div class="aw-layout-flexbox  ">
+                                                                     <div name="showcaseSub"
+                                                                        class="aw-layout-flexbox">
+                                                                        <div class="aw-layout-include aw-layout-flexbox  "
+                                                                            sub-panel-context="subPanelContext"
+                                                                            data-ng-include="layoutViewName">                                                                                    
+                                                                             <div name="showcaseDui"
+                                                                                sub-panel-context="ctx.selectedNode"
+                                                                                exist-when="ctx.selectedNode &amp;&amp; ctx.selectedNode.fullscreen != true"
+                                                                                class="    aw-layout-flexbox">
+                                                                                <div class="aw-layout-include aw-layout-flexbox  "
+                                                                                    sub-panel-context="subPanelContext"
+                                                                                    data-ng-include="layoutViewName">
+
+                                                                                     <div
+                                                                                        name="showcaseExample"
+                                                                                        id="showcaseExample"
+                                                                                        class="    aw-layout-flexbox">
+                                                                                        <div class="aw-layout-include aw-layout-flexbox  "
+                                                                                            sub-panel-context="subPanelContext"
+                                                                                            data-ng-include="layoutViewName">
+
+                                                                                             <div name="awTextBox" class="aw-layout-flexbox">
+                                                                                                <div class="aw-layout-include aw-layout-flexbox  "
+                                                                                                    sub-panel-context="subPanelContext"
+                                                                                                    data-ng-include="layoutViewName">
+
+                                                                                                    <div class="aw-layout-flexColumn">
+                                                                                                        <div class="aw-layout-panelMain aw-base-scrollPanel" id=mine>
+                                                                                                            <div class="aw-layout-summaryContent"
+                                                                                                                ng-transclude="">
+                                                                                                                <form
+                                                                                                                    name="awPanelBody"
+                                                                                                                    class="aw-layout-panelBody    ng-valid-maxlength ng-invalid ng-invalid-required ng-invalid-aw-required ng-dirty ng-valid-parse"
+                                                                                                                    ng-class="{'aw-layout-flexColumn': noScroll}"
+                                                                                                                    ng-transclude=""
+                                                                                                                    novalidate="">                                                                                                                            
+                                                                                                                    
+                                                                                                                    <div class="aw-layout-panelSection    "
+                                                                                                                        ng-class="{ 'aw-layout-panelSectionNoTitle' : ( !caption || caption.length === 0 ) }"
+                                                                                                                        caption="String"
+                                                                                                                        role="group"
+                                                                                                                        aria-label="String">                                                                                                                                
+                                                                                                                        <form
+                                                                                                                            name=""
+                                                                                                                            class="aw-layout-panelSectionContent afx-base-parentElement ng-valid-maxlength ng-invalid ng-invalid-required ng-invalid-aw-required ng-dirty ng-valid-parse"
+                                                                                                                            visible-when="collapsed !== 'true'"
+                                                                                                                            ng-class="{ 'aw-layout-panelSectionNoTitle' : ( !caption || caption.length === 0 ) }"
+                                                                                                                            ng-transclude=""
+                                                                                                                            novalidate="">
+                                                                                                                            <div class="aw-widgets-propertyContainer" prop="data.placeHolderTextBox">                                
+                                                                                                                                <div class="">
+                                                                                                                                    <div class="propertyLabelTopContainer aw-layout-flexRow aw-widgets-justifySpaceBetween aw-widgets-spaceBetween">
+                                                                                                                                        <div class="aw-widgets-propertyLabelTop ng-binding afx-property-required">
+                                                                                                                                            Enter String value in placeholder:
+                                                                                                                                        </div>            
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                                                           
+                                                                                                                                <div class="aw-widgets-propertyLabelTopValueContainer">                                    
+                                                                                                                                    <div ng-if="prop.isEditable" class="">                                        
+                                                                                                                                        <div ng-if="!prop.hasLov" class=" ">
+                                                                                                                                            <div class=" ">
+                                                                                                                                                <div class="aw-layout-flexRowContainer">
+                                                                                                                                                    <aw-property-error class="aw-layout-flex">
+                                                                                                                                                        <span class="aw-widgets-errorHint ng-binding ng-hide aw-widgetsErrorFade" style="margin-top: 0px; top: 0px; left: 0px;"></span>
+                                                                                                                                                        <div class="aw-widgets-innerWidget">
+                                                                                                                                                            <input aria-label="Enter String value in placeholder" type="text" placeholder="Please enter value here" class="aw-widgets-propertyEditValue">
+                                                                                                                                                        </div>
+                                                                                                                                                    </aw-property-error>
+                                                                                                                                                </div>
+                                                                                                                                            </div>
+                                                                                                                                        </div>                    
+                                                                                                                                    </div>                
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </form>
+                                                                                                                    </div>   
+                                                                                                                    
+                                                                                                                    <div class="aw-layout-panelSection    "
+                                                                                                                        ng-class="{ 'aw-layout-panelSectionNoTitle' : ( !caption || caption.length === 0 ) }"
+                                                                                                                        caption="String"
+                                                                                                                        role="group"
+                                                                                                                        aria-label="String">                                                                                                                                
+                                                                                                                        <form
+                                                                                                                            name=""
+                                                                                                                            class="aw-layout-panelSectionContent afx-base-parentElement ng-valid-maxlength ng-invalid ng-invalid-required ng-invalid-aw-required ng-dirty ng-valid-parse"
+                                                                                                                            visible-when="collapsed !== 'true'"
+                                                                                                                            ng-class="{ 'aw-layout-panelSectionNoTitle' : ( !caption || caption.length === 0 ) }"
+                                                                                                                            ng-transclude=""
+                                                                                                                            novalidate="">
+                                                                                                                            <div class="aw-widgets-propertyContainer" prop="data.placeHolderTextBox">                                
+                                                                                                                                <div class="">
+                                                                                                                                    <div class="propertyLabelTopContainer aw-layout-flexRow aw-widgets-justifySpaceBetween aw-widgets-spaceBetween">
+                                                                                                                                        <div class="aw-widgets-propertyLabelTop ng-binding afx-property-required">
+                                                                                                                                            Enter String value in placeholder:
+                                                                                                                                        </div>            
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                                                           
+                                                                                                                                <div class="aw-widgets-propertyLabelTopValueContainer">                                    
+                                                                                                                                    <div ng-if="prop.isEditable" class="">                                        
+                                                                                                                                        <div ng-if="!prop.hasLov" class=" ">
+                                                                                                                                            <div class=" ">
+                                                                                                                                                <div class="aw-layout-flexRowContainer">
+                                                                                                                                                    <aw-property-error class="aw-layout-flex">
+                                                                                                                                                        <span class="aw-widgets-errorHint ng-binding ng-hide aw-widgetsErrorFade" style="margin-top: 0px; top: 0px; left: 0px;"></span>
+                                                                                                                                                        <div class="aw-widgets-innerWidget">
+                                                                                                                                                            <input aria-label="Enter String value in placeholder" type="text" placeholder="Please enter value here" class="aw-widgets-propertyEditValue">
+                                                                                                                                                        </div>
+                                                                                                                                                    </aw-property-error>
+                                                                                                                                                </div>
+                                                                                                                                            </div>
+                                                                                                                                        </div>                    
+                                                                                                                                    </div>                
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </form>
+                                                                                                                    </div>   
+
+                                                                                                                    <div class="aw-layout-panelSection    "
+                                                                                                                        ng-class="{ 'aw-layout-panelSectionNoTitle' : ( !caption || caption.length === 0 ) }"
+                                                                                                                        caption="String"
+                                                                                                                        role="group"
+                                                                                                                        aria-label="String">                                                                                                                                
+                                                                                                                        <form
+                                                                                                                            name=""
+                                                                                                                            class="aw-layout-panelSectionContent afx-base-parentElement ng-valid-maxlength ng-invalid ng-invalid-required ng-invalid-aw-required ng-dirty ng-valid-parse"
+                                                                                                                            visible-when="collapsed !== 'true'"
+                                                                                                                            ng-class="{ 'aw-layout-panelSectionNoTitle' : ( !caption || caption.length === 0 ) }"
+                                                                                                                            ng-transclude=""
+                                                                                                                            novalidate="">
+                                                                                                                            <div class="aw-widgets-propertyContainer" prop="data.placeHolderTextBox">                                
+                                                                                                                                <div class="">
+                                                                                                                                    <div class="propertyLabelTopContainer aw-layout-flexRow aw-widgets-justifySpaceBetween aw-widgets-spaceBetween">
+                                                                                                                                        <div class="aw-widgets-propertyLabelTop ng-binding afx-property-required">
+                                                                                                                                            Enter String value in placeholder:
+                                                                                                                                        </div>            
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                                                           
+                                                                                                                                <div class="aw-widgets-propertyLabelTopValueContainer">                                    
+                                                                                                                                    <div ng-if="prop.isEditable" class="">                                        
+                                                                                                                                        <div ng-if="!prop.hasLov" class=" ">
+                                                                                                                                            <div class=" ">
+                                                                                                                                                <div class="aw-layout-flexRowContainer">
+                                                                                                                                                    <aw-property-error class="aw-layout-flex">
+                                                                                                                                                        <span class="aw-widgets-errorHint ng-binding ng-hide aw-widgetsErrorFade" style="margin-top: 0px; top: 0px; left: 0px;"></span>
+                                                                                                                                                        <div class="aw-widgets-innerWidget">
+                                                                                                                                                            <input aria-label="Enter String value in placeholder" type="text" placeholder="Please enter value here" class="aw-widgets-propertyEditValue">
+                                                                                                                                                        </div>
+                                                                                                                                                    </aw-property-error>
+                                                                                                                                                </div>
+                                                                                                                                            </div>
+                                                                                                                                        </div>                    
+                                                                                                                                    </div>                
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </form>
+                                                                                                                    </div>   
+
+                                                                                                                    <div class="aw-layout-panelSection    "
+                                                                                                                        ng-class="{ 'aw-layout-panelSectionNoTitle' : ( !caption || caption.length === 0 ) }"
+                                                                                                                        caption="String"
+                                                                                                                        role="group"
+                                                                                                                        aria-label="String">                                                                                                                                
+                                                                                                                        <form
+                                                                                                                            name=""
+                                                                                                                            class="aw-layout-panelSectionContent afx-base-parentElement ng-valid-maxlength ng-invalid ng-invalid-required ng-invalid-aw-required ng-dirty ng-valid-parse"
+                                                                                                                            visible-when="collapsed !== 'true'"
+                                                                                                                            ng-class="{ 'aw-layout-panelSectionNoTitle' : ( !caption || caption.length === 0 ) }"
+                                                                                                                            ng-transclude=""
+                                                                                                                            novalidate="">
+                                                                                                                            <div class="aw-widgets-propertyContainer" prop="data.placeHolderTextBox">                                
+                                                                                                                                <div class="">
+                                                                                                                                    <div class="propertyLabelTopContainer aw-layout-flexRow aw-widgets-justifySpaceBetween aw-widgets-spaceBetween">
+                                                                                                                                        <div class="aw-widgets-propertyLabelTop ng-binding afx-property-required">
+                                                                                                                                            Enter String value in placeholder:
+                                                                                                                                        </div>            
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                                                           
+                                                                                                                                <div class="aw-widgets-propertyLabelTopValueContainer">                                    
+                                                                                                                                    <div ng-if="prop.isEditable" class="">                                        
+                                                                                                                                        <div ng-if="!prop.hasLov" class=" ">
+                                                                                                                                            <div class=" ">
+                                                                                                                                                <div class="aw-layout-flexRowContainer">
+                                                                                                                                                    <aw-property-error class="aw-layout-flex">
+                                                                                                                                                        <span class="aw-widgets-errorHint ng-binding ng-hide aw-widgetsErrorFade" style="margin-top: 0px; top: 0px; left: 0px;"></span>
+                                                                                                                                                        <div class="aw-widgets-innerWidget">
+                                                                                                                                                            <input aria-label="Enter String value in placeholder" type="text" placeholder="Please enter value here" class="aw-widgets-propertyEditValue">
+                                                                                                                                                        </div>
+                                                                                                                                                    </aw-property-error>
+                                                                                                                                                </div>
+                                                                                                                                            </div>
+                                                                                                                                        </div>                    
+                                                                                                                                    </div>                
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </form>
+                                                                                                                    </div>   
+
+                                                                                                                    <div class="aw-layout-panelSection    "
+                                                                                                                        ng-class="{ 'aw-layout-panelSectionNoTitle' : ( !caption || caption.length === 0 ) }"
+                                                                                                                        caption="String"
+                                                                                                                        role="group"
+                                                                                                                        aria-label="String">                                                                                                                                
+                                                                                                                        <form
+                                                                                                                            name=""
+                                                                                                                            class="aw-layout-panelSectionContent afx-base-parentElement ng-valid-maxlength ng-invalid ng-invalid-required ng-invalid-aw-required ng-dirty ng-valid-parse"
+                                                                                                                            visible-when="collapsed !== 'true'"
+                                                                                                                            ng-class="{ 'aw-layout-panelSectionNoTitle' : ( !caption || caption.length === 0 ) }"
+                                                                                                                            ng-transclude=""
+                                                                                                                            novalidate="">
+                                                                                                                            <div class="aw-widgets-propertyContainer" prop="data.placeHolderTextBox">                                
+                                                                                                                                <div class="">
+                                                                                                                                    <div class="propertyLabelTopContainer aw-layout-flexRow aw-widgets-justifySpaceBetween aw-widgets-spaceBetween">
+                                                                                                                                        <div class="aw-widgets-propertyLabelTop ng-binding afx-property-required">
+                                                                                                                                            Enter String value in placeholder:
+                                                                                                                                        </div>            
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                                                           
+                                                                                                                                <div class="aw-widgets-propertyLabelTopValueContainer">                                    
+                                                                                                                                    <div ng-if="prop.isEditable" class="">                                        
+                                                                                                                                        <div ng-if="!prop.hasLov" class=" ">
+                                                                                                                                            <div class=" ">
+                                                                                                                                                <div class="aw-layout-flexRowContainer">
+                                                                                                                                                    <aw-property-error class="aw-layout-flex">
+                                                                                                                                                        <span class="aw-widgets-errorHint ng-binding ng-hide aw-widgetsErrorFade" style="margin-top: 0px; top: 0px; left: 0px;"></span>
+                                                                                                                                                        <div class="aw-widgets-innerWidget">
+                                                                                                                                                            <input aria-label="Enter String value in placeholder" type="text" placeholder="Please enter value here" class="aw-widgets-propertyEditValue">
+                                                                                                                                                        </div>
+                                                                                                                                                    </aw-property-error>
+                                                                                                                                                </div>
+                                                                                                                                            </div>
+                                                                                                                                        </div>                    
+                                                                                                                                    </div>                
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </form>
+                                                                                                                    </div>   
+                                                                                                                
+                                                                                                                </form>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                             </div>
+                                                                                        </div>
+                                                                                     </div>
+                                                                                    
+                                                                                </div>
+                                                                             </div>
+                                                                            <!--end existWhen-->
+                                                                        </div>
+                                                                     </div>
+                                                                </div>
+                                                            </div>                                                                    
+                                                        </div>
+                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+  </div>
+</body>
+</html>
