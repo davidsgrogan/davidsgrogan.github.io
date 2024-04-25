@@ -1,0 +1,16 @@
+[2024-04-25 15:41:26,598 http-private on port 8082] INFO - Starting http server on http://127.0.0.1:8082
+[2024-04-25 15:41:26,598 http on port 8001] INFO - Starting http server on http://127.0.0.1:8001
+[2024-04-25 15:41:26,617 https on port 8445] INFO - Starting https server on https://127.0.0.1:8445
+[2024-04-25 15:41:26,632 http-public on port 8093] INFO - Starting http server on http://127.0.0.1:8093
+[2024-04-25 15:41:26,648 http on port 8081] INFO - Starting http server on http://127.0.0.1:8081
+[2024-04-25 15:41:26,655 https-private on port 8446] INFO - Starting https server on https://127.0.0.1:8446
+[2024-04-25 15:41:26,655 https on port 8444] INFO - Starting https server on https://127.0.0.1:8444
+[2024-04-25 15:41:26,656 https-public on port 8447] INFO - Starting https server on https://127.0.0.1:8447
+[2024-04-25 15:41:26,657 ws on port 9001] INFO - Create socket on: (<AddressFamily.AF_INET: 2>, <SocketKind.SOCK_STREAM: 1>, 6, '', ('127.0.0.1', 9001))
+[2024-04-25 15:41:26,657 ws on port 9001] INFO - Bind on: (<AddressFamily.AF_INET: 2>, <SocketKind.SOCK_STREAM: 1>, 6, '', ('127.0.0.1', 9001))
+[2024-04-25 15:41:26,657 ws on port 9001] INFO - Listen on: (<AddressFamily.AF_INET: 2>, <SocketKind.SOCK_STREAM: 1>, 6, '', ('127.0.0.1', 9001))
+[2024-04-25 15:41:26,658 wss on port 9444] INFO - Create socket on: (<AddressFamily.AF_INET: 2>, <SocketKind.SOCK_STREAM: 1>, 6, '', ('127.0.0.1', 9444))
+[2024-04-25 15:41:26,659 wss on port 9444] INFO - Bind on: (<AddressFamily.AF_INET: 2>, <SocketKind.SOCK_STREAM: 1>, 6, '', ('127.0.0.1', 9444))
+[2024-04-25 15:41:26,659 wss on port 9444] INFO - Listen on: (<AddressFamily.AF_INET: 2>, <SocketKind.SOCK_STREAM: 1>, 6, '', ('127.0.0.1', 9444))
+[2024-04-25 15:41:26,660 h2 on port 9000] INFO - Starting http2 server on https://127.0.0.1:9000
+[2024-04-25 15:41:26,688 webtransport-h3 on port 11000] INFO - Starting WebTransport over HTTP/3 server on 127.0.0.1:11000
