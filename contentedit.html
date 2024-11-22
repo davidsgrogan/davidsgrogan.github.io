@@ -1,0 +1,12 @@
+<!doctype html>
+
+<p>
+Enter a line of text, hit "return" twice, enter another line of text.<br><br>
+Check the div's Basic&gt;Value in a11y inspector on mac. Or AXValue in chrome://accessibility. There should be 2 newline characters between the first and second line of text. On both chrome mac and chrome linux, there will be only one newline char. I didn't test windows.
+<br><br>
+Safari gets the number of newline characters between the lines correct.
+</p>
+
+<div id=theDiv contenteditable style="width: 300px; height: 300px; outline: solid;">
+
+</div>
