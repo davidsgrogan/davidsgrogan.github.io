@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generic news site</title>
+
+<style>
+  /*******************
+ * Everything on the page (except margins, padding and gaps) is specified with rem units.
+ *
+ * Increase the font-size and observe how media queries are unaffected, so the sidebar takes up too much space.
+ */
+
+  :root {
+    font-size: 200%;
+  }
+
+  /* Page styles */
+
+  :root {
+    --spacing-s: 8px;
+    --spacing-m: 16px;
+    --spacing-l: 32px;
+  }
+
+  body {
+    margin: var(--spacing-l);
+    font-family: sans-serif;
+    background: #f6f6f6;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  header {
+    font-size: 2rem;
+  }
+
+  .layout-sidebar {
+    display: grid;
+    gap: var(--spacing-m);
+
+    @media (width > 56.25rem) {
+      grid-template-columns: 1fr 20rem;
+    }
+  }
+
+  main {
+    img {
+      width: 100%;
+      height: auto;
+      max-width: 50rem;
+    }
+
+    p {
+      max-width: 66ch;
+    }
+  }
+
+  .card-list {
+    >*+* {
+      margin-top: var(--spacing-m);
+    }
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-m);
+    padding: var(--spacing-m);
+    background: white;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .scores {
+    margin-block: 1rem;
+    padding: var(--spacing-m);
+    background: #222222;
+    color: white;
+
+    h2 {
+      margin: 0;
+      margin-block-end: 1rem;
+      text-align: center;
+    }
+  }
+
+  .scores-bar {
+    display: grid;
+    gap: var(--spacing-s);
+    grid-template-columns: 1fr 8ch 1fr;
+    /*   white-space: nowrap; */
+    text-align: center;
+
+    >* {
+      padding: var(--spacing-s);
+    }
+
+    > :first-child {
+      text-align: end;
+    }
+
+    > :last-child {
+      text-align: start;
+    }
+
+    strong {
+      background: gold;
+      color: black;
+      white-space: nowrap;
+    }
+  }
+</style>
+
+<header>Generic News Website</header>
+
+<div class="layout-sidebar">
+  <main>
+    <h1>Game moves in favour of cats in Pet Roomba Wrestling</h1>
+
+    <img
+      src="https://ichef.bbci.co.uk/ace/standard/3840/cpsprodpb/e131/live/e987ead0-24fd-11f0-8f57-b7237f6a66e6.jpg"
+      alt="" width="480" height="270">
+
+    <aside class="scores">
+      <h2>Scores</h2>
+
+      <div class="scores-bar">
+        <span>Cats-on-Trent</span>
+        <strong>5 - 2</strong>
+        <span>Dogshire County</span>
+      </div>
+    </aside>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat</p>
+  </main>
+  <aside>
+    <h2>Onward journeys</h2>
+
+    <div class="card-list">
+      <div class="card">
+        <img
+          src="https://ichef.bbci.co.uk/ace/standard/3840/cpsprodpb/e131/live/e987ead0-24fd-11f0-8f57-b7237f6a66e6.jpg"
+          alt="" width="480" height="270">
+
+        <p>Lorem ipsum dolor sit amet</p>
+      </div>
+
+      <div class="card">
+        <img
+          src="https://ichef.bbci.co.uk/ace/standard/3840/cpsprodpb/e131/live/e987ead0-24fd-11f0-8f57-b7237f6a66e6.jpg"
+          alt="" width="480" height="270">
+
+        <p>Lorem ipsum dolor sit amet</p>
+      </div>
+
+      <div class="card">
+        <img
+          src="https://ichef.bbci.co.uk/ace/standard/3840/cpsprodpb/e131/live/e987ead0-24fd-11f0-8f57-b7237f6a66e6.jpg"
+          alt="" width="480" height="270">
+
+        <p>Lorem ipsum dolor sit amet</p>
+      </div>
+    </div>
+  </aside>
+</div>
