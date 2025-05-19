@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+<title>Generic news site</title>
+
+<style>
+  /*******************
+ * Everything on the page (except margins, padding and gaps) is specified with rem units.
+ *
+ * Increase the font-size and observe how media queries are unaffected, so the sidebar takes up too much space.
+ */
+
+  :root {
+    /* -webkit-text-size-adjust: none; */
+    /* font-size: calc(env(preferred-text-scale) * 100%); */
+    /* -webkit-text-size-adjust: calc(env(preferred-text-scale) * 100%); */
+  }
+
+  /* Page styles */
+
+  :root {
+    --spacing-s: 8px;
+    --spacing-m: 16px;
+    --spacing-l: 32px;
+  }
+
+  body {
+    margin: var(--spacing-l);
+    font-family: sans-serif;
+    background: #f6f6f6;
+  }
+
+  header {
+    font-size: 2rem;
+  }
+
+  .card-list {
+    >*+* {
+      margin-top: var(--spacing-m);
+    }
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-m);
+    padding: var(--spacing-m);
+    background: white;
+
+    p {
+      margin: 0;
+    }
+  }
+
+
+</style>
+
+<header>Generic News Website</header>
+
+<div class="layout-sidebar">
+  <main>
+    <h1>Game moves in favour of cats in Pet Roomba Wrestling</h1>
+
+    <img
+      src="https://ichef.bbci.co.uk/ace/standard/3840/cpsprodpb/e131/live/e987ead0-24fd-11f0-8f57-b7237f6a66e6.jpg"
+      alt="" width="480" height="270" style="float: left;">
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat</p>
+  </main>
+</div>
