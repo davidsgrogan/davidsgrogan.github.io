@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 <title>Generic news site</title>
 
 <style>
@@ -11,8 +11,9 @@
  */
 
   :root {
-    font-size: 200%;
-/*    -webkit-text-size-adjust: none; */
+    -webkit-text-size-adjust: none;
+    /* font-size: calc(env(preferred-text-scale) * 100%); */
+    /* -webkit-text-size-adjust: calc(env(preferred-text-scale) * 100%); */
   }
 
   /* Page styles */
