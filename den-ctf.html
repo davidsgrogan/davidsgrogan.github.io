@@ -1,0 +1,216 @@
+<!doctype html>
+<script src="https://cdn.jsdelivr.net/npm/p5@1.11.1/lib/p5.js"></script>
+
+<script>
+let x1change = 0;
+let x1 = x1change;
+let y1change = 0;
+let y1 = y1change;
+let x2 = 0;
+let y2 = 0;
+let span = 500;
+let flagx = span / 2;
+let flag1y = span -30;
+let flag2y = 30;
+let tag1 = false;
+let tag2 = false;
+let flag1pickup = false;
+let flag2pickup = false;
+let player1win = false;
+let player2win = false;
+
+function setup() {
+    createCanvas(span, span);
+    x1 = 250;
+    y1 = span - 100;
+    x2 = 250;
+    y2 = 100;
+    frameRate(60);
+}
+
+function draw() {
+    background(220);
+    //tag physics
+    {
+          //Blue Get tagged
+          if (x1 - x2 < 30 && x1 - x2 > -30) {
+	          if (y1 - y2 < 30 && y1 - y2 > -30) {
+		            if (y1 < span / 2) {
+			                tag1 = true;
+			              } else {
+					          tag1 = false;
+					        }
+		          } else {
+			            tag1 = false;
+			          }
+	        } else {
+		        tag1 = false;
+		      }
+          //Red Get tagged
+          if (x1 - x2 < 30 && x1 - x2 > -30) {
+	          if (y1 - y2 < 30 && y1 - y2 > -30) {
+		            if (y2 > span / 2) {
+			                tag2 = true;
+			              } else {
+					          tag2 = false;
+					        }
+		          } else {
+			            tag2 = false;
+			          }
+	        } else {
+		        tag2 = false;
+		      }
+          //respawn
+
+          if (tag2 === true) {
+	          x2 = span / 2;
+	          y2 = span / 5;
+	        }
+          if (tag1 === true) {
+	          x1 = span / 2;
+	          y1 = span - span / 5;
+	        }
+        }
+    //flag physics
+    {
+          if(tag2){
+	          flag1pickup=false
+	        }
+          //blue flag taken
+          if (x2 - flagx < 30 && x2 - flagx > -30) {
+	          if (y2 - flag1y>-30 && y2-flag1y<30){
+		            flag1pickup = true;
+		          
+		          }
+	        }
+        
+
+      if (flag1pickup) {
+	        if (y2 < span / 2) {
+		            player2win = true
+		            
+		          }
+	  }
+        if(player2win){
+	      textSize(85)
+	      text("RED WINS!!!", 0, span / 2 + 30);
+	      return
+	    }
+        
+          if(tag1){
+	          flag2pickup=false
+	        }
+          //blue flag taken
+          if (x1 - flagx < 30 && x1 - flagx > -30) {
+	          if (y1 - flag2y>-30 && y1-flag2y<30){
+		            flag2pickup = true;
+		          
+		          }
+	        }
+        
+
+      if (flag2pickup) {
+	        if (y1 > span / 2) {
+		            player1win = true
+		            
+		          }
+	  }
+        if(player1win){
+	      fill(0,0,255)
+	      textSize(80)
+	      text("BLUE WINS!!!", 0, span / 2 + 30);
+	      return
+	    }
+    }
+    //Bush pyhsics
+    
+    square(flagx - 15, flag2y - 15, 30);
+    line(0, span / 2, span, span / 2);
+
+
+    fill(0, 0, 255);
+    square(flagx - 15, flag1y -15, 30);
+
+    //Player 1
+    {
+          fill(0, 0, 255);
+          //Movement
+          {
+	          if (keyIsDown(65) === true) {
+		            x1 -= 5;
+		          }
+	          if (keyIsDown(68) === true) {
+		            x1 += 5;
+		          }
+	          if (keyIsDown(87) === true) {
+		            y1 -= 5;
+		          }
+	          if (keyIsDown(83) === true) {
+		            y1 += 5;
+		          }
+	        }
+          translate(x1, y1);
+
+          //Borders
+          {
+	          if (x1 > span) {
+		            x1 = span;
+		          }
+	          if (x1 < span - span) {
+		            x1 = span - span;
+		          }
+	          if (y1 > span) {
+		            y1 = span;
+		          }
+	          if (y1 < span - span) {
+		            y1 = span - span;
+		          }
+	        }
+        }
+
+    circle(0, 0, 30);
+    rect(-5, -30, 10, 15);
+    translate(-x1, -y1);
+
+    //Player 2
+    {
+          fill(255, 0, 0);
+          translate(x2, y2);
+          rotate(78.548);
+          //Movement
+          {
+	          if (keyIsDown(74) === true) {
+		            x2 -= 5;
+		          }
+	          if (keyIsDown(76) === true) {
+		            x2 += 5;
+		          }
+	          if (keyIsDown(73) === true) {
+		            y2 -= 5;
+		          }
+	          if (keyIsDown(75) === true) {
+		            y2 += 5;
+		          }
+	        }
+
+          //Borders
+          {
+	          if (x2 > span) {
+		            x2 = span;
+		          }
+	          if (x2 < span - span) {
+		            x2 = span - span;
+		          }
+	          if (y2 > span) {
+		            y2 = span;
+		          }
+	          if (y2 < span - span) {
+		            y2 = span - span;
+		          }
+	        }
+        }
+
+    circle(0, 0, 30);
+    rect(-5, -30, 10, 15);
+}
+</script>
