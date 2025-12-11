@@ -8,7 +8,7 @@
   <meta content="Bikeshed version 3f621ba99, updated Mon Jul 28 15:38:36 2025 -0700" name="generator">
   <link href="https://www.w3.org/TR/css-fonts-5/" rel="canonical">
   <link href="https://drafts.csswg.org/csslogo.ico" rel="icon">
-  <meta content="828b01eb1107fac2709167f113638ce9b1fa6668" name="revision">
+  <meta content="3aaa4f7604a6f21e4814de6d3b71b93c81eb41d9" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>/* Boilerplate: style-autolinks */
@@ -1061,7 +1061,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
 </p>
    <h1 class="p-name no-ref" id="title">CSS Fonts Module Level 5</h1>
    <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
-    <time class="dt-updated" datetime="2025-11-22">22 November 2025</time></p>
+    <time class="dt-updated" datetime="2025-12-10">10 December 2025</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1141,11 +1141,11 @@ Value Definitions</span></a>
      </ol>
     <li>
      <a href="#text-scale-meta"><span class="secno">2</span> <span class="content">
-Text-Scale <code class="html highlight">&lt;meta></code> element</span></a>
+Text-Scale <code><span>meta</span></code> element</span></a>
      <ol class="toc">
       <li><a href="#text-scale-meta-keywords"><span class="secno">2.1</span> <span class="content">
 Keywords</span></a>
-      <li><a href="#legacy-keyword"><span class="secno">2.2</span> <span class="content">The <u class="property link-error" data-lt="legacy" title="LINK ERROR: No &apos;property&apos; refs found for &apos;legacy&apos;.">legacy</u> keyword</span></a>
+      <li><a href="#legacy-keyword"><span class="secno">2.2</span> <span class="content">The <span>legacy</span> keyword</span></a>
       <li><a href="#scale-keyword"><span class="secno">2.3</span> <span class="content">The <span class="property">scale</span> keyword</span></a>
      </ol>
     <li>
@@ -1292,116 +1292,124 @@ all properties defined in this specification
 also accept the <a data-link-type="dfn" href="https://drafts.csswg.org/css-values-4/#css-wide-keywords" id="ref-for-css-wide-keywords">CSS-wide keywords</a> as their property value.
 For readability they have not been repeated explicitly.</p>
    <h2 class="heading settled" data-level="2" id="text-scale-meta"><span class="secno">2. </span><span class="content">
-Text-Scale <code class="html highlight">&lt;meta></code> element</span><a class="self-link" href="#text-scale-meta"></a></h2>
-   <p>A document with a <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-meta">meta</a></code> tag
+Text-Scale <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-meta">meta</a></code> element</span><a class="self-link" href="#text-scale-meta"></a></h2>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="text-scale-factor">text scale factor</dfn> is a multiplier
+used to calculate the computed value of the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css2/#valdef-font-size-medium" id="ref-for-valdef-font-size-medium">medium</a> font size.
+The computed value of <span class="css" id="ref-for-valdef-font-size-medium①">medium</span>
+is 16px
+multiplied by the <a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor">text scale factor</a>.
+This factor also
+affects the computed size of the other <a class="production css" data-link-type="type" href="https://drafts.csswg.org/css2/#value-def-absolute-size" id="ref-for-value-def-absolute-size">&lt;absolute-size></a> keywords,
+but not necessarily by the same factor as <span class="css" id="ref-for-valdef-font-size-medium②">medium</span>.
+The UA should non-uniformly adjust
+keywords other than <span class="css" id="ref-for-valdef-font-size-medium③">medium</span> for improved readability.</p>
+   <p class="note" role="note"><span class="marker">Note:</span> Scaling all font sizes uniformly would lead to large fonts being too large.
+See <a href="https://github.com/w3c/wcag3/issues/261#issuecomment-2598860630">
+WCAG discussion about minimum and maximum critical font sizes</a>.</p>
+   <p>A document with a <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-meta①">meta</a></code> tag
 whose <code><a data-link-type="element-sub" href="https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-name" id="ref-for-attr-meta-name">name</a></code> attribute
-is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-case-insensitive" id="ref-for-ascii-case-insensitive">ASCII case-insensitive</a> match for
-<dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="text-scale" data-noexport id="text-scale"><code class="highlight"><c- s>"text-scale"</c-></code></dfn>
-is recognized as setting the computed value
-of the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css2/#valdef-font-size-medium" id="ref-for-valdef-font-size-medium">medium</a> font size
-and consequently scaling the computed size of the other <a class="production css" data-link-type="type" href="https://drafts.csswg.org/css2/#value-def-absolute-size" id="ref-for-value-def-absolute-size">&lt;absolute-size></a> keywords.</p>
-   <div class="issue no-marker" id="issue-d41d8cd9"><a class="self-link" href="#issue-d41d8cd9"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/12475" style="text-transform:none">w3c/csswg-drafts/12475</a><a href="https://github.com/w3c/csswg-drafts/issues/12475">[css-fonts-5] Should absolute font size keywords scale at different rates depending on user's preferred text scale?</a></div>
-   <p>The value of the <code class="highlight">content</code>
+is an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-case-insensitive" id="ref-for-ascii-case-insensitive">ASCII case-insensitive</a> match for
+<dfn class="dfn-paneled" data-dfn-type="dfn" data-export data-lt="text-scale" id="text-scale"><code class="highlight"><c- s>"text-scale"</c-></code></dfn>
+is recognized as controlling the <a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor①">text scale factor</a>.</p>
+   <p>The value of the <code><a data-link-type="element-sub" href="https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-content" id="ref-for-attr-meta-content">content</a></code>
 attribute must be an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-case-insensitive" id="ref-for-ascii-case-insensitive①">ASCII case-insensitive</a> match for one of the
 recognized keywords. Otherwise the tag is ignored.</p>
-   <p>Documents without this <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-meta①">meta</a></code> tag will have an assumed default
-value of <code class="highlight">legacy</code>.</p>
+   <p>Documents without this <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-meta②">meta</a></code> tag will have an assumed default
+value of <a data-link-type="dfn" href="#text-scale-legacy" id="ref-for-text-scale-legacy">legacy</a>.</p>
    <div class="example" id="ex-text-scale">
     <a class="self-link" href="#ex-text-scale"></a>
 	
-<pre class="highlight">&lt;meta name=<c- s>"text-scale"</c-> content=<c- s>"scale"</c-> /></pre>
+<pre class="lang-html highlight"><c- p>&lt;</c-><c- f>meta</c-> <c- e>name</c-><c- o>=</c-><c- s>"text-scale"</c-> <c- e>content</c-><c- o>=</c-><c- s>"scale"</c-> <c- p>/></c-></pre>
    </div>
-   <p>There must not be more than one <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-meta②">meta</a></code> element with its <code><a data-link-type="element-sub" href="https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-name" id="ref-for-attr-meta-name①">name</a></code> attribute value set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-case-insensitive" id="ref-for-ascii-case-insensitive②">ASCII case-insensitive</a> for <a data-link-type="dfn" href="#text-scale" id="ref-for-text-scale">text-scale</a> per document.</p>
+   <p>There must not be more than one <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-meta③">meta</a></code> element with its <code><a data-link-type="element-sub" href="https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-name" id="ref-for-attr-meta-name①">name</a></code> attribute value set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-case-insensitive" id="ref-for-ascii-case-insensitive②">ASCII case-insensitive</a> match for <a data-link-type="dfn" href="#text-scale" id="ref-for-text-scale">text-scale</a> per document.</p>
    <h3 class="heading settled" data-level="2.1" id="text-scale-meta-keywords"><span class="secno">2.1. </span><span class="content">
 Keywords</span><a class="self-link" href="#text-scale-meta-keywords"></a></h3>
    <p>The recognized keywords in the <a data-link-type="dfn" href="#text-scale" id="ref-for-text-scale①">text-scale</a>
-<code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-meta③">meta</a></code> element are:</p>
+<code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-meta④">meta</a></code> element are:</p>
    <dl>
     <dt><dfn class="dfn-paneled" data-dfn-for="text-scale" data-dfn-type="dfn" data-noexport id="text-scale-legacy">legacy</dfn>
     <dd>
-     The <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env-1/#valdef-env-preferred-text-scale" id="ref-for-valdef-env-preferred-text-scale">preferred-text-scale</a> environment variable returns the user’s OS-level font factor on mobile,
-	but 1 on desktop.
-	The document’s <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css2/#valdef-font-size-medium" id="ref-for-valdef-font-size-medium①">medium</a> font size incorporates UA-level font preferences.
-	OS-level font preferences are ignored.
+     
+		The <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env-1/#valdef-env-preferred-text-scale" id="ref-for-valdef-env-preferred-text-scale">preferred-text-scale</a> environment variable returns the user’s OS-level font factor on mobile devices,
+		but 1 on desktop devices.
+		<a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor②">text scale factor</a> incorporates UA-level font preferences but
+		OS-level font preferences are ignored.
 
 
-     <p class="note" role="note"><span class="marker">Note:</span> Equivalent to omitting a <a data-link-type="dfn" href="#text-scale" id="ref-for-text-scale②">text-scale</a> <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-meta④">meta</a></code> tag or
-	including an unrecognized content attribute keyword.</p>
-    <dt><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="scale">scale</dfn>
-    <dd>The <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env-1/#valdef-env-preferred-text-scale" id="ref-for-valdef-env-preferred-text-scale①">preferred-text-scale</a> environment variable returns the user’s OS-level font preferences.
-	The document’s <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css2/#valdef-font-size-medium" id="ref-for-valdef-font-size-medium②">medium</a> font size incorporates both UA-level and OS-level font preferences.
+     <p class="note" role="note"><span class="marker">Note:</span> Equivalent to omitting a <a data-link-type="dfn" href="#text-scale" id="ref-for-text-scale②">text-scale</a> <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-meta⑤">meta</a></code> tag or
+		including an unrecognized content attribute keyword.</p>
+    <dt><dfn class="dfn-paneled" data-dfn-for="text-scale" data-dfn-type="dfn" data-noexport id="text-scale-scale">scale</dfn>
+    <dd>
+		The <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env-1/#valdef-env-preferred-text-scale" id="ref-for-valdef-env-preferred-text-scale①">preferred-text-scale</a> environment variable returns the user’s OS-level font preferences.
+		<a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor③">text scale factor</a> incorporates both UA-level and OS-level font preferences.
+	
    </dl>
-   <h3 class="heading settled" data-level="2.2" id="legacy-keyword"><span class="secno">2.2. </span><span class="content">The <u class="property link-error" data-lt="legacy" title="LINK ERROR: No &apos;property&apos; refs found for &apos;legacy&apos;.">legacy</u> keyword</span><a class="self-link" href="#legacy-keyword"></a></h3>
+   <h3 class="heading settled" data-level="2.2" id="legacy-keyword"><span class="secno">2.2. </span><span class="content">The <a data-link-type="dfn" href="#text-scale-legacy" id="ref-for-text-scale-legacy①">legacy</a> keyword</span><a class="self-link" href="#legacy-keyword"></a></h3>
    <p>When the value of the <a data-link-type="dfn" href="#text-scale" id="ref-for-text-scale③">text-scale</a> content attribute is
-<a data-link-type="dfn" href="#text-scale-legacy" id="ref-for-text-scale-legacy">legacy</a>
-the user agent must set the computed <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css2/#valdef-font-size-medium" id="ref-for-valdef-font-size-medium③">medium</a> font size
-to 16px multiplied by
-the font scale factor
-the user has chosen from any settings <i>provided by the user agent</i>.
-The <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env-1/#valdef-env-preferred-text-scale" id="ref-for-valdef-env-preferred-text-scale②">preferred-text-scale</a> environment variable value must be 1 on desktop platforms.
-On mobile:</p>
+<a data-link-type="dfn" href="#text-scale-legacy" id="ref-for-text-scale-legacy②">legacy</a>,
+the <a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor④">text scale factor</a> is the font scale factor
+the user has chosen from any settings provided <i>only</i> by the user agent.
+The <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env-1/#valdef-env-preferred-text-scale" id="ref-for-valdef-env-preferred-text-scale②">preferred-text-scale</a> environment variable value must be 1 on desktop platforms.</p>
+   <p>On mobile platforms:</p>
    <ul>
     <li>
-     if the operating system provides a text scale setting AND
-	the UA hasn’t already applied that factor to the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css2/#valdef-font-size-medium" id="ref-for-valdef-font-size-medium④">medium</a> font size,
-	the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env-1/#valdef-env-preferred-text-scale" id="ref-for-valdef-env-preferred-text-scale③">preferred-text-scale</a> environment variable returns the multiplier
-	that the user has chosen in the operating system’s text scale setting.
+     
+		If the operating system provides a text scale setting AND
+		the UA hasn’t already applied that factor to the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css2/#valdef-font-size-medium" id="ref-for-valdef-font-size-medium④">medium</a> font size,
+		the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env-1/#valdef-env-preferred-text-scale" id="ref-for-valdef-env-preferred-text-scale③">preferred-text-scale</a> environment variable returns the multiplier
+		that the user has chosen in the operating system’s text scale setting.
 
 
-     <p class="note" role="note"><span class="marker">Note:</span> At the time of publishing, all combinations of
-	Android, iOS,
-	Firefox, Safari, Chrome
-	satisfy this first condition.</p>
+     <p class="note" role="note"><span class="marker">Note:</span> At the time of publishing, all combinations of Android, iOS, Firefox, Safari, and Chrome satisfy this first condition.</p>
     <li>Otherwise the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env-1/#valdef-env-preferred-text-scale" id="ref-for-valdef-env-preferred-text-scale④">preferred-text-scale</a> environment variable returns 1.
    </ul>
    <h3 class="heading settled" data-level="2.3" id="scale-keyword"><span class="secno">2.3. </span><span class="content">The <a class="property css" data-link-type="property" href="https://drafts.csswg.org/css-transforms-2/#propdef-scale" id="ref-for-propdef-scale">scale</a> keyword</span><a class="self-link" href="#scale-keyword"></a></h3>
-   <p>The <dfn class="dfn-paneled" data-dfn-for="text-scale" data-dfn-type="dfn" data-export id="text-scale-scale"><code class="highlight">scale</code></dfn> property is
-recognized in the <a data-link-type="dfn" href="#text-scale" id="ref-for-text-scale④">text-scale</a> content attribute value.</p>
-   <p>When the value of the <a data-link-type="dfn" href="#text-scale" id="ref-for-text-scale⑤">text-scale</a> content attribute is
-<a data-link-type="dfn" href="#text-scale-scale" id="ref-for-text-scale-scale">scale</a>
-computed <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css2/#valdef-font-size-medium" id="ref-for-valdef-font-size-medium⑤">medium</a> font size must match the user’s preferred paragraph text size as determined from a combination of OS and UA preferences.</p>
-   <p>The <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env-1/#valdef-env-preferred-text-scale" id="ref-for-valdef-env-preferred-text-scale⑤">preferred-text-scale</a> environment variable must return a number that,
-when multiplied by 16px,
-provides a <a class="production css" data-link-type="type" href="https://drafts.csswg.org/css-values-4/#length-value" id="ref-for-length-value">&lt;length></a> that matches that of the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css2/#valdef-font-size-medium" id="ref-for-valdef-font-size-medium⑥">medium</a> font size.</p>
-   <p>Further, when the value of the <a data-link-type="dfn" href="#text-scale" id="ref-for-text-scale⑥">text-scale</a> content attribute is
+   <p>When the value of the <a data-link-type="dfn" href="#text-scale" id="ref-for-text-scale④">text-scale</a> content attribute is
+<a data-link-type="dfn" href="#text-scale-scale" id="ref-for-text-scale-scale">scale</a>,
+the <a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor⑤">text scale factor</a> matches the user’s preferred paragraph text size
+(as determined from a combination of OS and UA preferences)
+divided by 16px.</p>
+   <p>The <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env-1/#valdef-env-preferred-text-scale" id="ref-for-valdef-env-preferred-text-scale⑤">preferred-text-scale</a> environment variable must return the <a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor⑥">text scale factor</a>.</p>
+   <p>Further, when the value of the <a data-link-type="dfn" href="#text-scale" id="ref-for-text-scale⑤">text-scale</a> content attribute is
 <a data-link-type="dfn" href="#text-scale-scale" id="ref-for-text-scale-scale①">scale</a>, the user agent should skip all font-sizing interventions it would otherwise perform in an attempt to automatically honor the user’s preferences. E.g. text autosizing on mobile (See <a href="https://drafts.csswg.org/css-size-adjust-1/#intro"><cite>CSS Size Adjustment 1</cite> § 1 Introduction</a>) and full-application zoom (<a href="https://github.com/w3c/csswg-drafts/blob/main/css-env-1/explainers/env-preferred-text-scale.md#windows-11">popular browsers do this on Windows)</a>.</p>
-   <p class="note" role="note"><span class="marker">Note:</span> Authors are expected to use
-<span class="css">&lt;meta name="text-scale" content="scale"></span> in stylesheets so that the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css2/#valdef-font-size-medium" id="ref-for-valdef-font-size-medium⑦">medium</a> font size will reflect a combination of the user’s font preferences, whether those are specified at the OS level or the UA level. The author will then be able to use <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-values-4/#rem" id="ref-for-rem">rem</a> throughout the page to honor the user’s font preferences.</p>
+   <p class="note" role="note"><span class="marker">Note:</span>
+Authors are expected to use
+<code class="highlight">&lt;meta name=<c- s>"text-scale"</c-> content=<c- s>"scale"</c->></code> in stylesheets so that the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css2/#valdef-font-size-medium" id="ref-for-valdef-font-size-medium⑤">medium</a> font size will reflect a combination of the user’s font preferences, whether those are specified at the OS level or the UA level. The author will then be able to use <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-values-4/#rem" id="ref-for-rem">rem</a> throughout the page to honor the user’s font preferences.</p>
    <div class="example" id="ex-scaled-page">
     <a class="self-link" href="#ex-scaled-page"></a>
 	If authors don’t alter the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/selectors-4/#root-pseudo" id="ref-for-root-pseudo">:root</a> font size, content sized with <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-values-4/#rem" id="ref-for-rem①">rem</a> units will be relative to the preferred text scale
 	
-<pre class="highlight">&lt;!DOCTYPE html>
-&lt;html> &lt;!-- leave this element’s font-size as the default -->
-  &lt;head>
-    &lt;meta name=<c- s>"text-scale"</c-> content=<c- s>"scale"</c-> />
-  &lt;/head>
-  &lt;body>
-    &lt;div style=<c- s>"font-size: 1rem;"</c->>
-      This font size obeys the user’s font preferences<c- p>,</c-> **whether
+<pre class="lang-html highlight"><c- cp>&lt;!DOCTYPE html></c->
+<c- p>&lt;</c-><c- f>html</c-><c- p>></c-> <c- d>&lt;!-- leave this element’s font-size as the default --></c->
+  <c- p>&lt;</c-><c- f>head</c-><c- p>></c->
+    <c- p>&lt;</c-><c- f>meta</c-> <c- e>name</c-><c- o>=</c-><c- s>"text-scale"</c-> <c- e>content</c-><c- o>=</c-><c- s>"scale"</c-> <c- p>/></c->
+  <c- p>&lt;/</c-><c- f>head</c-><c- p>></c->
+  <c- p>&lt;</c-><c- f>body</c-><c- p>></c->
+    <c- p>&lt;</c-><c- f>div</c-> <c- e>style</c-><c- o>=</c-><c- s>"font-size: 1rem;"</c-><c- p>></c->
+      This font size obeys the user’s font preferences, **whether
       those preferences are specified at the operating system level
       or the user agent level**
-    &lt;/div>
-    &lt;div style=<c- s>"font-size: 20px;"</c->>
+    <c- p>&lt;/</c-><c- f>div</c-><c- p>></c->
+    <c- p>&lt;</c-><c- f>div</c-> <c- e>style</c-><c- o>=</c-><c- s>"font-size: 20px;"</c-><c- p>></c->
       This font size does NOT respect the user’s font preferences.
-      &lt;div style=<c- s>"font-size: 1rem;"</c->>
+      <c- p>&lt;</c-><c- f>div</c-> <c- e>style</c-><c- o>=</c-><c- s>"font-size: 1rem;"</c-><c- p>></c->
         But this font size does!
-      &lt;/div>
-    &lt;/div>
-  &lt;/body>
-&lt;/html>
+      <c- p>&lt;/</c-><c- f>div</c-><c- p>></c->
+    <c- p>&lt;/</c-><c- f>div</c-><c- p>></c->
+  <c- p>&lt;/</c-><c- f>body</c-><c- p>></c->
+<c- p>&lt;/</c-><c- f>html</c-><c- p>></c->
 </pre>
    </div>
    <h2 class="heading settled" data-level="3" id="basic-font-props"><span class="secno">3. </span><span class="content">
 Basic Font Properties</span><a class="self-link" href="#basic-font-props"></a></h2>
-   <div class="issue no-marker" id="issue-d41d8cd9①"><a class="self-link" href="#issue-d41d8cd9①"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/126" style="text-transform:none">w3c/csswg-drafts/126</a><a href="https://github.com/w3c/csswg-drafts/issues/126">[css-fonts] Specifying changes to parameters for fallback fonts</a></div>
+   <div class="issue no-marker" id="issue-d41d8cd9"><a class="self-link" href="#issue-d41d8cd9"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/126" style="text-transform:none">w3c/csswg-drafts/126</a><a href="https://github.com/w3c/csswg-drafts/issues/126">[css-fonts] Specifying changes to parameters for fallback fonts</a></div>
    <h3 class="heading settled" data-level="3.1" id="font-family-prop"><span class="secno">3.1. </span><span class="content">
 Font family: the <a class="property css" data-link-type="property" href="https://drafts.csswg.org/css-fonts-4/#propdef-font-family" id="ref-for-propdef-font-family">font-family</a> property</span><a class="self-link" href="#font-family-prop"></a></h3>
    <h4 class="heading settled" data-level="3.1.1" id="generic-font-families"><span class="secno">3.1.1. </span><span class="content">
 Generic font families</span><a class="self-link" href="#generic-font-families"></a></h4>
    <p>In addition to the <a href="https://drafts.csswg.org/css-fonts-4/#generic-font-families"><cite>CSS Fonts 4</cite> § 2.1.5 Generic font families</a>
 in CSS Fonts Level 4, the following new generic font families are also defined.</p>
-   <div class="issue no-marker" id="issue-d41d8cd9②"><a class="self-link" href="#issue-d41d8cd9②"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/4910" style="text-transform:none">w3c/csswg-drafts/4910</a><a href="https://github.com/w3c/csswg-drafts/issues/4910">[meta] [css-fonts] Criteria for generic font families</a></div>
+   <div class="issue no-marker" id="issue-d41d8cd9①"><a class="self-link" href="#issue-d41d8cd9①"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/4910" style="text-transform:none">w3c/csswg-drafts/4910</a><a href="https://github.com/w3c/csswg-drafts/issues/4910">[meta] [css-fonts] Criteria for generic font families</a></div>
    <dl>
     <dt id="xxx-def"><a class="self-link" href="#xxx-def"></a><dfn class="dfn-paneled css" data-dfn-for="font-family,<generic-family>" data-dfn-type="value" data-export id="valdef-font-family-xxx">xxx</dfn>
 	
@@ -1409,12 +1417,12 @@ in CSS Fonts Level 4, the following new generic font families are also defined.<
 		Placeholder text for the xxx generic font family.
 
    </dl>
-   <div class="issue no-marker" id="issue-d41d8cd9③"><a class="self-link" href="#issue-d41d8cd9③"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/4566" style="text-transform:none">w3c/csswg-drafts/4566</a><a href="https://github.com/w3c/csswg-drafts/issues/4566">[css-fonts] Should we start a registry for additional generic fonts?</a></div>
+   <div class="issue no-marker" id="issue-d41d8cd9②"><a class="self-link" href="#issue-d41d8cd9②"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/4566" style="text-transform:none">w3c/csswg-drafts/4566</a><a href="https://github.com/w3c/csswg-drafts/issues/4566">[css-fonts] Should we start a registry for additional generic fonts?</a></div>
    <h3 class="heading settled" data-level="3.2" id="font-weight-prop"><span class="secno">3.2. </span><span class="content">Font weight: the <a class="property css" data-link-type="property" href="https://drafts.csswg.org/css-fonts-4/#propdef-font-weight" id="ref-for-propdef-font-weight">font-weight</a> property</span><a class="self-link" href="#font-weight-prop"></a></h3>
-   <div class="issue no-marker" id="issue-d41d8cd9④"><a class="self-link" href="#issue-d41d8cd9④"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/2690" style="text-transform:none">w3c/csswg-drafts/2690</a><a href="https://github.com/w3c/csswg-drafts/issues/2690">[css-fonts-4] Percentages in font-weight for relative weights</a></div>
+   <div class="issue no-marker" id="issue-d41d8cd9③"><a class="self-link" href="#issue-d41d8cd9③"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/2690" style="text-transform:none">w3c/csswg-drafts/2690</a><a href="https://github.com/w3c/csswg-drafts/issues/2690">[css-fonts-4] Percentages in font-weight for relative weights</a></div>
    <h3 class="heading settled" data-level="3.3" id="font-style-prop"><span class="secno">3.3. </span><span class="content">
 Font style: the <a class="property css" data-link-type="property" href="https://drafts.csswg.org/css-fonts-4/#propdef-font-style" id="ref-for-propdef-font-style">font-style</a> property</span><a class="self-link" href="#font-style-prop"></a></h3>
-   <div class="issue no-marker" id="issue-d41d8cd9⑤"><a class="self-link" href="#issue-d41d8cd9⑤"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/4044" style="text-transform:none">w3c/csswg-drafts/4044</a><a href="https://github.com/w3c/csswg-drafts/issues/4044">[css-fonts] Vertical text doesn't play nicely with font-style and font-stretch</a></div>
+   <div class="issue no-marker" id="issue-d41d8cd9④"><a class="self-link" href="#issue-d41d8cd9④"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/4044" style="text-transform:none">w3c/csswg-drafts/4044</a><a href="https://github.com/w3c/csswg-drafts/issues/4044">[css-fonts] Vertical text doesn't play nicely with font-style and font-stretch</a></div>
    <h3 class="heading settled" data-level="3.4" id="font-size-adjust-prop"><span class="secno">3.4. </span><span class="content">
 Relative sizing: the <a class="property css" data-link-type="property" href="#propdef-font-size-adjust" id="ref-for-propdef-font-size-adjust">font-size-adjust</a> property</span><a class="self-link" href="#font-size-adjust-prop"></a></h3>
    <table class="def propdef" data-link-for-hint="font-size-adjust">
@@ -1467,7 +1475,7 @@ Relative sizing: the <a class="property css" data-link-type="property" href="#pr
      <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/css/css-fonts/font-size-adjust-ic-height.html" title="css/css-fonts/font-size-adjust-ic-height.html">font-size-adjust-ic-height.html</a> <a class="wpt-live" href="http://wpt.live/css/css-fonts/font-size-adjust-ic-height.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/css/css-fonts/font-size-adjust-ic-height.html"><small>(source)</small></a>
     </ul>
    </details>
-   <div class="issue no-marker" id="issue-d41d8cd9⑥"><a class="self-link" href="#issue-d41d8cd9⑥"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/8792" style="text-transform:none">w3c/csswg-drafts/8792</a><a href="https://github.com/w3c/csswg-drafts/issues/8792">[css-fonts-5] font-size-adjust: ic-height</a></div>
+   <div class="issue no-marker" id="issue-d41d8cd9⑤"><a class="self-link" href="#issue-d41d8cd9⑤"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/8792" style="text-transform:none">w3c/csswg-drafts/8792</a><a href="https://github.com/w3c/csswg-drafts/issues/8792">[css-fonts-5] font-size-adjust: ic-height</a></div>
    <p>The <a class="property css" data-link-type="property" href="#propdef-font-size-adjust" id="ref-for-propdef-font-size-adjust①">font-size-adjust</a> property provides a way
 	to preserve the readability and apparent size of text
 	when font fallback occurs.
@@ -1747,8 +1755,8 @@ or font format.</p>
    <h3 class="heading settled" data-level="4.3" id="font-size-desc"><span class="secno">4.3. </span><span class="content">
 Font property descriptors: the <a class="property css" data-link-type="descriptor" href="#descdef-font-face-font-size" id="ref-for-descdef-font-face-font-size">font-size</a>
 </span><a class="self-link" href="#font-size-desc"></a></h3>
-   <div class="issue no-marker" id="issue-d41d8cd9⑦"><a class="self-link" href="#issue-d41d8cd9⑦"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/806" style="text-transform:none">w3c/csswg-drafts/806</a><a href="https://github.com/w3c/csswg-drafts/issues/806">[css-fonts-5] Add font-size descriptor to @font-face which allows ranges (for optical sizing)</a></div>
-   <div class="issue no-marker" id="issue-d41d8cd9⑧"><a class="self-link" href="#issue-d41d8cd9⑧"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/731" style="text-transform:none">w3c/csswg-drafts/731</a><a href="https://github.com/w3c/csswg-drafts/issues/731">[css-fonts] font-size Descriptor for ex Unit</a></div>
+   <div class="issue no-marker" id="issue-d41d8cd9⑥"><a class="self-link" href="#issue-d41d8cd9⑥"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/806" style="text-transform:none">w3c/csswg-drafts/806</a><a href="https://github.com/w3c/csswg-drafts/issues/806">[css-fonts-5] Add font-size descriptor to @font-face which allows ranges (for optical sizing)</a></div>
+   <div class="issue no-marker" id="issue-d41d8cd9⑦"><a class="self-link" href="#issue-d41d8cd9⑦"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/731" style="text-transform:none">w3c/csswg-drafts/731</a><a href="https://github.com/w3c/csswg-drafts/issues/731">[css-fonts] font-size Descriptor for ex Unit</a></div>
    <table class="def descdef">
     <tbody>
      <tr>
@@ -2063,15 +2071,15 @@ the <u class="property link-error" data-lt="superscript-position-override" title
    <h2 class="heading settled" data-level="5" id="font-rend-props"><span class="secno">5. </span><span class="content">
 Font Feature Properties</span><a class="self-link" href="#font-rend-props"></a></h2>
    <h3 class="heading settled" data-level="5.1" id="font-language-override-prop"><span class="secno">5.1. </span><span class="content">Font language override: the <a class="property css" data-link-type="property" href="https://drafts.csswg.org/css-fonts-4/#propdef-font-language-override" id="ref-for-propdef-font-language-override">font-language-override</a> property</span><a class="self-link" href="#font-language-override-prop"></a></h3>
-   <div class="issue no-marker" id="issue-d41d8cd9⑨"><a class="self-link" href="#issue-d41d8cd9⑨"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/5484" style="text-transform:none">w3c/csswg-drafts/5484</a><a href="https://github.com/w3c/csswg-drafts/issues/5484">[css-fonts-5] Removing font-language-override</a></div>
+   <div class="issue no-marker" id="issue-d41d8cd9⑧"><a class="self-link" href="#issue-d41d8cd9⑧"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/5484" style="text-transform:none">w3c/csswg-drafts/5484</a><a href="https://github.com/w3c/csswg-drafts/issues/5484">[css-fonts-5] Removing font-language-override</a></div>
    <h2 class="heading settled" data-level="6" id="font-feature-variation-resolution"><span class="secno">6. </span><span class="content">
 Font Feature and Variation Resolution</span><a class="self-link" href="#font-feature-variation-resolution"></a></h2>
-   <div class="issue no-marker" id="issue-d41d8cd9①⓪"><a class="self-link" href="#issue-d41d8cd9①⓪"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/5635" style="text-transform:none">w3c/csswg-drafts/5635</a><a href="https://github.com/w3c/csswg-drafts/issues/5635">[CSS-Fonts] Need method to interpolate variable font settings</a></div>
+   <div class="issue no-marker" id="issue-d41d8cd9⑨"><a class="self-link" href="#issue-d41d8cd9⑨"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/5635" style="text-transform:none">w3c/csswg-drafts/5635</a><a href="https://github.com/w3c/csswg-drafts/issues/5635">[CSS-Fonts] Need method to interpolate variable font settings</a></div>
    <h2 class="heading settled" data-level="7" id="font-variation-props"><span class="secno">7. </span><span class="content">
 Font Variation Properties</span><a class="self-link" href="#font-variation-props"></a></h2>
    <h3 class="heading settled" data-level="7.1" id="font-optical-sizing-def"><span class="secno">7.1. </span><span class="content">
 Optical sizing control: the <a class="property css" data-link-type="property" href="https://drafts.csswg.org/css-fonts-4/#propdef-font-optical-sizing" id="ref-for-propdef-font-optical-sizing">font-optical-sizing</a> property</span><a class="self-link" href="#font-optical-sizing-def"></a></h3>
-   <div class="issue no-marker" id="issue-d41d8cd9①①"><a class="self-link" href="#issue-d41d8cd9①①"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/5466" style="text-transform:none">w3c/csswg-drafts/5466</a><a href="https://github.com/w3c/csswg-drafts/issues/5466">[css-text][css-fonts] Optical bounds of a line</a></div>
+   <div class="issue no-marker" id="issue-d41d8cd9①⓪"><a class="self-link" href="#issue-d41d8cd9①⓪"></a><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/5466" style="text-transform:none">w3c/csswg-drafts/5466</a><a href="https://github.com/w3c/csswg-drafts/issues/5466">[css-text][css-fonts] Optical bounds of a line</a></div>
    <h2 class="heading settled" data-level="8" id="font-technologies-formats"><span class="secno">8. </span><span class="content">
 	Font Technologies and Formats
 </span><a class="self-link" href="#font-technologies-formats"></a></h2>
@@ -2431,12 +2439,7 @@ Non-experimental implementations</span><a class="self-link" href="#w3c-testing">
      <li><a href="#valdef-ascent-overridedescriptor-percentage">value for ascent-override!!descriptor, descent-override!!descriptor, line-gap-override!!descriptor</a><span>, in § 4.5</span>
      <li><a href="#valdef-superscript-position-overridedescriptor-percentage">value for superscript-position-override!!descriptor, subscript-position-override!!descriptor, superscript-size-override!!descriptor, subscript-size-override!!descriptor</a><span>, in § 4.6</span>
     </ul>
-   <li>
-    scale
-    <ul>
-     <li><a href="#scale">definition of</a><span>, in § 2.1</span>
-     <li><a href="#text-scale-scale">dfn for text-scale</a><span>, in § 2.3</span>
-    </ul>
+   <li><a href="#text-scale-scale">scale</a><span>, in § 2.1</span>
    <li>
     size-adjust
     <ul>
@@ -2475,6 +2478,7 @@ Non-experimental implementations</span><a class="self-link" href="#w3c-testing">
     </ul>
    <li><a href="#dom-cssfontfacedescriptors-superscriptsizeoverride">superscriptSizeOverride</a><span>, in § 9.1</span>
    <li><a href="#text-scale">text-scale</a><span>, in § 2</span>
+   <li><a href="#text-scale-factor">text scale factor</a><span>, in § 2</span>
    <li><a href="#dom-cssfontfacedescriptors-unicode-range">unicode-range</a><span>, in § 9.1</span>
    <li><a href="#dom-cssfontfacedescriptors-unicoderange">unicodeRange</a><span>, in § 9.1</span>
    <li><a href="#valdef-font-family-xxx">xxx</a><span>, in § 3.1.1</span>
@@ -2534,7 +2538,6 @@ Non-experimental implementations</span><a class="self-link" href="#w3c-testing">
    <li>
     <a data-link-type="biblio">[CSS-VALUES-4]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="fb030e6c">&lt;length></span>
      <li><span class="dfn-paneled" id="16310992">&lt;number></span>
      <li><span class="dfn-paneled" id="15f5b381">&lt;percentage></span>
      <li><span class="dfn-paneled" id="977d3003">&lt;string></span>
@@ -2574,6 +2577,7 @@ Non-experimental implementations</span><a class="self-link" href="#w3c-testing">
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
+     <li><span class="dfn-paneled" id="5a88c1c3">content</span>
      <li><span class="dfn-paneled" id="64b89595">meta</span>
      <li><span class="dfn-paneled" id="a23d5e9f">name</span>
     </ul>
@@ -2771,19 +2775,18 @@ Non-experimental implementations</span><a class="self-link" href="#w3c-testing">
 </pre>
   <h2 class="no-num no-ref heading settled" id="issues-index"><span class="content">Issues Index</span><a class="self-link" href="#issues-index"></a></h2>
   <div style="counter-reset:issue">
-   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/12475" style="text-transform:none">w3c/csswg-drafts/12475</a><a href="https://github.com/w3c/csswg-drafts/issues/12475">[css-fonts-5] Should absolute font size keywords scale at different rates depending on user's preferred text scale?</a> <a class="issue-return" href="#issue-d41d8cd9" title="Jump to section">↵</a></div>
-   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/126" style="text-transform:none">w3c/csswg-drafts/126</a><a href="https://github.com/w3c/csswg-drafts/issues/126">[css-fonts] Specifying changes to parameters for fallback fonts</a> <a class="issue-return" href="#issue-d41d8cd9①" title="Jump to section">↵</a></div>
-   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/4910" style="text-transform:none">w3c/csswg-drafts/4910</a><a href="https://github.com/w3c/csswg-drafts/issues/4910">[meta] [css-fonts] Criteria for generic font families</a> <a class="issue-return" href="#issue-d41d8cd9②" title="Jump to section">↵</a></div>
-   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/4566" style="text-transform:none">w3c/csswg-drafts/4566</a><a href="https://github.com/w3c/csswg-drafts/issues/4566">[css-fonts] Should we start a registry for additional generic fonts?</a> <a class="issue-return" href="#issue-d41d8cd9③" title="Jump to section">↵</a></div>
-   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/2690" style="text-transform:none">w3c/csswg-drafts/2690</a><a href="https://github.com/w3c/csswg-drafts/issues/2690">[css-fonts-4] Percentages in font-weight for relative weights</a> <a class="issue-return" href="#issue-d41d8cd9④" title="Jump to section">↵</a></div>
-   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/4044" style="text-transform:none">w3c/csswg-drafts/4044</a><a href="https://github.com/w3c/csswg-drafts/issues/4044">[css-fonts] Vertical text doesn't play nicely with font-style and font-stretch</a> <a class="issue-return" href="#issue-d41d8cd9⑤" title="Jump to section">↵</a></div>
-   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/8792" style="text-transform:none">w3c/csswg-drafts/8792</a><a href="https://github.com/w3c/csswg-drafts/issues/8792">[css-fonts-5] font-size-adjust: ic-height</a> <a class="issue-return" href="#issue-d41d8cd9⑥" title="Jump to section">↵</a></div>
+   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/126" style="text-transform:none">w3c/csswg-drafts/126</a><a href="https://github.com/w3c/csswg-drafts/issues/126">[css-fonts] Specifying changes to parameters for fallback fonts</a> <a class="issue-return" href="#issue-d41d8cd9" title="Jump to section">↵</a></div>
+   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/4910" style="text-transform:none">w3c/csswg-drafts/4910</a><a href="https://github.com/w3c/csswg-drafts/issues/4910">[meta] [css-fonts] Criteria for generic font families</a> <a class="issue-return" href="#issue-d41d8cd9①" title="Jump to section">↵</a></div>
+   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/4566" style="text-transform:none">w3c/csswg-drafts/4566</a><a href="https://github.com/w3c/csswg-drafts/issues/4566">[css-fonts] Should we start a registry for additional generic fonts?</a> <a class="issue-return" href="#issue-d41d8cd9②" title="Jump to section">↵</a></div>
+   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/2690" style="text-transform:none">w3c/csswg-drafts/2690</a><a href="https://github.com/w3c/csswg-drafts/issues/2690">[css-fonts-4] Percentages in font-weight for relative weights</a> <a class="issue-return" href="#issue-d41d8cd9③" title="Jump to section">↵</a></div>
+   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/4044" style="text-transform:none">w3c/csswg-drafts/4044</a><a href="https://github.com/w3c/csswg-drafts/issues/4044">[css-fonts] Vertical text doesn't play nicely with font-style and font-stretch</a> <a class="issue-return" href="#issue-d41d8cd9④" title="Jump to section">↵</a></div>
+   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/8792" style="text-transform:none">w3c/csswg-drafts/8792</a><a href="https://github.com/w3c/csswg-drafts/issues/8792">[css-fonts-5] font-size-adjust: ic-height</a> <a class="issue-return" href="#issue-d41d8cd9⑤" title="Jump to section">↵</a></div>
    <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/6384" style="text-transform:none">w3c/csswg-drafts/6384</a><a href="https://github.com/w3c/csswg-drafts/issues/6384">[css-fonts-5] font-size-adjust with missing metrics</a> <a class="issue-return" href="#issue-c72cd359" title="Jump to section">↵</a></div>
-   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/806" style="text-transform:none">w3c/csswg-drafts/806</a><a href="https://github.com/w3c/csswg-drafts/issues/806">[css-fonts-5] Add font-size descriptor to @font-face which allows ranges (for optical sizing)</a> <a class="issue-return" href="#issue-d41d8cd9⑦" title="Jump to section">↵</a></div>
-   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/731" style="text-transform:none">w3c/csswg-drafts/731</a><a href="https://github.com/w3c/csswg-drafts/issues/731">[css-fonts] font-size Descriptor for ex Unit</a> <a class="issue-return" href="#issue-d41d8cd9⑧" title="Jump to section">↵</a></div>
-   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/5484" style="text-transform:none">w3c/csswg-drafts/5484</a><a href="https://github.com/w3c/csswg-drafts/issues/5484">[css-fonts-5] Removing font-language-override</a> <a class="issue-return" href="#issue-d41d8cd9⑨" title="Jump to section">↵</a></div>
-   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/5635" style="text-transform:none">w3c/csswg-drafts/5635</a><a href="https://github.com/w3c/csswg-drafts/issues/5635">[CSS-Fonts] Need method to interpolate variable font settings</a> <a class="issue-return" href="#issue-d41d8cd9①⓪" title="Jump to section">↵</a></div>
-   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/5466" style="text-transform:none">w3c/csswg-drafts/5466</a><a href="https://github.com/w3c/csswg-drafts/issues/5466">[css-text][css-fonts] Optical bounds of a line</a> <a class="issue-return" href="#issue-d41d8cd9①①" title="Jump to section">↵</a></div>
+   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/806" style="text-transform:none">w3c/csswg-drafts/806</a><a href="https://github.com/w3c/csswg-drafts/issues/806">[css-fonts-5] Add font-size descriptor to @font-face which allows ranges (for optical sizing)</a> <a class="issue-return" href="#issue-d41d8cd9⑥" title="Jump to section">↵</a></div>
+   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/731" style="text-transform:none">w3c/csswg-drafts/731</a><a href="https://github.com/w3c/csswg-drafts/issues/731">[css-fonts] font-size Descriptor for ex Unit</a> <a class="issue-return" href="#issue-d41d8cd9⑦" title="Jump to section">↵</a></div>
+   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/5484" style="text-transform:none">w3c/csswg-drafts/5484</a><a href="https://github.com/w3c/csswg-drafts/issues/5484">[css-fonts-5] Removing font-language-override</a> <a class="issue-return" href="#issue-d41d8cd9⑧" title="Jump to section">↵</a></div>
+   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/5635" style="text-transform:none">w3c/csswg-drafts/5635</a><a href="https://github.com/w3c/csswg-drafts/issues/5635">[CSS-Fonts] Need method to interpolate variable font settings</a> <a class="issue-return" href="#issue-d41d8cd9⑨" title="Jump to section">↵</a></div>
+   <div class="issue no-marker"><a class="marker" href="https://github.com/w3c/csswg-drafts/issues/5466" style="text-transform:none">w3c/csswg-drafts/5466</a><a href="https://github.com/w3c/csswg-drafts/issues/5466">[css-text][css-fonts] Optical bounds of a line</a> <a class="issue-return" href="#issue-d41d8cd9①⓪" title="Jump to section">↵</a></div>
   </div>
   <details class="mdn-anno unpositioned" data-anno-for="size-adjust-desc">
    <summary><span>MDN</span></summary>
@@ -3027,7 +3030,7 @@ function parseHTML(markup) {
 "use strict";
 {
 let dfnPanelData = {
-"15a266c1": {"dfnID":"15a266c1","dfnText":"medium","external":true,"refSections":[{"refs":[{"id":"ref-for-valdef-font-size-medium"}],"title":"2. \nText-Scale <meta> element"},{"refs":[{"id":"ref-for-valdef-font-size-medium\u2460"},{"id":"ref-for-valdef-font-size-medium\u2461"}],"title":"2.1. \nKeywords"},{"refs":[{"id":"ref-for-valdef-font-size-medium\u2462"},{"id":"ref-for-valdef-font-size-medium\u2463"}],"title":"2.2. The legacy keyword"},{"refs":[{"id":"ref-for-valdef-font-size-medium\u2464"},{"id":"ref-for-valdef-font-size-medium\u2465"},{"id":"ref-for-valdef-font-size-medium\u2466"}],"title":"2.3. The scale keyword"}],"url":"https://drafts.csswg.org/css2/#valdef-font-size-medium"},
+"15a266c1": {"dfnID":"15a266c1","dfnText":"medium","external":true,"refSections":[{"refs":[{"id":"ref-for-valdef-font-size-medium"},{"id":"ref-for-valdef-font-size-medium\u2460"},{"id":"ref-for-valdef-font-size-medium\u2461"},{"id":"ref-for-valdef-font-size-medium\u2462"}],"title":"2. \nText-Scale meta element"},{"refs":[{"id":"ref-for-valdef-font-size-medium\u2463"}],"title":"2.2. The legacy keyword"},{"refs":[{"id":"ref-for-valdef-font-size-medium\u2464"}],"title":"2.3. The scale keyword"}],"url":"https://drafts.csswg.org/css2/#valdef-font-size-medium"},
 "15f5b381": {"dfnID":"15f5b381","dfnText":"<percentage>","external":true,"refSections":[{"refs":[{"id":"ref-for-percentage-value"}],"title":"4.4. \nGlyph Size Multiplier:\nthe size-adjust descriptor"},{"refs":[{"id":"ref-for-percentage-value\u2460"},{"id":"ref-for-percentage-value\u2461"},{"id":"ref-for-percentage-value\u2462"},{"id":"ref-for-percentage-value\u2463"}],"title":"4.5. \nLine Height Font Metrics Overrides:\nthe ascent-override, descent-override, and line-gap-override descriptors"},{"refs":[{"id":"ref-for-percentage-value\u2464"},{"id":"ref-for-percentage-value\u2465"},{"id":"ref-for-percentage-value\u2466"},{"id":"ref-for-percentage-value\u2467"},{"id":"ref-for-percentage-value\u2468"}],"title":"4.6. \nSuperscript and subscript metrics overrides:\nthe superscript-position-override, subscript-position-override,superscript-size-override and subscript-size-override descriptors"}],"url":"https://drafts.csswg.org/css-values-4/#percentage-value"},
 "16310992": {"dfnID":"16310992","dfnText":"<number>","external":true,"refSections":[{"refs":[{"id":"ref-for-number-value"},{"id":"ref-for-number-value\u2460"},{"id":"ref-for-number-value\u2461"},{"id":"ref-for-number-value\u2462"}],"title":"3.4. \nRelative sizing: the font-size-adjust property"},{"refs":[{"id":"ref-for-number-value\u2463"},{"id":"ref-for-number-value\u2464"},{"id":"ref-for-number-value\u2465"},{"id":"ref-for-number-value\u2466"}],"title":"4.3. \nFont property descriptors: the font-size\n"}],"url":"https://drafts.csswg.org/css-values-4/#number-value"},
 "1c5240b0": {"dfnID":"1c5240b0","dfnText":"vertical typographic mode","external":true,"refSections":[{"refs":[{"id":"ref-for-vertical-typographic-mode"}],"title":"4.6. \nSuperscript and subscript metrics overrides:\nthe superscript-position-override, subscript-position-override,superscript-size-override and subscript-size-override descriptors"}],"url":"https://drafts.csswg.org/css-writing-modes-4/#vertical-typographic-mode"},
@@ -3037,18 +3040,19 @@ let dfnPanelData = {
 "358fd6ff": {"dfnID":"358fd6ff","dfnText":"CSS-wide keywords","external":true,"refSections":[{"refs":[{"id":"ref-for-css-wide-keywords"}],"title":"1.1. \nValue Definitions"}],"url":"https://drafts.csswg.org/css-values-4/#css-wide-keywords"},
 "35d9f24e": {"dfnID":"35d9f24e","dfnText":"font-relative lengths","external":true,"refSections":[{"refs":[{"id":"ref-for-font-relative-length"}],"title":"4.5. \nLine Height Font Metrics Overrides:\nthe ascent-override, descent-override, and line-gap-override descriptors"}],"url":"https://drafts.csswg.org/css-values-4/#font-relative-length"},
 "37bdfca9": {"dfnID":"37bdfca9","dfnText":"font-optical-sizing","external":true,"refSections":[{"refs":[{"id":"ref-for-propdef-font-optical-sizing"}],"title":"7.1. \nOptical sizing control: the font-optical-sizing property"}],"url":"https://drafts.csswg.org/css-fonts-4/#propdef-font-optical-sizing"},
-"4962ecad": {"dfnID":"4962ecad","dfnText":"<absolute-size>","external":true,"refSections":[{"refs":[{"id":"ref-for-value-def-absolute-size"}],"title":"2. \nText-Scale <meta> element"}],"url":"https://drafts.csswg.org/css2/#value-def-absolute-size"},
+"4962ecad": {"dfnID":"4962ecad","dfnText":"<absolute-size>","external":true,"refSections":[{"refs":[{"id":"ref-for-value-def-absolute-size"}],"title":"2. \nText-Scale meta element"}],"url":"https://drafts.csswg.org/css2/#value-def-absolute-size"},
 "537cf076": {"dfnID":"537cf076","dfnText":"?","external":true,"refSections":[{"refs":[{"id":"ref-for-mult-opt"}],"title":"3.4. \nRelative sizing: the font-size-adjust property"}],"url":"https://drafts.csswg.org/css-values-4/#mult-opt"},
 "53e3a28b": {"dfnID":"53e3a28b","dfnText":"descent metric","external":true,"refSections":[{"refs":[{"id":"ref-for-descent-metric"}],"title":"4.5. \nLine Height Font Metrics Overrides:\nthe ascent-override, descent-override, and line-gap-override descriptors"}],"url":"https://drafts.csswg.org/css-inline-3/#descent-metric"},
 "53e5391b": {"dfnID":"53e5391b","dfnText":"font-variant-position","external":true,"refSections":[{"refs":[{"id":"ref-for-propdef-font-variant-position"}],"title":"4.6. \nSuperscript and subscript metrics overrides:\nthe superscript-position-override, subscript-position-override,superscript-size-override and subscript-size-override descriptors"}],"url":"https://drafts.csswg.org/css-fonts-4/#propdef-font-variant-position"},
+"5a88c1c3": {"dfnID":"5a88c1c3","dfnText":"content","external":true,"refSections":[{"refs":[{"id":"ref-for-attr-meta-content"}],"title":"2. \nText-Scale meta element"}],"url":"https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-content"},
 "5fced98b": {"dfnID":"5fced98b","dfnText":"CSSOMString","external":true,"refSections":[{"refs":[{"id":"ref-for-cssomstring"},{"id":"ref-for-cssomstring\u2460"},{"id":"ref-for-cssomstring\u2461"},{"id":"ref-for-cssomstring\u2462"},{"id":"ref-for-cssomstring\u2463"},{"id":"ref-for-cssomstring\u2464"},{"id":"ref-for-cssomstring\u2465"},{"id":"ref-for-cssomstring\u2466"},{"id":"ref-for-cssomstring\u2467"},{"id":"ref-for-cssomstring\u2468"},{"id":"ref-for-cssomstring\u2460\u24ea"},{"id":"ref-for-cssomstring\u2460\u2460"},{"id":"ref-for-cssomstring\u2460\u2461"},{"id":"ref-for-cssomstring\u2460\u2462"},{"id":"ref-for-cssomstring\u2460\u2463"},{"id":"ref-for-cssomstring\u2460\u2464"},{"id":"ref-for-cssomstring\u2460\u2465"},{"id":"ref-for-cssomstring\u2460\u2466"},{"id":"ref-for-cssomstring\u2460\u2467"},{"id":"ref-for-cssomstring\u2460\u2468"},{"id":"ref-for-cssomstring\u2461\u24ea"},{"id":"ref-for-cssomstring\u2461\u2460"},{"id":"ref-for-cssomstring\u2461\u2461"},{"id":"ref-for-cssomstring\u2461\u2462"},{"id":"ref-for-cssomstring\u2461\u2463"},{"id":"ref-for-cssomstring\u2461\u2464"},{"id":"ref-for-cssomstring\u2461\u2465"},{"id":"ref-for-cssomstring\u2461\u2466"},{"id":"ref-for-cssomstring\u2461\u2467"},{"id":"ref-for-cssomstring\u2461\u2468"},{"id":"ref-for-cssomstring\u2462\u24ea"},{"id":"ref-for-cssomstring\u2462\u2460"},{"id":"ref-for-cssomstring\u2462\u2461"},{"id":"ref-for-cssomstring\u2462\u2462"},{"id":"ref-for-cssomstring\u2462\u2463"},{"id":"ref-for-cssomstring\u2462\u2464"},{"id":"ref-for-cssomstring\u2462\u2465"},{"id":"ref-for-cssomstring\u2462\u2466"},{"id":"ref-for-cssomstring\u2462\u2467"},{"id":"ref-for-cssomstring\u2462\u2468"},{"id":"ref-for-cssomstring\u2463\u24ea"}],"title":"9.1. \n\tThe CSSFontFaceRule interface"}],"url":"https://drafts.csswg.org/cssom-1/#cssomstring"},
 "620ca81c": {"dfnID":"620ca81c","dfnText":"ch","external":true,"refSections":[{"refs":[{"id":"ref-for-ch"}],"title":"4.4. \nGlyph Size Multiplier:\nthe size-adjust descriptor"}],"url":"https://drafts.csswg.org/css-values-4/#ch"},
-"64b89595": {"dfnID":"64b89595","dfnText":"meta","external":true,"refSections":[{"refs":[{"id":"ref-for-meta"},{"id":"ref-for-meta\u2460"},{"id":"ref-for-meta\u2461"}],"title":"2. \nText-Scale <meta> element"},{"refs":[{"id":"ref-for-meta\u2462"},{"id":"ref-for-meta\u2463"}],"title":"2.1. \nKeywords"}],"url":"https://html.spec.whatwg.org/multipage/semantics.html#meta"},
+"64b89595": {"dfnID":"64b89595","dfnText":"meta","external":true,"refSections":[{"refs":[{"id":"ref-for-meta"},{"id":"ref-for-meta\u2460"},{"id":"ref-for-meta\u2461"},{"id":"ref-for-meta\u2462"}],"title":"2. \nText-Scale meta element"},{"refs":[{"id":"ref-for-meta\u2463"},{"id":"ref-for-meta\u2464"}],"title":"2.1. \nKeywords"}],"url":"https://html.spec.whatwg.org/multipage/semantics.html#meta"},
 "6ec67710": {"dfnID":"6ec67710","dfnText":"|","external":true,"refSections":[{"refs":[{"id":"ref-for-comb-one"},{"id":"ref-for-comb-one\u2460"},{"id":"ref-for-comb-one\u2461"},{"id":"ref-for-comb-one\u2462"},{"id":"ref-for-comb-one\u2463"},{"id":"ref-for-comb-one\u2464"}],"title":"3.4. \nRelative sizing: the font-size-adjust property"},{"refs":[{"id":"ref-for-comb-one\u2465"},{"id":"ref-for-comb-one\u2466"},{"id":"ref-for-comb-one\u2467"},{"id":"ref-for-comb-one\u2468"},{"id":"ref-for-comb-one\u2460\u24ea"},{"id":"ref-for-comb-one\u2460\u2460"},{"id":"ref-for-comb-one\u2460\u2461"},{"id":"ref-for-comb-one\u2460\u2462"},{"id":"ref-for-comb-one\u2460\u2463"},{"id":"ref-for-comb-one\u2460\u2464"},{"id":"ref-for-comb-one\u2460\u2465"},{"id":"ref-for-comb-one\u2460\u2466"},{"id":"ref-for-comb-one\u2460\u2467"},{"id":"ref-for-comb-one\u2460\u2468"},{"id":"ref-for-comb-one\u2461\u24ea"},{"id":"ref-for-comb-one\u2461\u2460"},{"id":"ref-for-comb-one\u2461\u2461"}],"title":"4.2.1. Parsing the src descriptor"},{"refs":[{"id":"ref-for-comb-one\u2461\u2462"}],"title":"4.3. \nFont property descriptors: the font-size\n"},{"refs":[{"id":"ref-for-comb-one\u2461\u2463"},{"id":"ref-for-comb-one\u2461\u2464"},{"id":"ref-for-comb-one\u2461\u2465"}],"title":"4.5. \nLine Height Font Metrics Overrides:\nthe ascent-override, descent-override, and line-gap-override descriptors"},{"refs":[{"id":"ref-for-comb-one\u2461\u2466"},{"id":"ref-for-comb-one\u2461\u2467"},{"id":"ref-for-comb-one\u2461\u2468"},{"id":"ref-for-comb-one\u2462\u24ea"},{"id":"ref-for-comb-one\u2462\u2460"},{"id":"ref-for-comb-one\u2462\u2461"},{"id":"ref-for-comb-one\u2462\u2462"},{"id":"ref-for-comb-one\u2462\u2463"}],"title":"4.6. \nSuperscript and subscript metrics overrides:\nthe superscript-position-override, subscript-position-override,superscript-size-override and subscript-size-override descriptors"}],"url":"https://drafts.csswg.org/css-values-4/#comb-one"},
 "7575be44": {"dfnID":"7575be44","dfnText":"font-language-override","external":true,"refSections":[{"refs":[{"id":"ref-for-propdef-font-language-override"}],"title":"5.1. Font language override: the font-language-override property"}],"url":"https://drafts.csswg.org/css-fonts-4/#propdef-font-language-override"},
 "7e5ce73d": {"dfnID":"7e5ce73d","dfnText":"text-decoration-thickness","external":true,"refSections":[{"refs":[{"id":"ref-for-propdef-text-decoration-thickness"}],"title":"4.4. \nGlyph Size Multiplier:\nthe size-adjust descriptor"}],"url":"https://drafts.csswg.org/css-text-decor-4/#propdef-text-decoration-thickness"},
 "7e7461eb": {"dfnID":"7e7461eb","dfnText":"src","external":true,"refSections":[{"refs":[{"id":"ref-for-descdef-font-face-src"},{"id":"ref-for-descdef-font-face-src\u2460"},{"id":"ref-for-descdef-font-face-src\u2461"}],"title":"4.2.1. Parsing the src descriptor"}],"url":"https://drafts.csswg.org/css-fonts-4/#descdef-font-face-src"},
-"7f9469b5": {"dfnID":"7f9469b5","dfnText":"ASCII case-insensitive","external":true,"refSections":[{"refs":[{"id":"ref-for-ascii-case-insensitive"},{"id":"ref-for-ascii-case-insensitive\u2460"},{"id":"ref-for-ascii-case-insensitive\u2461"}],"title":"2. \nText-Scale <meta> element"}],"url":"https://infra.spec.whatwg.org/#ascii-case-insensitive"},
+"7f9469b5": {"dfnID":"7f9469b5","dfnText":"ASCII case-insensitive","external":true,"refSections":[{"refs":[{"id":"ref-for-ascii-case-insensitive"},{"id":"ref-for-ascii-case-insensitive\u2460"},{"id":"ref-for-ascii-case-insensitive\u2461"}],"title":"2. \nText-Scale meta element"}],"url":"https://infra.spec.whatwg.org/#ascii-case-insensitive"},
 "889e932f": {"dfnID":"889e932f","dfnText":"Exposed","external":true,"refSections":[{"refs":[{"id":"ref-for-Exposed"},{"id":"ref-for-Exposed\u2460"}],"title":"9.1. \n\tThe CSSFontFaceRule interface"}],"url":"https://webidl.spec.whatwg.org/#Exposed"},
 "8f393f47": {"dfnID":"8f393f47","dfnText":"ascent metric","external":true,"refSections":[{"refs":[{"id":"ref-for-ascent-metric"},{"id":"ref-for-ascent-metric\u2460"}],"title":"4.5. \nLine Height Font Metrics Overrides:\nthe ascent-override, descent-override, and line-gap-override descriptors"}],"url":"https://drafts.csswg.org/css-inline-3/#ascent-metric"},
 "92befb0f": {"dfnID":"92befb0f","dfnText":"@font-feature-values","external":true,"refSections":[{"refs":[{"id":"ref-for-at-ruledef-font-feature-values"}],"title":"9. \n\tObject Model"}],"url":"https://drafts.csswg.org/css-fonts-4/#at-ruledef-font-feature-values"},
@@ -3056,7 +3060,7 @@ let dfnPanelData = {
 "938ba280": {"dfnID":"938ba280","dfnText":"{A,B}","external":true,"refSections":[{"refs":[{"id":"ref-for-mult-num-range"}],"title":"4.3. \nFont property descriptors: the font-size\n"},{"refs":[{"id":"ref-for-mult-num-range\u2460"},{"id":"ref-for-mult-num-range\u2461"},{"id":"ref-for-mult-num-range\u2462"}],"title":"4.5. \nLine Height Font Metrics Overrides:\nthe ascent-override, descent-override, and line-gap-override descriptors"},{"refs":[{"id":"ref-for-mult-num-range\u2463"},{"id":"ref-for-mult-num-range\u2464"},{"id":"ref-for-mult-num-range\u2465"},{"id":"ref-for-mult-num-range\u2466"}],"title":"4.6. \nSuperscript and subscript metrics overrides:\nthe superscript-position-override, subscript-position-override,superscript-size-override and subscript-size-override descriptors"}],"url":"https://drafts.csswg.org/css-values-4/#mult-num-range"},
 "977d3003": {"dfnID":"977d3003","dfnText":"<string>","external":true,"refSections":[{"refs":[{"id":"ref-for-string-value"}],"title":"4.2.1. Parsing the src descriptor"}],"url":"https://drafts.csswg.org/css-values-4/#string-value"},
 "9cd25054": {"dfnID":"9cd25054","dfnText":"computed value","external":true,"refSections":[{"refs":[{"id":"ref-for-computed-value"},{"id":"ref-for-computed-value\u2460"},{"id":"ref-for-computed-value\u2461"}],"title":"3.4. \nRelative sizing: the font-size-adjust property"},{"refs":[{"id":"ref-for-computed-value\u2462"},{"id":"ref-for-computed-value\u2463"}],"title":"4.4. \nGlyph Size Multiplier:\nthe size-adjust descriptor"},{"refs":[{"id":"ref-for-computed-value\u2464"}],"title":"4.5. \nLine Height Font Metrics Overrides:\nthe ascent-override, descent-override, and line-gap-override descriptors"}],"url":"https://drafts.csswg.org/css-cascade-5/#computed-value"},
-"a23d5e9f": {"dfnID":"a23d5e9f","dfnText":"name","external":true,"refSections":[{"refs":[{"id":"ref-for-attr-meta-name"},{"id":"ref-for-attr-meta-name\u2460"}],"title":"2. \nText-Scale <meta> element"}],"url":"https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-name"},
+"a23d5e9f": {"dfnID":"a23d5e9f","dfnText":"name","external":true,"refSections":[{"refs":[{"id":"ref-for-attr-meta-name"},{"id":"ref-for-attr-meta-name\u2460"}],"title":"2. \nText-Scale meta element"}],"url":"https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-name"},
 "a2eb821e": {"dfnID":"a2eb821e","dfnText":"first available font","external":true,"refSections":[{"refs":[{"id":"ref-for-first-available-font"}],"title":"3.4. \nRelative sizing: the font-size-adjust property"},{"refs":[{"id":"ref-for-first-available-font\u2460"}],"title":"4.1. \nThe @font-face rule"}],"url":"https://drafts.csswg.org/css-fonts-4/#first-available-font"},
 "a4eb3c57": {"dfnID":"a4eb3c57","dfnText":"used value","external":true,"refSections":[{"refs":[{"id":"ref-for-used-value"},{"id":"ref-for-used-value\u2460"},{"id":"ref-for-used-value\u2461"}],"title":"3.4. \nRelative sizing: the font-size-adjust property"}],"url":"https://drafts.csswg.org/css-cascade-5/#used-value"},
 "a5c91173": {"dfnID":"a5c91173","dfnText":"SameObject","external":true,"refSections":[{"refs":[{"id":"ref-for-SameObject"}],"title":"9.1. \n\tThe CSSFontFaceRule interface"}],"url":"https://webidl.spec.whatwg.org/#SameObject"},
@@ -3134,7 +3138,6 @@ let dfnPanelData = {
 "ebaeb088": {"dfnID":"ebaeb088","dfnText":"CSSRule","external":true,"refSections":[{"refs":[{"id":"ref-for-cssrule"}],"title":"9.1. \n\tThe CSSFontFaceRule interface"}],"url":"https://drafts.csswg.org/cssom-1/#cssrule"},
 "f6b7641e": {"dfnID":"f6b7641e","dfnText":"from-font","external":true,"refSections":[{"refs":[{"id":"ref-for-valdef-text-decoration-thickness-from-font"}],"title":"4.4. \nGlyph Size Multiplier:\nthe size-adjust descriptor"}],"url":"https://drafts.csswg.org/css-text-decor-4/#valdef-text-decoration-thickness-from-font"},
 "fa293cdd": {"dfnID":"fa293cdd","dfnText":"<url>","external":true,"refSections":[{"refs":[{"id":"ref-for-url-value"}],"title":"4.2.1. Parsing the src descriptor"}],"url":"https://drafts.csswg.org/css-values-4/#url-value"},
-"fb030e6c": {"dfnID":"fb030e6c","dfnText":"<length>","external":true,"refSections":[{"refs":[{"id":"ref-for-length-value"}],"title":"2.3. The scale keyword"}],"url":"https://drafts.csswg.org/css-values-4/#length-value"},
 "fb12b38c": {"dfnID":"fb12b38c","dfnText":"typographic mode","external":true,"refSections":[{"refs":[{"id":"ref-for-typographic-mode"}],"title":"4.5. \nLine Height Font Metrics Overrides:\nthe ascent-override, descent-override, and line-gap-override descriptors"}],"url":"https://drafts.csswg.org/css-writing-modes-4/#typographic-mode"},
 "fdf6efd5": {"dfnID":"fdf6efd5","dfnText":"font-size","external":true,"refSections":[{"refs":[{"id":"ref-for-propdef-font-size"},{"id":"ref-for-propdef-font-size\u2460"},{"id":"ref-for-propdef-font-size\u2461"},{"id":"ref-for-propdef-font-size\u2462"},{"id":"ref-for-propdef-font-size\u2463"}],"title":"3.4. \nRelative sizing: the font-size-adjust property"},{"refs":[{"id":"ref-for-propdef-font-size\u2464"},{"id":"ref-for-propdef-font-size\u2465"},{"id":"ref-for-propdef-font-size\u2466"}],"title":"4.4. \nGlyph Size Multiplier:\nthe size-adjust descriptor"},{"refs":[{"id":"ref-for-propdef-font-size\u2467"}],"title":"4.5. \nLine Height Font Metrics Overrides:\nthe ascent-override, descent-override, and line-gap-override descriptors"}],"url":"https://drafts.csswg.org/css-fonts-4/#propdef-font-size"},
 "font-features-tech-values": {"dfnID":"font-features-tech-values","dfnText":"<font-features-tech>","external":false,"refSections":[{"refs":[{"id":"ref-for-font-features-tech-values"}],"title":"4.2.1. Parsing the src descriptor"}],"url":"#font-features-tech-values"},
@@ -3142,9 +3145,9 @@ let dfnPanelData = {
 "font-size-adjust-aspect-value": {"dfnID":"font-size-adjust-aspect-value","dfnText":"aspect value","external":false,"refSections":[{"refs":[{"id":"ref-for-font-size-adjust-aspect-value"},{"id":"ref-for-font-size-adjust-aspect-value\u2460"},{"id":"ref-for-font-size-adjust-aspect-value\u2461"},{"id":"ref-for-font-size-adjust-aspect-value\u2462"},{"id":"ref-for-font-size-adjust-aspect-value\u2463"},{"id":"ref-for-font-size-adjust-aspect-value\u2464"}],"title":"3.4. \nRelative sizing: the font-size-adjust property"}],"url":"#font-size-adjust-aspect-value"},
 "font-tech-values": {"dfnID":"font-tech-values","dfnText":"<font-tech>","external":false,"refSections":[{"refs":[{"id":"ref-for-font-tech-values"}],"title":"4.2.1. Parsing the src descriptor"}],"url":"#font-tech-values"},
 "propdef-font-size-adjust": {"dfnID":"propdef-font-size-adjust","dfnText":"font-size-adjust","external":false,"refSections":[{"refs":[{"id":"ref-for-propdef-font-size-adjust"},{"id":"ref-for-propdef-font-size-adjust\u2460"},{"id":"ref-for-propdef-font-size-adjust\u2461"},{"id":"ref-for-propdef-font-size-adjust\u2462"},{"id":"ref-for-propdef-font-size-adjust\u2463"},{"id":"ref-for-propdef-font-size-adjust\u2464"},{"id":"ref-for-propdef-font-size-adjust\u2465"},{"id":"ref-for-propdef-font-size-adjust\u2466"},{"id":"ref-for-propdef-font-size-adjust\u2467"},{"id":"ref-for-propdef-font-size-adjust\u2468"},{"id":"ref-for-propdef-font-size-adjust\u2460\u24ea"},{"id":"ref-for-propdef-font-size-adjust\u2460\u2460"},{"id":"ref-for-propdef-font-size-adjust\u2460\u2461"},{"id":"ref-for-propdef-font-size-adjust\u2460\u2462"}],"title":"3.4. \nRelative sizing: the font-size-adjust property"},{"refs":[{"id":"ref-for-propdef-font-size-adjust\u2460\u2463"}],"title":"4.4. \nGlyph Size Multiplier:\nthe size-adjust descriptor"},{"refs":[{"id":"ref-for-propdef-font-size-adjust\u2460\u2464"},{"id":"ref-for-propdef-font-size-adjust\u2460\u2465"}],"title":"4.5. \nLine Height Font Metrics Overrides:\nthe ascent-override, descent-override, and line-gap-override descriptors"}],"url":"#propdef-font-size-adjust"},
-"scale": {"dfnID":"scale","dfnText":"scale","external":false,"refSections":[],"url":"#scale"},
-"text-scale": {"dfnID":"text-scale","dfnText":"\"text-scale\"","external":false,"refSections":[{"refs":[{"id":"ref-for-text-scale"}],"title":"2. \nText-Scale <meta> element"},{"refs":[{"id":"ref-for-text-scale\u2460"},{"id":"ref-for-text-scale\u2461"}],"title":"2.1. \nKeywords"},{"refs":[{"id":"ref-for-text-scale\u2462"}],"title":"2.2. The legacy keyword"},{"refs":[{"id":"ref-for-text-scale\u2463"},{"id":"ref-for-text-scale\u2464"},{"id":"ref-for-text-scale\u2465"}],"title":"2.3. The scale keyword"}],"url":"#text-scale"},
-"text-scale-legacy": {"dfnID":"text-scale-legacy","dfnText":"legacy","external":false,"refSections":[{"refs":[{"id":"ref-for-text-scale-legacy"}],"title":"2.2. The legacy keyword"}],"url":"#text-scale-legacy"},
+"text-scale": {"dfnID":"text-scale","dfnText":"\"text-scale\"","external":false,"refSections":[{"refs":[{"id":"ref-for-text-scale"}],"title":"2. \nText-Scale meta element"},{"refs":[{"id":"ref-for-text-scale\u2460"},{"id":"ref-for-text-scale\u2461"}],"title":"2.1. \nKeywords"},{"refs":[{"id":"ref-for-text-scale\u2462"}],"title":"2.2. The legacy keyword"},{"refs":[{"id":"ref-for-text-scale\u2463"},{"id":"ref-for-text-scale\u2464"}],"title":"2.3. The scale keyword"}],"url":"#text-scale"},
+"text-scale-factor": {"dfnID":"text-scale-factor","dfnText":"text scale factor","external":false,"refSections":[{"refs":[{"id":"ref-for-text-scale-factor"},{"id":"ref-for-text-scale-factor\u2460"}],"title":"2. \nText-Scale meta element"},{"refs":[{"id":"ref-for-text-scale-factor\u2461"},{"id":"ref-for-text-scale-factor\u2462"}],"title":"2.1. \nKeywords"},{"refs":[{"id":"ref-for-text-scale-factor\u2463"}],"title":"2.2. The legacy keyword"},{"refs":[{"id":"ref-for-text-scale-factor\u2464"},{"id":"ref-for-text-scale-factor\u2465"}],"title":"2.3. The scale keyword"}],"url":"#text-scale-factor"},
+"text-scale-legacy": {"dfnID":"text-scale-legacy","dfnText":"legacy","external":false,"refSections":[{"refs":[{"id":"ref-for-text-scale-legacy"}],"title":"2. \nText-Scale meta element"},{"refs":[{"id":"ref-for-text-scale-legacy\u2460"},{"id":"ref-for-text-scale-legacy\u2461"}],"title":"2.2. The legacy keyword"}],"url":"#text-scale-legacy"},
 "text-scale-scale": {"dfnID":"text-scale-scale","dfnText":"scale","external":false,"refSections":[{"refs":[{"id":"ref-for-text-scale-scale"},{"id":"ref-for-text-scale-scale\u2460"}],"title":"2.3. The scale keyword"}],"url":"#text-scale-scale"},
 "valdef-ascent-overridedescriptor-normal": {"dfnID":"valdef-ascent-overridedescriptor-normal","dfnText":"normal","external":false,"refSections":[],"url":"#valdef-ascent-overridedescriptor-normal"},
 "valdef-ascent-overridedescriptor-percentage": {"dfnID":"valdef-ascent-overridedescriptor-percentage","dfnText":"<percentage>","external":false,"refSections":[],"url":"#valdef-ascent-overridedescriptor-percentage"},
@@ -3551,7 +3554,6 @@ function genLinkingSyntaxes(dfn) {
 "use strict";
 {
 let linkTitleData = {
-"https://drafts.csswg.org/css-values-4/#length-value": "Expands to: advance measure | cap | ch | cm | dvb | dvh | dvi | dvmax | dvmin | dvw | em | ex | ic | in | lh | lvb | lvh | lvi | lvmax | lvmin | lvw | mm | pc | pt | px | rcap | rch | rem | rex | ric | rlh | svb | svh | svi | svmax | svmin | svw | vb | vh | vi | vmax | vmin | vw",
 "https://drafts.csswg.org/css-values-4/#url-value": "Expands to: local url flag",
 };
 
@@ -3645,6 +3647,7 @@ let refsData = {
 "#font-tech-values": {"displayText":"<font-tech>","export":true,"for_":[],"level":"5","normative":true,"shortname":"css-fonts","spec":"css-fonts-5","status":"local","text":"<font-tech>","type":"type","url":"#font-tech-values"},
 "#propdef-font-size-adjust": {"displayText":"font-size-adjust","export":true,"for_":[],"level":"5","normative":true,"shortname":"css-fonts","spec":"css-fonts-5","status":"local","text":"font-size-adjust","type":"property","url":"#propdef-font-size-adjust"},
 "#text-scale": {"displayText":"text-scale","export":true,"for_":[],"level":"5","normative":true,"shortname":"css-fonts","spec":"css-fonts-5","status":"local","text":"text-scale","type":"dfn","url":"#text-scale"},
+"#text-scale-factor": {"displayText":"text scale factor","export":true,"for_":[],"level":"5","normative":true,"shortname":"css-fonts","spec":"css-fonts-5","status":"local","text":"text scale factor","type":"dfn","url":"#text-scale-factor"},
 "#text-scale-legacy": {"displayText":"legacy","export":true,"for_":["text-scale"],"level":"5","normative":true,"shortname":"css-fonts","spec":"css-fonts-5","status":"local","text":"legacy","type":"dfn","url":"#text-scale-legacy"},
 "#text-scale-scale": {"displayText":"scale","export":true,"for_":["text-scale"],"level":"5","normative":true,"shortname":"css-fonts","spec":"css-fonts-5","status":"local","text":"scale","type":"dfn","url":"#text-scale-scale"},
 "#valdef-font-size-adjust-ex-height": {"displayText":"ex-height","export":true,"for_":["font-size-adjust"],"level":"5","normative":true,"shortname":"css-fonts","spec":"css-fonts-5","status":"local","text":"ex-height","type":"value","url":"#valdef-font-size-adjust-ex-height"},
@@ -3677,7 +3680,6 @@ let refsData = {
 "https://drafts.csswg.org/css-values-4/#em": {"displayText":"em","export":true,"for_":["<length>"],"level":"4","normative":true,"shortname":"css-values","spec":"css-values-4","status":"current","text":"em","type":"value","url":"https://drafts.csswg.org/css-values-4/#em"},
 "https://drafts.csswg.org/css-values-4/#ex": {"displayText":"ex","export":true,"for_":["<length>"],"level":"4","normative":true,"shortname":"css-values","spec":"css-values-4","status":"current","text":"ex","type":"value","url":"https://drafts.csswg.org/css-values-4/#ex"},
 "https://drafts.csswg.org/css-values-4/#font-relative-length": {"displayText":"font-relative lengths","export":true,"for_":[],"level":"4","normative":true,"shortname":"css-values","spec":"css-values-4","status":"current","text":"font-relative lengths","type":"dfn","url":"https://drafts.csswg.org/css-values-4/#font-relative-length"},
-"https://drafts.csswg.org/css-values-4/#length-value": {"displayText":"<length>","export":true,"for_":[],"level":"4","normative":true,"shortname":"css-values","spec":"css-values-4","status":"current","text":"<length>","type":"type","url":"https://drafts.csswg.org/css-values-4/#length-value"},
 "https://drafts.csswg.org/css-values-4/#mult-num-range": {"displayText":"{A,B}","export":true,"for_":[],"level":"4","normative":true,"shortname":"css-values","spec":"css-values-4","status":"current","text":"{a,b}","type":"grammar","url":"https://drafts.csswg.org/css-values-4/#mult-num-range"},
 "https://drafts.csswg.org/css-values-4/#mult-opt": {"displayText":"?","export":true,"for_":[],"level":"4","normative":true,"shortname":"css-values","spec":"css-values-4","status":"current","text":"?","type":"grammar","url":"https://drafts.csswg.org/css-values-4/#mult-opt"},
 "https://drafts.csswg.org/css-values-4/#number-value": {"displayText":"<number>","export":true,"for_":[],"level":"4","normative":true,"shortname":"css-values","spec":"css-values-4","status":"current","text":"<number>","type":"type","url":"https://drafts.csswg.org/css-values-4/#number-value"},
@@ -3696,6 +3698,7 @@ let refsData = {
 "https://drafts.csswg.org/cssom-1/#cssrule": {"displayText":"CSSRule","export":true,"for_":[],"level":"1","normative":true,"shortname":"cssom","spec":"cssom-1","status":"current","text":"CSSRule","type":"interface","url":"https://drafts.csswg.org/cssom-1/#cssrule"},
 "https://drafts.csswg.org/cssom-1/#cssstyledeclaration": {"displayText":"CSSStyleDeclaration","export":true,"for_":[],"level":"1","normative":true,"shortname":"cssom","spec":"cssom-1","status":"current","text":"CSSStyleDeclaration","type":"interface","url":"https://drafts.csswg.org/cssom-1/#cssstyledeclaration"},
 "https://drafts.csswg.org/selectors-4/#root-pseudo": {"displayText":":root","export":true,"for_":[],"level":"4","normative":true,"shortname":"selectors","spec":"selectors-4","status":"current","text":":root","type":"selector","url":"https://drafts.csswg.org/selectors-4/#root-pseudo"},
+"https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-content": {"displayText":"content","export":true,"for_":["meta"],"level":"1","normative":true,"shortname":"html","spec":"html","status":"current","text":"content","type":"element-attr","url":"https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-content"},
 "https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-name": {"displayText":"name","export":true,"for_":["meta"],"level":"1","normative":true,"shortname":"html","spec":"html","status":"current","text":"name","type":"element-attr","url":"https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-name"},
 "https://html.spec.whatwg.org/multipage/semantics.html#meta": {"displayText":"meta","export":true,"for_":[],"level":"1","normative":true,"shortname":"html","spec":"html","status":"current","text":"meta","type":"element","url":"https://html.spec.whatwg.org/multipage/semantics.html#meta"},
 "https://infra.spec.whatwg.org/#ascii-case-insensitive": {"displayText":"ASCII case-insensitive","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"ascii case-insensitive","type":"dfn","url":"https://infra.spec.whatwg.org/#ascii-case-insensitive"},
