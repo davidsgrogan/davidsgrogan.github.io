@@ -1293,24 +1293,19 @@ also accept the <a data-link-type="dfn" href="https://drafts.csswg.org/css-value
 For readability they have not been repeated explicitly.</p>
    <h2 class="heading settled" data-level="2" id="text-scale-meta"><span class="secno">2. </span><span class="content">
 Text-Scale <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-meta">meta</a></code> element</span><a class="self-link" href="#text-scale-meta"></a></h2>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="text-scale-factor">text scale factor</dfn> is a multiplier
-used to calculate the computed value of the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css2/#valdef-font-size-medium" id="ref-for-valdef-font-size-medium">medium</a> font size.
-The computed value of <span class="css" id="ref-for-valdef-font-size-medium①">medium</span>
-is 16px
-multiplied by the <a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor">text scale factor</a>.
-This factor also
-affects the computed size of the other <a class="production css" data-link-type="type" href="https://drafts.csswg.org/css2/#value-def-absolute-size" id="ref-for-value-def-absolute-size">&lt;absolute-size></a> keywords,
-but not necessarily by the same factor as <span class="css" id="ref-for-valdef-font-size-medium②">medium</span>.
-The UA should non-uniformly adjust
-keywords other than <span class="css" id="ref-for-valdef-font-size-medium③">medium</span> for improved readability.</p>
-   <p class="note" role="note"><span class="marker">Note:</span> Scaling all font sizes uniformly would lead to large fonts being too large.
-See <a href="https://github.com/w3c/wcag3/issues/261#issuecomment-2598860630">
-WCAG discussion about minimum and maximum critical font sizes</a>.</p>
+   <p>User agents must calculate the computed value of <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css2/#valdef-font-size-medium" id="ref-for-valdef-font-size-medium">medium</a> by multiplying 16px by
+the <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="text-scale-factor">text scale factor</dfn>.
+User agents must also apply this factor when determining the computed sizes of the other <a class="production css" data-link-type="type" href="https://drafts.csswg.org/css2/#value-def-absolute-size" id="ref-for-value-def-absolute-size">&lt;absolute-size></a> keywords.
+However, user agents should scale these other keywords non-linearly
+to preserve readability.</p>
+   <p class="note" role="note"><span class="marker">Note:</span> Applying a linear scale to all keywords would render large fonts excessively large. See the
+<a href="https://github.com/w3c/wcag3/issues/261#issuecomment-2598860630">
+WCAG discussion on minimum and maximum critical font sizes</a>.</p>
    <p>A document with a <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-meta①">meta</a></code> tag
 whose <code><a data-link-type="element-sub" href="https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-name" id="ref-for-attr-meta-name">name</a></code> attribute
 is an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-case-insensitive" id="ref-for-ascii-case-insensitive">ASCII case-insensitive</a> match for
 <dfn class="dfn-paneled" data-dfn-type="dfn" data-export data-lt="text-scale" id="text-scale"><code class="highlight"><c- s>"text-scale"</c-></code></dfn>
-is recognized as controlling the <a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor①">text scale factor</a>.</p>
+is recognized as controlling the <a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor">text scale factor</a>.</p>
    <p>The value of the <code><a data-link-type="element-sub" href="https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-content" id="ref-for-attr-meta-content">content</a></code>
 attribute must be an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-case-insensitive" id="ref-for-ascii-case-insensitive①">ASCII case-insensitive</a> match for one of the
 recognized keywords. Otherwise the tag is ignored.</p>
@@ -1332,7 +1327,7 @@ Keywords</span><a class="self-link" href="#text-scale-meta-keywords"></a></h3>
      
 		The <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env-1/#valdef-env-preferred-text-scale" id="ref-for-valdef-env-preferred-text-scale">preferred-text-scale</a> environment variable returns the user’s OS-level font factor on mobile devices,
 		but 1 on desktop devices.
-		<a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor②">text scale factor</a> incorporates UA-level font preferences but
+		<a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor①">text scale factor</a> incorporates UA-level font preferences but
 		OS-level font preferences are ignored.
 
 
@@ -1341,13 +1336,13 @@ Keywords</span><a class="self-link" href="#text-scale-meta-keywords"></a></h3>
     <dt><dfn class="dfn-paneled" data-dfn-for="text-scale" data-dfn-type="dfn" data-noexport id="text-scale-scale">scale</dfn>
     <dd>
 		The <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env-1/#valdef-env-preferred-text-scale" id="ref-for-valdef-env-preferred-text-scale①">preferred-text-scale</a> environment variable returns the user’s OS-level font preferences.
-		<a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor③">text scale factor</a> incorporates both UA-level and OS-level font preferences.
+		<a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor②">text scale factor</a> incorporates both UA-level and OS-level font preferences.
 	
    </dl>
    <h3 class="heading settled" data-level="2.2" id="legacy-keyword"><span class="secno">2.2. </span><span class="content">The <a data-link-type="dfn" href="#text-scale-legacy" id="ref-for-text-scale-legacy①">legacy</a> keyword</span><a class="self-link" href="#legacy-keyword"></a></h3>
    <p>When the value of the <a data-link-type="dfn" href="#text-scale" id="ref-for-text-scale③">text-scale</a> content attribute is
 <a data-link-type="dfn" href="#text-scale-legacy" id="ref-for-text-scale-legacy②">legacy</a>,
-the <a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor④">text scale factor</a> is the font scale factor
+the <a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor③">text scale factor</a> is the font scale factor
 the user has chosen from any settings provided <i>only</i> by the user agent.
 The <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env-1/#valdef-env-preferred-text-scale" id="ref-for-valdef-env-preferred-text-scale②">preferred-text-scale</a> environment variable value must be 1 on desktop platforms.</p>
    <p>On mobile platforms:</p>
@@ -1355,7 +1350,7 @@ The <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env
     <li>
      
 		If the operating system provides a text scale setting AND
-		the UA hasn’t already applied that factor to the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css2/#valdef-font-size-medium" id="ref-for-valdef-font-size-medium④">medium</a> font size,
+		the UA hasn’t already applied that factor to the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css2/#valdef-font-size-medium" id="ref-for-valdef-font-size-medium①">medium</a> font size,
 		the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env-1/#valdef-env-preferred-text-scale" id="ref-for-valdef-env-preferred-text-scale③">preferred-text-scale</a> environment variable returns the multiplier
 		that the user has chosen in the operating system’s text scale setting.
 
@@ -1366,15 +1361,15 @@ The <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env
    <h3 class="heading settled" data-level="2.3" id="scale-keyword"><span class="secno">2.3. </span><span class="content">The <a class="property css" data-link-type="property" href="https://drafts.csswg.org/css-transforms-2/#propdef-scale" id="ref-for-propdef-scale">scale</a> keyword</span><a class="self-link" href="#scale-keyword"></a></h3>
    <p>When the value of the <a data-link-type="dfn" href="#text-scale" id="ref-for-text-scale④">text-scale</a> content attribute is
 <a data-link-type="dfn" href="#text-scale-scale" id="ref-for-text-scale-scale">scale</a>,
-the <a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor⑤">text scale factor</a> matches the user’s preferred paragraph text size
+the <a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor④">text scale factor</a> matches the user’s preferred paragraph text size
 (as determined from a combination of OS and UA preferences)
 divided by 16px.</p>
-   <p>The <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env-1/#valdef-env-preferred-text-scale" id="ref-for-valdef-env-preferred-text-scale⑤">preferred-text-scale</a> environment variable must return the <a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor⑥">text scale factor</a>.</p>
+   <p>The <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-env-1/#valdef-env-preferred-text-scale" id="ref-for-valdef-env-preferred-text-scale⑤">preferred-text-scale</a> environment variable must return the <a data-link-type="dfn" href="#text-scale-factor" id="ref-for-text-scale-factor⑤">text scale factor</a>.</p>
    <p>Further, when the value of the <a data-link-type="dfn" href="#text-scale" id="ref-for-text-scale⑤">text-scale</a> content attribute is
 <a data-link-type="dfn" href="#text-scale-scale" id="ref-for-text-scale-scale①">scale</a>, the user agent should skip all font-sizing interventions it would otherwise perform in an attempt to automatically honor the user’s preferences. E.g. text autosizing on mobile (See <a href="https://drafts.csswg.org/css-size-adjust-1/#intro"><cite>CSS Size Adjustment 1</cite> § 1 Introduction</a>) and full-application zoom (<a href="https://github.com/w3c/csswg-drafts/blob/main/css-env-1/explainers/env-preferred-text-scale.md#windows-11">popular browsers do this on Windows)</a>.</p>
    <p class="note" role="note"><span class="marker">Note:</span>
 Authors are expected to use
-<code class="highlight">&lt;meta name=<c- s>"text-scale"</c-> content=<c- s>"scale"</c->></code> in stylesheets so that the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css2/#valdef-font-size-medium" id="ref-for-valdef-font-size-medium⑤">medium</a> font size will reflect a combination of the user’s font preferences, whether those are specified at the OS level or the UA level. The author will then be able to use <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-values-4/#rem" id="ref-for-rem">rem</a> throughout the page to honor the user’s font preferences.</p>
+<code class="highlight">&lt;meta name=<c- s>"text-scale"</c-> content=<c- s>"scale"</c->></code> in stylesheets so that the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css2/#valdef-font-size-medium" id="ref-for-valdef-font-size-medium②">medium</a> font size will reflect a combination of the user’s font preferences, whether those are specified at the OS level or the UA level. The author will then be able to use <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-values-4/#rem" id="ref-for-rem">rem</a> throughout the page to honor the user’s font preferences.</p>
    <div class="example" id="ex-scaled-page">
     <a class="self-link" href="#ex-scaled-page"></a>
 	If authors don’t alter the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/selectors-4/#root-pseudo" id="ref-for-root-pseudo">:root</a> font size, content sized with <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-values-4/#rem" id="ref-for-rem①">rem</a> units will be relative to the preferred text scale
@@ -3030,7 +3025,7 @@ function parseHTML(markup) {
 "use strict";
 {
 let dfnPanelData = {
-"15a266c1": {"dfnID":"15a266c1","dfnText":"medium","external":true,"refSections":[{"refs":[{"id":"ref-for-valdef-font-size-medium"},{"id":"ref-for-valdef-font-size-medium\u2460"},{"id":"ref-for-valdef-font-size-medium\u2461"},{"id":"ref-for-valdef-font-size-medium\u2462"}],"title":"2. \nText-Scale meta element"},{"refs":[{"id":"ref-for-valdef-font-size-medium\u2463"}],"title":"2.2. The legacy keyword"},{"refs":[{"id":"ref-for-valdef-font-size-medium\u2464"}],"title":"2.3. The scale keyword"}],"url":"https://drafts.csswg.org/css2/#valdef-font-size-medium"},
+"15a266c1": {"dfnID":"15a266c1","dfnText":"medium","external":true,"refSections":[{"refs":[{"id":"ref-for-valdef-font-size-medium"}],"title":"2. \nText-Scale meta element"},{"refs":[{"id":"ref-for-valdef-font-size-medium\u2460"}],"title":"2.2. The legacy keyword"},{"refs":[{"id":"ref-for-valdef-font-size-medium\u2461"}],"title":"2.3. The scale keyword"}],"url":"https://drafts.csswg.org/css2/#valdef-font-size-medium"},
 "15f5b381": {"dfnID":"15f5b381","dfnText":"<percentage>","external":true,"refSections":[{"refs":[{"id":"ref-for-percentage-value"}],"title":"4.4. \nGlyph Size Multiplier:\nthe size-adjust descriptor"},{"refs":[{"id":"ref-for-percentage-value\u2460"},{"id":"ref-for-percentage-value\u2461"},{"id":"ref-for-percentage-value\u2462"},{"id":"ref-for-percentage-value\u2463"}],"title":"4.5. \nLine Height Font Metrics Overrides:\nthe ascent-override, descent-override, and line-gap-override descriptors"},{"refs":[{"id":"ref-for-percentage-value\u2464"},{"id":"ref-for-percentage-value\u2465"},{"id":"ref-for-percentage-value\u2466"},{"id":"ref-for-percentage-value\u2467"},{"id":"ref-for-percentage-value\u2468"}],"title":"4.6. \nSuperscript and subscript metrics overrides:\nthe superscript-position-override, subscript-position-override,superscript-size-override and subscript-size-override descriptors"}],"url":"https://drafts.csswg.org/css-values-4/#percentage-value"},
 "16310992": {"dfnID":"16310992","dfnText":"<number>","external":true,"refSections":[{"refs":[{"id":"ref-for-number-value"},{"id":"ref-for-number-value\u2460"},{"id":"ref-for-number-value\u2461"},{"id":"ref-for-number-value\u2462"}],"title":"3.4. \nRelative sizing: the font-size-adjust property"},{"refs":[{"id":"ref-for-number-value\u2463"},{"id":"ref-for-number-value\u2464"},{"id":"ref-for-number-value\u2465"},{"id":"ref-for-number-value\u2466"}],"title":"4.3. \nFont property descriptors: the font-size\n"}],"url":"https://drafts.csswg.org/css-values-4/#number-value"},
 "1c5240b0": {"dfnID":"1c5240b0","dfnText":"vertical typographic mode","external":true,"refSections":[{"refs":[{"id":"ref-for-vertical-typographic-mode"}],"title":"4.6. \nSuperscript and subscript metrics overrides:\nthe superscript-position-override, subscript-position-override,superscript-size-override and subscript-size-override descriptors"}],"url":"https://drafts.csswg.org/css-writing-modes-4/#vertical-typographic-mode"},
@@ -3146,7 +3141,7 @@ let dfnPanelData = {
 "font-tech-values": {"dfnID":"font-tech-values","dfnText":"<font-tech>","external":false,"refSections":[{"refs":[{"id":"ref-for-font-tech-values"}],"title":"4.2.1. Parsing the src descriptor"}],"url":"#font-tech-values"},
 "propdef-font-size-adjust": {"dfnID":"propdef-font-size-adjust","dfnText":"font-size-adjust","external":false,"refSections":[{"refs":[{"id":"ref-for-propdef-font-size-adjust"},{"id":"ref-for-propdef-font-size-adjust\u2460"},{"id":"ref-for-propdef-font-size-adjust\u2461"},{"id":"ref-for-propdef-font-size-adjust\u2462"},{"id":"ref-for-propdef-font-size-adjust\u2463"},{"id":"ref-for-propdef-font-size-adjust\u2464"},{"id":"ref-for-propdef-font-size-adjust\u2465"},{"id":"ref-for-propdef-font-size-adjust\u2466"},{"id":"ref-for-propdef-font-size-adjust\u2467"},{"id":"ref-for-propdef-font-size-adjust\u2468"},{"id":"ref-for-propdef-font-size-adjust\u2460\u24ea"},{"id":"ref-for-propdef-font-size-adjust\u2460\u2460"},{"id":"ref-for-propdef-font-size-adjust\u2460\u2461"},{"id":"ref-for-propdef-font-size-adjust\u2460\u2462"}],"title":"3.4. \nRelative sizing: the font-size-adjust property"},{"refs":[{"id":"ref-for-propdef-font-size-adjust\u2460\u2463"}],"title":"4.4. \nGlyph Size Multiplier:\nthe size-adjust descriptor"},{"refs":[{"id":"ref-for-propdef-font-size-adjust\u2460\u2464"},{"id":"ref-for-propdef-font-size-adjust\u2460\u2465"}],"title":"4.5. \nLine Height Font Metrics Overrides:\nthe ascent-override, descent-override, and line-gap-override descriptors"}],"url":"#propdef-font-size-adjust"},
 "text-scale": {"dfnID":"text-scale","dfnText":"\"text-scale\"","external":false,"refSections":[{"refs":[{"id":"ref-for-text-scale"}],"title":"2. \nText-Scale meta element"},{"refs":[{"id":"ref-for-text-scale\u2460"},{"id":"ref-for-text-scale\u2461"}],"title":"2.1. \nKeywords"},{"refs":[{"id":"ref-for-text-scale\u2462"}],"title":"2.2. The legacy keyword"},{"refs":[{"id":"ref-for-text-scale\u2463"},{"id":"ref-for-text-scale\u2464"}],"title":"2.3. The scale keyword"}],"url":"#text-scale"},
-"text-scale-factor": {"dfnID":"text-scale-factor","dfnText":"text scale factor","external":false,"refSections":[{"refs":[{"id":"ref-for-text-scale-factor"},{"id":"ref-for-text-scale-factor\u2460"}],"title":"2. \nText-Scale meta element"},{"refs":[{"id":"ref-for-text-scale-factor\u2461"},{"id":"ref-for-text-scale-factor\u2462"}],"title":"2.1. \nKeywords"},{"refs":[{"id":"ref-for-text-scale-factor\u2463"}],"title":"2.2. The legacy keyword"},{"refs":[{"id":"ref-for-text-scale-factor\u2464"},{"id":"ref-for-text-scale-factor\u2465"}],"title":"2.3. The scale keyword"}],"url":"#text-scale-factor"},
+"text-scale-factor": {"dfnID":"text-scale-factor","dfnText":"text scale factor","external":false,"refSections":[{"refs":[{"id":"ref-for-text-scale-factor"}],"title":"2. \nText-Scale meta element"},{"refs":[{"id":"ref-for-text-scale-factor\u2460"},{"id":"ref-for-text-scale-factor\u2461"}],"title":"2.1. \nKeywords"},{"refs":[{"id":"ref-for-text-scale-factor\u2462"}],"title":"2.2. The legacy keyword"},{"refs":[{"id":"ref-for-text-scale-factor\u2463"},{"id":"ref-for-text-scale-factor\u2464"}],"title":"2.3. The scale keyword"}],"url":"#text-scale-factor"},
 "text-scale-legacy": {"dfnID":"text-scale-legacy","dfnText":"legacy","external":false,"refSections":[{"refs":[{"id":"ref-for-text-scale-legacy"}],"title":"2. \nText-Scale meta element"},{"refs":[{"id":"ref-for-text-scale-legacy\u2460"},{"id":"ref-for-text-scale-legacy\u2461"}],"title":"2.2. The legacy keyword"}],"url":"#text-scale-legacy"},
 "text-scale-scale": {"dfnID":"text-scale-scale","dfnText":"scale","external":false,"refSections":[{"refs":[{"id":"ref-for-text-scale-scale"},{"id":"ref-for-text-scale-scale\u2460"}],"title":"2.3. The scale keyword"}],"url":"#text-scale-scale"},
 "valdef-ascent-overridedescriptor-normal": {"dfnID":"valdef-ascent-overridedescriptor-normal","dfnText":"normal","external":false,"refSections":[],"url":"#valdef-ascent-overridedescriptor-normal"},
