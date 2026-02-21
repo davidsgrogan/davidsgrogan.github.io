@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<h3>menubar</h3>
+<p>Since this is a menubar element, it should render as a persistently visible horizontal container. Activating its menuitem children should open their respective drop-down menus.</p>
+<menubar>
+  <menuitem commandfor="file-menu" command="toggle-menu">File</menuitem>
+  <menuitem commandfor="edit-menu" command="toggle-menu">Edit</menuitem>
+</menubar>
+
+<menulist id="file-menu">
+  <menuitem>New</menuitem>
+  <menuitem>Open</menuitem>
+</menulist>
+
+<menulist id="edit-menu">
+  <menuitem>Undo</menuitem>
+  <menuitem>Redo</menuitem>
+</menulist>
+
+<h3>menubar with nested menus</h3>
+<p>Since the menubar has a menuitem that opens a menulist, and that menulist contains a menuitem with a commandfor attribute pointing to another menulist, it should allow opening a secondary, nested drop-down box from the first drop-down menu.</p>
+<menubar>
+  <menuitem commandfor="view-menu-nested" command="toggle-menu">View</menuitem>
+</menubar>
+
+<menulist id="view-menu-nested">
+  <menuitem>Layout</menuitem>
+  <menuitem commandfor="zoom-menu-nested" command="toggle-menu">Zoom</menuitem>
+</menulist>
+
+<menulist id="zoom-menu-nested">
+  <menuitem>Zoom In</menuitem>
+  <menuitem>Zoom Out</menuitem>
+</menulist>
+
+<hr>
+
+<h3>menulist invoked by button</h3>
+<p>Since the button has a commandfor attribute pointing to a menulist, activating the button should open a drop-down box containing the options.</p>
+<button commandfor="action-menu" command="toggle-menu">Actions</button>
+<menulist id="action-menu">
+  <menuitem>Action 1</menuitem>
+  <menuitem>Action 2</menuitem>
+</menulist>
+
+<h3>nested menulist</h3>
+<p>Since the "Share" menuitem has a commandfor attribute pointing to another menulist, activating it should open a secondary, nested drop-down box.</p>
+<button commandfor="main-menu" command="toggle-menu">Share Menu</button>
+<menulist id="main-menu">
+  <menuitem>Save</menuitem>
+  <menuitem commandfor="share-menu" command="toggle-menu">Share</menuitem>
+</menulist>
+<menulist id="share-menu">
+  <menuitem>Email</menuitem>
+  <menuitem>Link</menuitem>
+</menulist>
+
+<h3>menulist with separator and disabled item</h3>
+<p>Since this menulist contains an hr element, it should render as a visual separator line. Since the "Paste" menuitem has the disabled attribute, it should render as inactive and un-clickable.</p>
+<button commandfor="mixed-menu" command="toggle-menu">Clipboard</button>
+<menulist id="mixed-menu">
+  <menuitem>Copy</menuitem>
+  <hr>
+  <menuitem disabled>Paste</menuitem>
+</menulist>
+
+<h3>checkable single</h3>
+<p>Since the fieldset has the checkable="single" attribute, its menuitem children should behave like radio buttons where only one can be selected. The "100%" item is selected by default.</p>
+<button commandfor="view-menu" command="toggle-menu">Zoom Options</button>
+<menulist id="view-menu">
+  <fieldset checkable="single">
+    <legend>Zoom Level</legend>
+    <menuitem>50%</menuitem>
+    <menuitem defaultchecked>100%</menuitem>
+    <menuitem>200%</menuitem>
+  </fieldset>
+</menulist>
+
+<h3>checkable multiple</h3>
+<p>Since the fieldset has the checkable="multiple" attribute, its menuitem children should behave like checkboxes where multiple can be selected. "Show Ruler" and "Show Comments" are selected by default.</p>
+<button commandfor="options-menu" command="toggle-menu">Formatting</button>
+<menulist id="options-menu">
+  <fieldset checkable="multiple">
+    <menuitem defaultchecked>Show Ruler</menuitem>
+    <menuitem>Show Outline</menuitem>
+    <menuitem defaultchecked>Show Comments</menuitem>
+  </fieldset>
+</menulist>
