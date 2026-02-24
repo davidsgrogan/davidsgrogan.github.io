@@ -57,7 +57,7 @@
 </menulist>
 
 <h3>menulist with separator and disabled item</h3>
-<p>Since this menulist contains an hr element, it should render as a visual separator line. Since the "Paste" menuitem has the disabled attribute, it should render as inactive and un-clickable.</p>
+<p>Since this menulist contains an hr element, it should render as a visual separator line. Since the "Paste" menuitem has the disabled attribute, it should render as inactive and un-clickable, be marked as aria-disabled=true, BUT should still be keyboard reachable and focusable</p>
 <button commandfor="mixed-menu" command="toggle-menu">Clipboard</button>
 <menulist id="mixed-menu">
   <menuitem>Copy</menuitem>
