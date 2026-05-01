@@ -21,6 +21,10 @@
   font-size: calc(16px * env(preferred-text-scale));
 }
 
+#wtsa {
+  -webkit-text-size-adjust: 130%;
+}
+
 </style>
 
 <script>
@@ -148,4 +152,7 @@ This is normal text.
 </p>
 <p id="scaled-text-font-size">
   This text should be env scaled via font-size.
+</p>
+<p id="wtsa">
+  This text is -webkit-text-size-adjust: 130%;
 </p>
