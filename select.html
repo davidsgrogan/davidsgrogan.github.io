@@ -1,0 +1,158 @@
+<!doctype html>
+<style>
+select,
+::picker(select) {
+  appearance: base-select;
+}
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Helvetica", "Arial", sans-serif;
+}
+
+body {
+  width: 100%;
+  padding: 0 10px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+p {
+  display: flex;
+  gap: 10px;
+}
+
+label {
+  width: fit-content;
+  align-self: center;
+}
+
+select {
+  flex: 1;
+}
+select {
+  border: 2px solid #dddddd;
+  background: #eeeeee;
+  padding: 10px;
+  transition: 0.4s;
+}
+
+select:hover,
+select:focus {
+  background: #dddddd;
+}
+select::picker-icon {
+  color: #999999;
+  transition: 0.4s rotate;
+}
+select:open::picker-icon {
+  rotate: 180deg;
+}
+::picker(select) {
+  border: none;
+}
+option {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+
+  border: 2px solid #dddddd;
+  background: #eeeeee;
+  padding: 10px;
+  transition: 0.4s;
+}
+option:first-of-type {
+  border-radius: 8px 8px 0 0;
+}
+
+option:last-of-type {
+  border-radius: 0 0 8px 8px;
+}
+
+::picker(select) {
+  border-radius: 8px;
+}
+
+option:not(option:last-of-type) {
+  border-bottom: none;
+}
+option:nth-of-type(odd) {
+  background: white;
+}
+
+option:hover,
+option:focus {
+  background: plum;
+}
+selectedcontent .icon {
+  display: none;
+}
+option::checkmark {
+  order: 1;
+  margin-left: auto;
+  content: "☑️";
+}
+@supports not (appearance: base-select) {
+  body::before {
+    content: "Your browser does not support `appearance: base-select`.";
+    color: black;
+    background-color: wheat;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 40%;
+    text-align: center;
+    padding: 1rem 0;
+    z-index: 1;
+  }
+}
+</style>
+
+<form>
+  <p>
+    <label for="pet-select">Select pet:</label>
+    <select id="pet-select">
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+
+      <option value="">Proper select</option>
+      <option value="cat">
+        <span class="icon" aria-hidden="true">🐱</span
+        ><span class="option-label">Cat</span>
+      </option>
+      <option value="dog">
+        <span class="icon" aria-hidden="true">🐶</span
+        ><span class="option-label">Dog</span>
+      </option>
+      <option value="hamster">
+        <span class="icon" aria-hidden="true">🐹</span
+        ><span class="option-label">Hamster</span>
+      </option>
+    </select>
+  </p>
+  <p>
+    <label for="broken-select">Broken select:</label>
+    <select id="broken-select">
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+      <option value="">Broken select</option>
+      <option value="chicken">
+        <span class="icon" aria-hidden="true">🐔</span
+        ><span class="option-label">Chicken</span>
+      </option>
+      <option value="fish">
+        <span class="icon" aria-hidden="true">🐟</span
+        ><span class="option-label">Fish</span>
+      </option>
+      <button>Some other button</button>
+      <option value="snake">
+        <span class="icon" aria-hidden="true">🐍</span
+        ><span class="option-label">Snake</span>
+      </option>
+    </select>
+  </p>
+</form>
