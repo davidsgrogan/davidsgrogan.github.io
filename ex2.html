@@ -3,12 +3,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Menu Elements Test Page</title>
-    
-<style>
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  }
 
+<style>
   menuitem {
     justify-content: space-between;
     padding: 6px 10px;
@@ -21,6 +17,27 @@
 </style>
 
 <h1>Menu Element Test Page</h1>
+<section>
+  <h2>Menubar with Submenus</h2>
+  <p>This is a horizontal menubar containing several top-level submenus (File, Edit, View, Help). Clicking these opens a dropdown list of menu items.</p>
+
+  <h3>Nested Submenus</h3>
+  <p>The "File" menu contains an "Open Recent" submenu, and the "View" menu contains a "Zoom" submenu. These should open secondary dropdown lists when activated.</p>
+
+  <h3>Disabled Menu Items</h3>
+  <p>The "File" menu contains a disabled "Print" item, and the "View" menu contains a disabled but checked "Show Comments" item.</p>
+
+  <h3>Single Checkable Items (Radio behavior)</h3>
+  <p>The "Zoom" submenu under "View" has mutually exclusive options. Like radio buttons, checking one should deselect all others. '100%' is initially checked.
+  </p>
+
+  <h3>Multiple Checkable Items (Checkbox behavior)</h3>
+  <p>The last three items in the "View" menu are checkable. They should behave like checkboxes where multiple items can be toggled on or off independently, except for the aforementioned "Show Comments", which is checked by default and not modifiable by the user.</p>
+
+  <h3>Separators</h3>
+  <p>Some menus use horizontal lines (<code>&lt;hr&gt;</code> elements) to visually group related items. There are 2 separators in the "File" menu, 1 in the "Open Recent" submenu, 1 in the "Edit" menu, and 1 in the "View" menu.</p>
+
+  <p>Without further ado:</p>
 
 <menubar>
   <!-- File Menu -->
@@ -97,8 +114,19 @@
     </menulist>
   </submenu>
 </menubar>
+</section>
 
-<p>This is the main content of the application. The menu above should be fully interactive.</p>
+<section>
+  <h2>Menu Button</h2>
+  <p>This is a standalone button that triggers a menulist popover. It does not use a <code>&lt;menubar&gt;</code>.</p>
+
+  <button command="toggle-popover" commandfor="actions-menu">Actions</button>
+  <menulist id="actions-menu">
+    <menuitem>Reply</menuitem>
+    <menuitem>Forward</menuitem>
+    <menuitem>Delete</menuitem>
+  </menulist>
+</section>
 
 <script>
   const supported = 'HTMLMenuListElement' in window;
