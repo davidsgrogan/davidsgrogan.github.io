@@ -1,138 +1,183 @@
-<!DOCTYPE html>
-<html lang="en">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Menu Elements Test Page</title>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu Elements Test Page</title>
 
-<style>
-  menuitem {
-    justify-content: space-between;
-    padding: 6px 10px;
-    cursor: default;
-    user-select: none;
-    border-radius: 4px;
-    white-space: nowrap;
-  }
+    <style>
+      menuitem {
+        justify-content: space-between;
+        padding: 6px 10px;
+        cursor: default;
+        user-select: none;
+        border-radius: 4px;
+        white-space: nowrap;
+      }
+    </style>
+  </head>
 
-</style>
+  <h1>Menu Elements Test Page</h1>
 
-<h1>Menu Element Test Page</h1>
-<section>
-  <h2>Menubar with Submenus</h2>
-  <p>This is a horizontal menubar containing several top-level submenus (File, Edit, View, Help). Clicking these opens a dropdown list of menu items.</p>
+  <section aria-labelledby="valid-structures-heading">
+    <h2 id="valid-structures-heading">Valid structures</h2>
+    <p>In these first two examples, the content model is not violated.</p>
+    <section aria-labelledby="menubar-submenus-heading">
+      <h3 id="menubar-submenus-heading">Menubar with Submenus</h3>
+      <p>
+        This is a horizontal menubar containing several top-level submenus (File, Edit, View, Help).
+        Clicking these opens a dropdown list of menu items.
+      </p>
 
-  <h3>Nested Submenus</h3>
-  <p>The "File" menu contains an "Open Recent" submenu, and the "View" menu contains a "Zoom" submenu. These should open secondary dropdown lists when activated.</p>
+      <ul>
+        <li>
+          <strong>Nested Submenus:</strong> The "File" menu contains an "Open Recent" submenu, and
+          the "View" menu contains a "Zoom" submenu. These should open secondary dropdown lists when
+          activated.
+        </li>
+        <li>
+          <strong>Disabled Menu Items:</strong> The "File" menu contains a disabled "Print" item,
+          and the "View" menu contains a disabled but checked "Show Comments" item.
+        </li>
+        <li>
+          <strong>Single Checkable Items (Radio behavior):</strong> The "Zoom" submenu under "View"
+          has mutually exclusive options. Like radio buttons, checking one should deselect all
+          others. '100%' is initially checked.
+        </li>
+        <li>
+          <strong>Multiple Checkable Items (Checkbox behavior):</strong> The last three items in the
+          "View" menu are checkable. They should behave like checkboxes where multiple items can be
+          toggled on or off independently, except for the aforementioned "Show Comments", which is
+          checked by default and not modifiable by the user.
+        </li>
+        <li>
+          <strong>Separators:</strong> Some menus use horizontal lines (<code>&lt;hr&gt;</code>
+          elements) to visually group related items. There are 2 separators in the "File" menu, 1 in
+          the "Open Recent" submenu, 1 in the "Edit" menu, and 1 in the "View" menu.
+        </li>
+      </ul>
 
-  <h3>Disabled Menu Items</h3>
-  <p>The "File" menu contains a disabled "Print" item, and the "View" menu contains a disabled but checked "Show Comments" item.</p>
+      <p>Without further ado:</p>
 
-  <h3>Single Checkable Items (Radio behavior)</h3>
-  <p>The "Zoom" submenu under "View" has mutually exclusive options. Like radio buttons, checking one should deselect all others. '100%' is initially checked.
-  </p>
+      <menubar>
+        <!-- File Menu -->
+        <submenu>
+          <menuitem>File</menuitem>
+          <menulist>
+            <menuitem>New</menuitem>
+            <!-- This item triggers a nested submenu (Level 2) -->
+            <submenu>
+              <menuitem>Open Recent</menuitem>
+              <menulist>
+                <menuitem>Document1.txt</menuitem>
+                <menuitem>Report.docx</menuitem>
+                <menuitem>Spreadsheet.xlsx</menuitem>
+                <hr />
+                <menuitem>Clear List</menuitem>
+              </menulist>
+            </submenu>
+            <hr />
+            <menuitem>Save</menuitem>
+            <menuitem>Save As...</menuitem>
+            <menuitem disabled>Print</menuitem>
+            <hr />
+            <menuitem>Exit</menuitem>
+          </menulist>
+        </submenu>
 
-  <h3>Multiple Checkable Items (Checkbox behavior)</h3>
-  <p>The last three items in the "View" menu are checkable. They should behave like checkboxes where multiple items can be toggled on or off independently, except for the aforementioned "Show Comments", which is checked by default and not modifiable by the user.</p>
+        <!-- Edit Menu -->
+        <submenu>
+          <menuitem>Edit</menuitem>
+          <menulist>
+            <menuitem>Undo</menuitem>
+            <menuitem>Redo</menuitem>
+            <hr />
+            <menuitem>Cut</menuitem>
+            <menuitem>Copy</menuitem>
+            <menuitem>Paste</menuitem>
+          </menulist>
+        </submenu>
 
-  <h3>Separators</h3>
-  <p>Some menus use horizontal lines (<code>&lt;hr&gt;</code> elements) to visually group related items. There are 2 separators in the "File" menu, 1 in the "Open Recent" submenu, 1 in the "Edit" menu, and 1 in the "View" menu.</p>
+        <!-- View Menu -->
+        <submenu>
+          <menuitem>View</menuitem>
+          <menulist>
+            <!-- This item triggers a nested submenu (Level 2) -->
+            <submenu>
+              <menuitem>Zoom</menuitem>
+              <menulist>
+                <fieldset checkable="single">
+                  <menuitem>50%</menuitem>
+                  <menuitem>75%</menuitem>
+                  <menuitem defaultchecked>100%</menuitem>
+                  <menuitem>150%</menuitem>
+                  <menuitem>200%</menuitem>
+                </fieldset>
+              </menulist>
+            </submenu>
+            <menuitem>Full Screen</menuitem>
+            <hr />
+            <fieldset checkable="multiple">
+              <menuitem defaultchecked>Show Ruler</menuitem>
+              <menuitem>Show Outline</menuitem>
+              <menuitem defaultchecked disabled>Show Comments</menuitem>
+            </fieldset>
+          </menulist>
+        </submenu>
 
-  <p>Without further ado:</p>
+        <!-- Help Menu -->
+        <submenu>
+          <menuitem>Help</menuitem>
+          <menulist>
+            <menuitem>About</menuitem>
+            <menuitem>Check for Updates...</menuitem>
+          </menulist>
+        </submenu>
+      </menubar>
+    </section>
 
-<menubar>
-  <!-- File Menu -->
-  <submenu>
-    <menuitem>File</menuitem>
-    <menulist>
-      <menuitem>New</menuitem>
-      <!-- This item triggers a nested submenu (Level 2) -->
-      <submenu>
-        <menuitem>Open Recent</menuitem>
-        <menulist>
-          <menuitem>Document1.txt</menuitem>
-          <menuitem>Report.docx</menuitem>
-          <menuitem>Spreadsheet.xlsx</menuitem>
-          <hr>
-          <menuitem>Clear List</menuitem>
-        </menulist>
-      </submenu>
-      <hr>
-      <menuitem>Save</menuitem>
-      <menuitem>Save As...</menuitem>
-      <menuitem disabled>Print</menuitem>
-      <hr>
-      <menuitem>Exit</menuitem>
-    </menulist>
-  </submenu>
+    <section aria-labelledby="menu-button-heading">
+      <h3 id="menu-button-heading">Menu Button</h3>
+      <p>
+        This is a standalone button that triggers a menulist popover. It does not use a
+        <code>&lt;menubar&gt;</code>.
+      </p>
 
-  <!-- Edit Menu -->
-  <submenu>
-    <menuitem>Edit</menuitem>
-    <menulist>
-      <menuitem>Undo</menuitem>
-      <menuitem>Redo</menuitem>
-      <hr>
-      <menuitem>Cut</menuitem>
-      <menuitem>Copy</menuitem>
-      <menuitem>Paste</menuitem>
-    </menulist>
-  </submenu>
+      <ul>
+        <li>
+          <strong>Trigger Button:</strong> A standard button labeled "Actions". Activating it opens
+          a list of menu items.
+        </li>
+        <li>
+          <strong>Menu Items:</strong> The menu contains three standard action items:
+          "Reply",aasdflkjasdf;jlkasdfj;lkasdfa "Forward", and "Delete". Clicking them does nothing.
+        </li>
+      </ul>
 
-  <!-- View Menu -->
-  <submenu>
-    <menuitem>View</menuitem>
-    <menulist>
-      <!-- This item triggers a nested submenu (Level 2) -->
-      <submenu>
-        <menuitem>Zoom</menuitem>
-        <menulist>
-          <fieldset checkable="single">
-            <menuitem>50%</menuitem>
-            <menuitem>75%</menuitem>
-            <menuitem defaultchecked>100%</menuitem>
-            <menuitem>150%</menuitem>
-            <menuitem>200%</menuitem>
-          </fieldset>
-        </menulist>
-      </submenu>
-      <menuitem>Full Screen</menuitem>
-      <hr>
-      <fieldset checkable="multiple">
-        <menuitem defaultchecked>Show Ruler</menuitem>
-        <menuitem>Show Outline</menuitem>
-        <menuitem defaultchecked disabled>Show Comments</menuitem>
-      </fieldset>
-    </menulist>
-  </submenu>
+      <button command="toggle-popover" commandfor="actions-menu">Actions</button>
+      <menulist id="actions-menu">
+        <menuitem>Reply</menuitem>
+        <menuitem>Forward</menuitem>
+        <menuitem>Delete</menuitem>
+      </menulist>
+    </section>
+  </section>
 
-  <!-- Help Menu -->
-  <submenu>
-    <menuitem>Help</menuitem>
-    <menulist>
-      <menuitem>About</menuitem>
-      <menuitem>Check for Updates...</menuitem>
-    </menulist>
-  </submenu>
-</menubar>
-</section>
+  <section aria-labelledby="broken-content-models-heading">
+    <h2 id="broken-content-models-heading">Broken Content Models</h2>
+    <p>
+      These examples test how assistive technologies handle random elements stuffed where they don't
+      belong in the menu hierarchy.
+    </p>
 
-<section>
-  <h2>Menu Button</h2>
-  <p>This is a standalone button that triggers a menulist popover. It does not use a <code>&lt;menubar&gt;</code>.</p>
+    <!-- Add your broken content model test cases here -->
+  </section>
 
-  <button command="toggle-popover" commandfor="actions-menu">Actions</button>
-  <menulist id="actions-menu">
-    <menuitem>Reply</menuitem>
-    <menuitem>Forward</menuitem>
-    <menuitem>Delete</menuitem>
-  </menulist>
-</section>
-
-<script>
-  const supported = 'HTMLMenuListElement' in window;
-  if (!supported) {
-    document.querySelector('h1').textContent = 'Menu elements are not supported by this browser!!';
-  }
-</script>
-</body>
+  <script>
+    const supported = "HTMLMenuListElement" in window;
+    if (!supported) {
+      document.querySelector("h1").textContent =
+        "Menu elements are not supported by this browser!!";
+    }
+  </script>
 </html>
