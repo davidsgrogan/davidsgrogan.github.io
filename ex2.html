@@ -167,15 +167,22 @@
 <section aria-labelledby="broken-content-models-heading">
   <h2 id="broken-content-models-heading">Violated Content Models</h2>
   <p>
-    When the author breaks the content model, Blink switches the menulist or menubar element, whichever contains the violation, to a dialog role. We also switch keyboard navigation from arrow keys back to the Tab key. But, does this actually work?? Can screenreader users access all the content in "dialog mode"? How is keyboard navigation?
+    When the author breaks the content model, Blink switches the menulist or
+    menubar element, whichever contains the violation, to a dialog role. We
+    also switch keyboard navigation from arrow keys back to the Tab key. But,
+    does this actually work?? Can screenreader users access all the content in
+    "dialog mode"? How is keyboard navigation?
   </p>
   <section aria-labelledby="basic-broken">
     <h3 id="basic-broken">Example 3: Bookmarks menubar</h3>
     <p>
-      This is a menubar with a single menuitem, Bookmarks. Activating Bookmarks shows four items, with a hr separator between the last two. The presence of a button puts us in dialog mode, which in this case means the menulist has a role of dialog instead of a role of menu. The items (activating does nothing):
+      This is a menubar with a single menuitem, Bookmarks. Activating Bookmarks
+      shows four items, with a hr separator between the last two. The presence
+      of a button puts us in dialog mode, which in this case means the menulist
+      has a role of dialog instead of a role of menu. The items:
     <ol>
-      <li>Add Bookmark</li>
-      <li>A button(!)</li>
+      <li>Add Bookmark -- this menuitem has a click handler that shows an alert</li>
+      <li>A button(!) -- both the button and the button menuitem have click handlers that show alerts</li>
       <li>Delete Bookmark</li>
       <li>Open Bookmark Manager</li>
     </ol>
@@ -184,8 +191,8 @@
       <submenu>
         <menuitem>Bookmarks</menuitem>
         <menulist>
-          <menuitem>Add Bookmark</menuitem>
-          <menuitem><button>Some button</button></menuitem>
+          <menuitem id="add-bookmark-item">Add Bookmark</menuitem>
+          <menuitem id="button-menuitem"><button id="inner-button">Some button</button></menuitem>
           <menuitem>Delete Bookmark</menuitem>
           <hr />
           <menuitem>Open Bookmark Manager</menuitem>
@@ -194,10 +201,44 @@
     </menubar>
   </section>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const addBookmarkItem = document.getElementById("add-bookmark-item");
+      if (!addBookmarkItem) {
+        throw new Error("Critical Test Failure: The 'add-bookmark-item' element is missing from the DOM.");
+      }
+      addBookmarkItem.addEventListener("click", () => {
+        alert("Bookmark added!");
+      });
+
+      const buttonMenuitem = document.getElementById("button-menuitem");
+      if (!buttonMenuitem) {
+        throw new Error("Critical Test Failure: The 'button-menuitem' element is missing from the DOM.");
+      }
+      buttonMenuitem.addEventListener("click", () => {
+        alert("Button menuitem clicked!");
+      });
+
+      const innerButton = document.getElementById("inner-button");
+      if (!innerButton) {
+        throw new Error("Critical Test Failure: The 'inner-button' element is missing from the DOM.");
+      }
+      innerButton.addEventListener("click", (e) => {
+        alert("Inner button clicked!");
+      });
+    });
+  </script>
+
   <section aria-labelledby="complex-broken">
     <h3 id="complex-broken">Example 4: Broken File menu</h3>
     <p>
-      This is the original File, Edit.. etc menu. Except this time there's a link at File > New. Selecting File > Open Recent's submenu seems difficult with our current implementation. You have to Tab from new to Open Recent, then activate with enter or space, then resume arrow key navigation. Left arrow from Open Recent's submenu moves focus back onto Open Recent, but you can't use right arrow to go back into the submenu. Yeah, seems not great.
+      This is the original File, Edit.. etc menu. Except this time there's a
+      link at File &gt; New. Selecting File &gt; Open Recent's submenu seems
+      difficult with our current implementation. You have to Tab from new to
+      Open Recent, then activate with enter or space, then resume arrow key
+      navigation. Left arrow from Open Recent's submenu moves focus back onto
+      Open Recent, but you can't use right arrow to go back into the submenu.
+      Yeah, seems not great.
     </p>
     <menubar>
       <!-- File Menu -->
