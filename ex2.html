@@ -317,6 +317,43 @@
     </menubar>
 
   </section>
+
+  <section aria-labelledby="forced-nav-heading">
+    <h3 id="forced-nav-heading">Example 5: Forced Navigation Menu</h3>
+    <p>
+      This example demonstrates an author explicitly disregarding the spec and using the menu elements for site navigation. By placing <code>&lt;a&gt;</code> tags inside the menu items and forcing <code>display: initial !important;</code>, they have overridden the UA's default accessibility safeguard (<code>display: none</code>).
+    </p>
+    <menubar>
+      <menuitem><a href="home.html" style="display: initial !important;">Home</a></menuitem>
+
+      <submenu>
+        <menuitem>Services</menuitem>
+        <menulist>
+          <menuitem><a href="services/web-dev.html" style="display: initial !important;">Web Development</a></menuitem>
+          <menuitem><a href="services/seo.html" style="display: initial !important;">SEO</a></menuitem>
+
+          <submenu>
+            <menuitem>Marketing</menuitem>
+            <menulist>
+              <menuitem><a href="marketing/social.html" style="display: initial !important;">Social Media</a></menuitem>
+              <menuitem><a href="marketing/email.html" style="display: initial !important;">Email Campaigns</a></menuitem>
+            </menulist>
+          </submenu>
+
+        </menulist>
+      </submenu>
+
+      <submenu>
+        <menuitem>About Us</menuitem>
+        <menulist>
+          <menuitem><a href="about/team.html" style="display: initial !important;">Our Team</a></menuitem>
+          <menuitem><a href="about/careers.html" style="display: initial !important;">Careers</a></menuitem>
+        </menulist>
+      </submenu>
+
+      <menuitem><a href="contact.html" style="display: initial !important;">Contact Us</a></menuitem>
+    </menubar>
+  </section>
 </section>
 
 <hr style="margin-bottom: 250px;">
