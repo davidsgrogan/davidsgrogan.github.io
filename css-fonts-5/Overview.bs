@@ -13,6 +13,7 @@ Previous Version: https://www.w3.org/TR/2021/WD-css-fonts-5-20211221/
 Former Editor: Myles C. Maxfield, Formerly of Apple Inc., mmaxfield@apple.com, w3cid 77180
 Editor: Chris Lilley, W3C, https://svgees.us/, w3cid 1438
 Abstract: This specification defines modifications to the existing <a href="https://drafts.csswg.org/css-fonts-4/">CSS Fonts 4</a> specification along with additional features.
+Ignored terms: cssText
 Repository: w3c/csswg-drafts
 Inline Github Issues: title
 Default Highlight: css
@@ -60,6 +61,8 @@ rules defined in CSS Fonts Level 4.
 This specification is currently a delta to the CSS Fonts Level 4 specification.
 Do not assume that if something is not here, it has been dropped.
 
+
+
 <h3 id="values">
 Value Definitions</h3>
 
@@ -74,30 +77,36 @@ also accept the <a>CSS-wide keywords</a> as their property value.
 For readability they have not been repeated explicitly.
 
 <h2 id="text-scale-meta">
-Text-Scale <code class=html>&lt;meta&gt;</code> element</h2>
+Text-Scale <{meta}> element</h2>
+
+User agents must calculate the computed value of ''font-size/medium'' by multiplying 16px by
+the <dfn>text scale factor</dfn>.
+User agents must also apply this factor when determining the computed sizes of the other <<absolute-size>> keywords.
+However, user agents should scale these other keywords non-linearly
+to preserve readability.
+
+Note: Applying a linear scale to all keywords would render large fonts excessively large. See the
+<a href="https://github.com/w3c/wcag3/issues/261#issuecomment-2598860630">
+WCAG discussion on minimum and maximum critical font sizes</a>.
 
 A document with a <{meta}> tag
 whose <{meta/name}> attribute
-is a <a>ASCII case-insensitive</a> match for
-<dfn lt=text-scale><code>"text-scale"</code></dfn>
-is recognized as setting the computed value
-of the ''font-size/medium'' font size
-and consequently scaling the computed size of the other <<absolute-size>> keywords.
+is an <a>ASCII case-insensitive</a> match for
+<dfn lt="text-scale" export><code>"text-scale"</code></dfn>
+is recognized as controlling the [=text scale factor=].
 
-Issue(12475):
-
-The value of the <code>content</code>
+The value of the <{meta/content}>
 attribute must be an <a>ASCII case-insensitive</a> match for one of the
 recognized keywords. Otherwise the tag is ignored.
 
 Documents without this <{meta}> tag will have an assumed default
-value of <code>legacy</code>.
+value of <a for="text-scale">legacy</a>.
 
 <div class="example" id="ex-text-scale">
-	<pre>&lt;meta name="text-scale" content="scale" /></pre>
+	<pre class="lang-html">&lt;meta name="text-scale" content="scale" /></pre>
 </div>
 
-There must not be more than one <{meta}> element with its <{meta/name}> attribute value set to an [=ASCII case-insensitive=] for [=text-scale=] per document.
+There must not be more than one <{meta}> element with its <{meta/name}> attribute value set to an [=ASCII case-insensitive=] match for [=text-scale=] per document.
 
 <h3 id="text-scale-meta-keywords">
 Keywords</h3>
@@ -107,66 +116,69 @@ The recognized keywords in the [=text-scale=]
 
 <dl>
 	<dt><dfn for="text-scale">legacy</dfn></dt>
-	<dd>The ''env()/preferred-text-scale'' environment variable returns the user's OS-level font factor on mobile,
-	but 1 on desktop.
-	The document's ''font-size/medium'' font size incorporates UA-level font preferences.
-	OS-level font preferences are ignored.
+	<dd>
+		The ''env()/preferred-text-scale'' environment variable returns the user's OS-level font factor on mobile devices,
+		but 1 on desktop devices.
+		[=text scale factor=] incorporates UA-level font preferences but
+		OS-level font preferences are ignored.
 
-	Note: Equivalent to omitting a [=text-scale=] <{meta}> tag or
-	including an unrecognized content attribute keyword.
+		Note: Equivalent to omitting a [=text-scale=] <{meta}> tag or
+		including an unrecognized content attribute keyword.
 	</dd>
-	<dt><dfn>scale</dfn></dt>
-	<dd>The ''env()/preferred-text-scale'' environment variable returns the user's OS-level font preferences.
-	The document's ''font-size/medium'' font size incorporates both UA-level and OS-level font preferences.</dd>
+	<dt><dfn for="text-scale">scale</dfn></dt>
+	<dd>
+		The ''env()/preferred-text-scale'' environment variable returns the user's OS-level font preferences.
+		[=text scale factor=] incorporates both UA-level and OS-level font preferences.
+	</dd>
 </dl>
 
-<h3 id="legacy-keyword">The 'legacy' keyword</h3>
+<h3 id="legacy-keyword">The <a for="text-scale">legacy</a> keyword</h3>
 
 When the value of the [=text-scale=] content attribute is
-[=text-scale/legacy=]
-the user agent must set the computed ''font-size/medium'' font size
-to 16px multiplied by
-the font scale factor
-the user has chosen from any settings <i>provided by the user agent</i>.
-The ''preferred-text-scale'' environment variable value must be 1 on desktop platforms.
-On mobile:
+[=text-scale/legacy=],
+the [=text scale factor=] is the font scale factor
+the user has chosen from any settings provided <i>only</i> by the user agent.
+The ''env()/preferred-text-scale'' environment variable value must be 1 on desktop platforms.
+
+On mobile platforms:
 <ul>
-	<li>if the operating system provides a text scale setting AND
-	the UA hasn't already applied that factor to the ''font-size/medium'' font size,
-	the ''env()/preferred-text-scale'' environment variable returns the multiplier
-	that the user has chosen in the operating system's text scale setting.
+	<li>
+		If the operating system provides a text scale setting AND
+		the UA hasn't already applied that factor to the ''font-size/medium'' font size,
+		the ''env()/preferred-text-scale'' environment variable returns the multiplier
+		that the user has chosen in the operating system's text scale setting.
 
-	Note: At the time of publishing, all combinations of
-	Android, iOS,
-	Firefox, Safari, Chrome
-	satisfy this first condition.
-
+		Note: At the time of publishing, all combinations of Android, iOS, Firefox, Safari, and Chrome satisfy this first condition.
 	</li>
 	<li>Otherwise the ''env()/preferred-text-scale'' environment variable returns 1.</li>
 </ul>
 
 <h3 id="scale-keyword">The 'scale' keyword</h3>
 
-The <dfn for="text-scale" export><code>scale</code></dfn> property is
-recognized in the [=text-scale=] content attribute value.
-
 When the value of the [=text-scale=] content attribute is
-<a for=text-scale>scale</a>
-computed ''font-size/medium'' font size must match the user's preferred paragraph text size as determined from a combination of OS and UA preferences.
+<a for="text-scale">scale</a>,
+the [=text scale factor=] matches the user's preferred paragraph text size
+(as determined from a combination of OS and UA preferences)
+divided by 16px.
 
-The ''env()/preferred-text-scale'' environment variable must return a number that,
-when multiplied by 16px,
-provides a <<length>> that matches that of the ''font-size/medium'' font size.
+The ''env()/preferred-text-scale'' environment variable must return the [=text scale factor=].
 
 Further, when the value of the [=text-scale=] content attribute is
 <a for=text-scale>scale</a>, the user agent should skip all font-sizing interventions it would otherwise perform in an attempt to automatically honor the user's preferences. E.g. text autosizing on mobile (See [[css-size-adjust#intro]]) and full-application zoom (<a href="https://github.com/w3c/csswg-drafts/blob/main/css-env-1/explainers/env-preferred-text-scale.md#windows-11">popular browsers do this on Windows)</a>.
 
-Note: Authors are expected to use
-''&lt;meta name="text-scale" content="scale"&gt;'' in stylesheets so that the ''font-size/medium'' font size will reflect a combination of the user's font preferences, whether those are specified at the OS level or the UA level. The author will then be able to use ''rem'' throughout the page to honor the user's font preferences.
+Note:
+Authors are expected to use
+<code>&lt;meta name="text-scale" content="scale"&gt;</code> in stylesheets so that the ''font-size/medium'' font size will reflect the user's font preferences, whether those are specified at the OS level or the UA level.
+The author will then be able to use ''rem'' and ''em'' throughout the page to honor the user's font preferences.
+Authors must only use this if they have tested their website with scaled text.
+This requires care to do correctly, given the very large font sizes some low-vision users need.
+Consider the extreme case of an iPhone Mini set to iOS's largest font size of 53px.
+Only ~12-15 characters fit on a line.
+
 
 <div class="example" id="ex-scaled-page">
-	If authors don't alter the '':root'' font size, content sized with ''rem'' units will be relative to the preferred text scale
-	<pre>
+	Assuming a page hasn't altered the '':root'' font size with an absolute length unit like ''px'', content sized with ''rem'' units will be relative to the preferred text scale
+	<pre class="lang-html">
 &lt;!DOCTYPE html>
 &lt;html> &lt;!-- leave this element's font-size as the default -->
 	&lt;head>
@@ -174,20 +186,93 @@ Note: Authors are expected to use
 	&lt;/head>
 	&lt;body>
 		&lt;div style="font-size: 1rem;">
-		  This font size obeys the user's font preferences, **whether
+			This font size obeys the user's font preferences, **whether
 			those preferences are specified at the operating system level
 			or the user agent level**
 		&lt;/div>
 		&lt;div style="font-size: 20px;">
-		  This font size does NOT respect the user's font preferences.
+			This font size does NOT respect the user's font preferences.
 			&lt;div style="font-size: 1rem;">
-			  But this font size does!
+				But this font size does!
 			&lt;/div>
 		&lt;/div>
 	&lt;/body>
 &lt;/html>
 	</pre>
 </div>
+
+<div class="example" id="ex-non-linear">
+	If an element such as a heading already has large text, it is likely already large enough for a user who needs a high text scale to read. If the large text scales at the same rate as the body text, it could become too large to comfortably fit in the user's viewport.
+
+	Therefore, authors should consider using a dampening formula to reduce the rate that large text scales.
+	There are various mathematical approaches to achieve this; one possible formula is demonstrated below.
+	<pre class="lang-html">
+		&lt;meta name="viewport" content="width=device-width">
+		&lt;meta name="text-scale" content="scale">
+		&lt;style>
+		h1 {
+			/*
+			  Multiply the 2em baseline by a dampening factor to ensure headers
+			  scale up slower than the body text, preventing them from becoming
+			  too large.
+
+			  The two values in the calc() (0.5 and 0.5) must sum to 1.0, so the
+			  multiplier evaluates to exactly 1 at a 1x text scale. As the user
+			  increases their text scale, the multiplier shrinks towards the first
+			  number (0.5). Because the shrinking multiplier is applied to a
+			  growing font size, the header continues to grow, but its growth
+			  rate is dampened.
+
+			  Here are the resulting font sizes at various text scale factors:
+			      h1      body
+			      ----    ----
+			1x    32px    16px
+			1.5x  40px    24px
+			2x    48px    32px
+			3x    64px    48px
+			3.5x  72px    56px
+			*/
+			--dampen-factor: calc(0.5 + (0.5 / env(preferred-text-scale)));
+			font-size: calc(2rem * var(--dampen-factor));
+		}
+
+		&lt;/style>
+		&lt;h1>Header&lt;/h1>
+		This is some body text. The header grows slower than the body text.
+	</pre>
+	<img width="1238" height="740" alt="Visual example of scaling headers vs body text" src="images/text-scale-example.png">
+</div>
+
+<div class="example" id="ex-inverse">
+	An extreme version of the above, some text content that starts larger than body text can and should become smaller than body text as the user's font size increases.
+	In this floating button example, the button text is larger than the body text at 1x but gets smaller at ~2.5x font scale.
+	<pre class="lang-html">
+		&lt;meta name="text-scale" content="scale" />
+		&lt;style>
+		.floating-action-button {
+			position: fixed;
+			top: 30px;
+			right: 30px;
+			/*
+			  Grow slower than the h1 example. The two numbers must still add up
+			  to 1.0, but using a smaller first number (0.4 instead of 0.5)
+			  makes the text scale up at a slower rate.
+			*/
+			--dampen-factor: calc(0.4 + (0.6 / env(preferred-text-scale)));
+			font-size: calc(1.5rem * var(--dampen-factor));
+			/* Resulting font sizes at various text scale factors:
+			      button    body
+			      ------    ----
+			1x    24px      16px
+			1.5x  28.8px    24px
+			2x    33.6px    32px
+			3x    43.2px    48px    &lt;-- body passes button: inversion! */
+		}
+		&lt;/style>
+		&lt;button class="floating-action-button">➕Add&lt;/button>
+	</pre>
+</div>
+
 
 <h2 id="basic-font-props">
 Basic Font Properties</h2>
@@ -205,7 +290,7 @@ in CSS Fonts Level 4, the following new generic font families are also defined.
 
 Issue(4910):
 
-<dl dfn-for="font-family,<generic-family>" dfn-type=value>
+<dl dfn-for="font-family,<generic-font-family>" dfn-type=value>
 	<dt id="xxx-def"><dfn>xxx</dfn>
 	<dd>
 		Placeholder text for the xxx generic font family.
@@ -399,7 +484,7 @@ Issue(8792):
 		Note how small text remains relatively legible across each row in the lower half.
 
 		<figure>
-			<img alt="text with and without 'font-size-adjust'" src="images/fontsizeadjust.png" >
+			<img src="images/fontsizeadjust.png" width="544" height="667" alt="">
 			<figcaption>Text with and without the use of 'font-size-adjust'</figcaption>
 		</figure>
 	</div>
@@ -467,7 +552,7 @@ Issue(8792):
 		</pre>
 
 		<figure>
-			<img alt="Futura with an aspect value of 0.5" src="images/beforefontsizeadjust.png" >
+			<img src="images/beforefontsizeadjust.png" width="281" height="306" alt="">
 			<figcaption>Futura with an <a>aspect value</a> of 0.5</figcaption>
 		</figure>
 
@@ -476,10 +561,10 @@ Issue(8792):
 	</div>
 
 	Note: If the specified metric has been overridden in ''@font-face'',
-	e.g. by 'size-adjust',
+	e.g. by 'size-adjust!!descriptor',
 	then the overridden metric will be used in the 'font-size-adjust' calculation.
-	Consequently, applying 'font-size-adjust' and 'size-adjust' together
-	means that 'size-adjust' appears to have no effect.
+	Consequently, applying 'font-size-adjust' and 'size-adjust!!descriptor' together
+	means that 'size-adjust!!descriptor' appears to have no effect.
 
 <h2 id="font-resources">
 Font Resources</h2>
@@ -491,7 +576,7 @@ The <dfn id="at-font-face-rule">''@font-face''</dfn> rule</h3>
 	Multiple fonts can be used within an individual element
 	e.g. for characters not supported by the [=first available font=].
 
-<h3 id="src-desc">Font reference: the 'src' descriptor</h3>
+<h3 id="src-desc">Font reference: the 'src!!descriptor' descriptor</h3>
 
 
 <!-- same as CSS Fonts 4, keep the two in sync -->
@@ -502,7 +587,7 @@ according to section [[css-syntax#parse-comma-separated-list-of-component-values
 Then each component value is parsed according to this grammar:
 
 
-<pre><<url>> [ format(<<font-format>>)]? [ tech( <<font-tech>>#)]? | local(<<family-name>>)</pre>
+<pre><<url>> [ format(<<font-format>>)]? [ tech( <<font-tech>>#)]? | local(<<font-family-name>>)</pre>
 
 <pre class="prod"><dfn id="font-format-values">&lt;font-format&gt;</dfn>
 	 = [<<string>> | collection | embedded-opentype | opentype
@@ -586,7 +671,7 @@ For: @font-face
 
 <h3 id="size-adjust-desc">
 Glyph Size Multiplier:
-the 'size-adjust' descriptor</h3>
+the 'size-adjust!!descriptor' descriptor</h3>
 
 	<pre class='descdef'>
 	Name: size-adjust
@@ -595,7 +680,7 @@ the 'size-adjust' descriptor</h3>
 	Initial: 100%
 	</pre>
 
-	The 'size-adjust' descriptor defines a multiplier
+	The 'size-adjust!!descriptor' descriptor defines a multiplier
 	for glyph outlines and metrics associated with this font,
 	to allow the author to harmonize the designs of various fonts
 	when rendered at the same 'font-size!!property'.
@@ -614,7 +699,7 @@ the 'size-adjust' descriptor</h3>
 	such as ''em'' units, percentages in 'text-underline-offset', etc.)
 	remains unaffected.
 
-	Note: The 'size-adjust' descriptor functions similarly to
+	Note: The 'size-adjust!!descriptor' descriptor functions similarly to
 	the 'font-size-adjust' property,
 	which essentially calculates an adjustment per font by matching ex heights,
 	but likewise does not affect the [=computed value|computed=] 'font-size!!property'.
@@ -630,7 +715,7 @@ the 'size-adjust' descriptor</h3>
 
 <h3 id="font-metrics-override-desc">
 Line Height Font Metrics Overrides:
-the 'ascent-override', 'descent-override', and 'line-gap-override' descriptors</h3>
+the 'ascent-override!!descriptor', 'descent-override!!descriptor', and 'line-gap-override!!descriptor' descriptors</h3>
 
 	<pre class='descdef'>
 	Name: ascent-override
@@ -653,7 +738,7 @@ the 'ascent-override', 'descent-override', and 'line-gap-override' descriptors</
 	Initial: normal
 	</pre>
 
-	The 'ascent-override', 'descent-override', and 'line-gap-override' descriptors specify the
+	The 'ascent-override!!descriptor', 'descent-override!!descriptor', and 'line-gap-override!!descriptor' descriptors specify the
 	<a spec="CSS-INLINE-3">ascent metric</a>,
 	<a spec="CSS-INLINE-3">descent metric</a>, and
 	<a spec="CSS-INLINE-3">line gap metric</a>
@@ -682,12 +767,13 @@ the 'ascent-override', 'descent-override', and 'line-gap-override' descriptors</
 		font-size-adjust-metrics-override.html
 		line-gap-override.html
 		metrics-override-normal-keyword.html
+		parsing/font-face-metric-overrides.html
 	</wpt>
 
-	The 'font-size-adjust' property is applied after the 'size-adjust' descriptor.
+	The 'font-size-adjust' property is applied after the 'size-adjust!!descriptor' descriptor.
 
-	Note: The consequence of applying 'font-size-adjust' after 'size-adjust' is that
-	'size-adjust' appears to have no effect.
+	Note: The consequence of applying 'font-size-adjust' after 'size-adjust!!descriptor' is that
+	'size-adjust!!descriptor' appears to have no effect.
 
 	Note: None of these descriptors affect the [=computed value|computation=] of
 	'font-size!!property', 'line-height', or [=font-relative lengths=].
@@ -750,7 +836,7 @@ the 'ascent-override', 'descent-override', and 'line-gap-override' descriptors</
 
 <h3 id="font-sup-sub-override-desc">
 Superscript and subscript metrics overrides:
-the 'superscript-position-override', 'subscript-position-override','superscript-size-override' and 'subscript-size-override' descriptors</h3>
+the 'superscript-position-override!!descriptor', 'subscript-position-override!!descriptor','superscript-size-override!!descriptor' and 'subscript-size-override!!descriptor' descriptors</h3>
 
 	<pre class='descdef'>
 	Name: superscript-position-override
@@ -780,8 +866,8 @@ the 'superscript-position-override', 'subscript-position-override','superscript-
 	Initial: normal
 	</pre>
 
-	The 'superscript-position-override', 'subscript-position-override',
-	'superscript-size-override', and 'subscript-size-override' descriptors
+	The 'superscript-position-override!!descriptor', 'subscript-position-override!!descriptor',
+	'superscript-size-override!!descriptor', and 'subscript-size-override!!descriptor' descriptors
 	specify the superscript offset, subscript offset, superscript size, and subscript size
 	metrics of the font, respectively,
 	which are used to synthesize glyphs when required by 'font-variant-position'.
@@ -849,7 +935,7 @@ Color Font Support</h2>
 
 This section expands upon [[css-fonts-4#font-tech-definitions]].
 
-The 'avar2' tech refers to support for version 2 of OpenType axis variations [[!avar2]],
+The <dfn value for="<font-features-tech>">avar2</dfn> tech refers to support for version 2 of OpenType axis variations [[!avar2]],
 for flexible variation axis remapping.
 
 <div class="example" id="ex-avar2">
@@ -891,7 +977,7 @@ for flexible variation axis remapping.
 	<h3 id="om-fontface">
 	The <code id="cssfontfacerule2">CSSFontFaceRule</code> interface</h3>
 	
-	The <dfn id="cssfontfacerule-interface">CSSFontFaceRule</dfn> interface represents a <<@font-face>> rule.
+	The <dfn export id="cssfontfacerule-interface">CSSFontFaceRule</dfn> interface represents a <<@font-face>> rule.
 	
 	<pre class="idl">
 	[Exposed=Window]
@@ -976,9 +1062,21 @@ Changes
 <h3 id="changes-20260206">Changes since the <a href="https://www.w3.org/TR/2024/WD-css-fonts-5-20240206/">WD of 6 February 2024</a></h3>
 
 <ul>
+	<li>Added text-scale meta tag and preferred-text-scale environment variable support, 
+		with example
+	(<a href="https://github.com/w3c/csswg-drafts/issues/12380">Issue 12380</a>),
+	(<a href="https://github.com/w3c/csswg-drafts/issues/12475">Issue 12475</a>)
+</li>
+	<li>Added missing CSSOM superscript-position-override, subscript-position-override,
+		superscript-size-override and subscript-size-override descriptors</li>
+	<li>Added missing CSSOM size-adjust and font-size descriptors</li>
+	<li>Added the avar2 font tech 
+		(<a href="https://github.com/w3c/csswg-drafts/issues/10599">Issue 10599</a>)</li>
+	<li>Updated incremental example to latest IFT spec 
+		(<a href="https://github.com/w3c/csswg-drafts/issues/6063">Issue 6063</a>)</li>
+	<li>Explicitly stated that font-size-adjust precedes font metrics overrides 
+		(<a href="https://github.com/w3c/csswg-drafts/issues/8967">Issue 8967</a>)</li>
 	<!-- to 18 Dec 2024 -->
-	<li>Added the avar2 font tech</li>
-	<li>Updated the incremental example to conform to the latest IFT specification</li>
 </ul>
 
 <h3 id="changes-20211221">Changes since the <a href="https://www.w3.org/TR/2021/WD-css-fonts-5-20211221/">WD of 21 December 2021</a> </h3>
@@ -1016,6 +1114,7 @@ Changes
 	alternates-order.html
 	animations/font-palette-animation-not-specified-endpoints.html
 	animations/font-palette-interpolation.html
+	animations/font-size-composition.html
 	animations/font-size-interpolation-001.html
 	animations/font-size-interpolation-002.html
 	animations/font-size-interpolation-003.html
@@ -1023,6 +1122,7 @@ Changes
 	animations/font-style-interpolation.html
 	animations/font-variation-settings-composition.html
 	animations/font-variation-settings-interpolation.html
+	animations/font-weight-composition.html
 	animations/multiple-elements-font-palette-animation.html
 	animations/system-fonts.html
 	calc-in-font-variation-settings.html
@@ -1148,6 +1248,7 @@ Changes
 	font-palette-remove.html
 	font-palette-vs-shorthand.html
 	font-palette.html
+	font-palette-values-relative-colors.html
 	font-shorthand-serialization-001.html
 	font-shorthand-serialization-font-stretch.html
 	font-shorthand-serialization-prevention.html
@@ -1300,6 +1401,7 @@ Changes
 	language-specific-01.html
 	matching/fixed-stretch-style-over-weight.html
 	matching/font-unicode-PUA.html
+	matching/font-weight-search-direction.html
 	matching/range-descriptor-reversed.html
 	matching/stretch-distance-over-weight-distance.html
 	matching/style-ranges-over-weight-direction.html
@@ -1489,7 +1591,24 @@ Changes
 	test-synthetic-bold.html
 	test-synthetic-italic.html
 	font-size-zero-3.html
-  	font-synthesis-weight-webfont-bold.html
+	font-synthesis-weight-webfont-bold.html
+	font_feature_values_map_iteration.html
+	synthetic-bold-out-of-capabilities-range.html
+	synthetic-oblique-out-of-capabilities-range.html
+	font-size-zero-ligatures.html
+	variations/variable-avar2-rvrn.html
+	variations/variable-avar2-warp.html
+	variations/variable-gpos-avar2.html
+	font-feature-values-map-live.html
+	font-weight-normal-variable.html
+	mvs-shaping.html
+	oblique-last-resort-weight-selection.html
+	oblique-request-italic-only-family-no-crash.html
+	remove-loaded-font-face-rule.html
+	small-caps-letter-spacing-001.html
+	small-caps-letter-spacing-002.html
+	synthetic-bold-zero-advance-glyph.html
+	variations/font-descriptor-range-reversed-002.html
 </wpt>
 
 <!-- 
@@ -1503,6 +1622,7 @@ Changes
 	infinite-size-crash.html
 	math-script-level-and-math-style/math-depth-001-crash.html
 	font-features-two-stylesheets-crash.html
+	font-face-array-buffer-parsing-failure-crash.html
 </wpt>	
 
 <!-- 

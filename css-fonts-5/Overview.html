@@ -5,10 +5,10 @@
   <title>CSS Fonts Module Level 5</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
-  <meta content="Bikeshed version 0ef803fdf, updated Tue Jan 6 11:59:39 2026 -0800" name="generator">
+  <meta content="Bikeshed version ac92c2f0d, updated Fri Aug 21 16:01:29 2026 -0700" name="generator">
   <link href="https://www.w3.org/TR/css-fonts-5/" rel="canonical">
   <link href="https://drafts.csswg.org/csslogo.ico" rel="icon">
-  <meta content="20014b6d9de69c6b0e2e41d8ffce5b1cfa06deed" name="revision">
+  <meta content="f28d6b46b29773913df97ae2c166f56afc03c3dc" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>/* Boilerplate: style-autolinks */
@@ -304,7 +304,7 @@ pre .property::before, pre .property::after {
 </style>
 <style>/* Boilerplate: style-counters */
 body {
-    counter-reset: example figure issue;
+    counter-reset: example figure issue table;
 }
 .issue {
     counter-increment: issue;
@@ -329,6 +329,13 @@ figcaption {
 }
 figcaption:not(.no-marker)::before {
     content: "Figure " counter(figure) " ";
+}
+
+figure.table figcaption {
+    counter-increment: table;
+}
+figure.table figcaption:not(.no-marker)::before {
+    content: "Table " counter(table) " ";
 }
 </style>
 <style>/* Boilerplate: style-dfn-panel */
@@ -915,6 +922,30 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     c-[vm] { color: #cb4b16 } /* Name.Variable.Magic */
     c-[il] { color: #657b83 } /* Literal.Number.Integer.Long */
 }
+
+@media print {
+    /* Darken colors for print that would otherwise print too faintly */
+    c-[c]  { color: #555555 } /* Comment */
+    c-[d]  { color: #555555 } /* Comment.Multiline */
+    c-[cp] { color: #555555 } /* Comment.Preproc */
+    c-[c1] { color: #555555 } /* Comment.Single */
+    c-[cs] { color: #555555 } /* Comment.Special */
+    c-[o]  { color: #222222 } /* Operator */
+    c-[p]  { color: #222222 } /* Punctuation */
+    c-[ow] { color: #222222 } /* Operator.Word */
+    c-[s]  { color: #664400 } /* Literal.String */
+    c-[t]  { color: #664400 } /* Literal.String.Single */
+    c-[u]  { color: #664400 } /* Literal.String.Double */
+    c-[sb] { color: #664400 } /* Literal.String.Backtick */
+    c-[sc] { color: #664400 } /* Literal.String.Char */
+    c-[sd] { color: #664400 } /* Literal.String.Doc */
+    c-[se] { color: #664400 } /* Literal.String.Escape */
+    c-[sh] { color: #664400 } /* Literal.String.Heredoc */
+    c-[si] { color: #664400 } /* Literal.String.Interpol */
+    c-[sx] { color: #664400 } /* Literal.String.Other */
+    c-[sr] { color: #664400 } /* Literal.String.Regex */
+    c-[ss] { color: #664400 } /* Literal.String.Symbol */
+}
 </style>
 <style>/* Boilerplate: style-wpt */
 :root {
@@ -1061,7 +1092,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
 </p>
    <h1 class="no-ref p-name" id="title">CSS Fonts Module Level 5</h1>
    <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
-    <time class="dt-updated" datetime="2026-06-05">5 June 2026</time></p>
+    <time class="dt-updated" datetime="2026-09-12">12 September 2026</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1260,7 +1291,7 @@ Non-experimental implementations</span></a>
      <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
      <ol class="toc">
       <li><a href="#normative"><span class="secno"></span> <span class="content">Normative References</span></a>
-      <li><a href="#informative"><span class="secno"></span> <span class="content">Informative References</span></a>
+      <li><a href="#informative"><span class="secno"></span> <span class="content">Non-Normative References</span></a>
      </ol>
     <li>
      <a href="#property-index"><span class="secno"></span> <span class="content">Property Index</span></a>
@@ -1370,14 +1401,14 @@ divided by 16px.</p>
    <p class="note" role="note"><span class="marker">Note:</span>
 Authors are expected to use
 <code class="highlight">&lt;meta name=<c- s>"text-scale"</c-> content=<c- s>"scale"</c->></code> in stylesheets so that the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css2/#valdef-font-size-medium" id="ref-for-valdef-font-size-medium②">medium</a> font size will reflect the user’s font preferences, whether those are specified at the OS level or the UA level.
-The author will then be able to use <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-values-4/#rem" id="ref-for-rem">rem</a> and <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-values-4/#em" id="ref-for-em">em</a> throughout the page to honor the user’s font preferences.</p>
-   <p class="note" role="note"><span class="marker">Note:</span>
+The author will then be able to use <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-values-4/#rem" id="ref-for-rem">rem</a> and <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-values-4/#em" id="ref-for-em">em</a> throughout the page to honor the user’s font preferences.
+Authors must only use this if they have tested their website with scaled text.
 This requires care to do correctly, given the very large font sizes some low-vision users need.
 Consider the extreme case of an iPhone Mini set to iOS’s largest font size of 53px.
 Only ~12-15 characters fit on a line.</p>
    <div class="example" id="ex-scaled-page">
     <a class="self-link" href="#ex-scaled-page"></a>
-	Assuming a page hasn’t altered the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/selectors-4/#root-pseudo" id="ref-for-root-pseudo">:root</a> font size, content sized with <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-values-4/#rem" id="ref-for-rem①">rem</a> units will be relative to the preferred text scale
+	Assuming a page hasn’t altered the <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/selectors-4/#root-pseudo" id="ref-for-root-pseudo">:root</a> font size with an absolute length unit like <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-values-4/#px" id="ref-for-px">px</a>, content sized with <a class="css" data-link-type="maybe" href="https://drafts.csswg.org/css-values-4/#rem" id="ref-for-rem①">rem</a> units will be relative to the preferred text scale
 	
 <pre class="highlight lang-html"><c- cp>&lt;!DOCTYPE html></c->
 <c- p>&lt;</c-><c- f>html</c-><c- p>></c-> <c- d>&lt;!-- leave this element's font-size as the default --></c->
@@ -1402,22 +1433,47 @@ Only ~12-15 characters fit on a line.</p>
    </div>
    <div class="example" id="ex-non-linear">
     <a class="self-link" href="#ex-non-linear"></a>
-	Header text starts larger than body text, so pages should probably grow headers at a slower rate.
-	
-<pre class="highlight lang-html"><c- p>&lt;</c-><c- f>meta</c-> <c- e>name</c-><c- o>=</c-><c- s>"text-scale"</c-> <c- e>content</c-><c- o>=</c-><c- s>"scale"</c-> <c- p>/></c->
+	If an element such as a heading already has large text, it is likely already large enough for a user who needs a high text scale to read. If the large text scales at the same rate as the body text, it could become too large to comfortably fit in the user’s viewport.
+
+
+    <p>Therefore, authors should consider using a dampening formula to reduce the rate that large text scales.
+	There are various mathematical approaches to achieve this; one possible formula is demonstrated below.</p>
+<pre class="highlight lang-html"><c- p>&lt;</c-><c- f>meta</c-> <c- e>name</c-><c- o>=</c-><c- s>"viewport"</c-> <c- e>content</c-><c- o>=</c-><c- s>"width=device-width"</c-><c- p>></c->
+<c- p>&lt;</c-><c- f>meta</c-> <c- e>name</c-><c- o>=</c-><c- s>"text-scale"</c-> <c- e>content</c-><c- o>=</c-><c- s>"scale"</c-><c- p>></c->
 <c- p>&lt;</c-><c- f>style</c-><c- p>></c->
-<c- p>.</c-><c- nc>h1</c-> <c- p>{</c->
-  <c- g>--dampen-factor</c-><c- p>:</c-> calc<c- p>(</c-><c- mf>0.5</c-> <c- o>+</c-> <c- mf>0.5</c-> <c- o>/</c-> <c- nf>env</c-><c- p>(</c-><c- n>preferred</c-><c- g>-text-scale</c-><c- p>));</c->
-  <c- k>font-size</c-><c- p>:</c-> calc<c- p>(</c-><c- mi>2</c-><c- b>rem</c-> <c- o>*</c-> <c- nf>var</c-><c- p>(</c-><c- g>--dampen-factor</c-><c- p>));</c->
-  <c- c>/* Resulting font sizes at various text scale factors:</c->
+<c- f>h1</c-> <c- p>{</c->
+  <c- c>/*</c->
+<c- c>    Multiply the 2em baseline by a dampening factor to ensure headers</c->
+<c- c>    scale up slower than the body text, preventing them from becoming</c->
+<c- c>    too large.</c->
+
+<c- c>    The two values in the calc() (0.5 and 0.5) must sum to 1.0, so the</c->
+<c- c>    multiplier evaluates to exactly 1 at a 1x text scale. As the user</c->
+<c- c>    increases their text scale, the multiplier shrinks towards the first</c->
+<c- c>    number (0.5). Because the shrinking multiplier is applied to a</c->
+<c- c>    growing font size, the header continues to grow, but its growth</c->
+<c- c>    rate is dampened.</c->
+
+<c- c>    Here are the resulting font sizes at various text scale factors:</c->
 <c- c>        h1      body</c->
+<c- c>        ----    ----</c->
 <c- c>  1x    32px    16px</c->
 <c- c>  1.5x  40px    24px</c->
 <c- c>  2x    48px    32px</c->
-<c- c>  3x    64px    48px */</c->
+<c- c>  3x    64px    48px</c->
+<c- c>  3.5x  72px    56px</c->
+<c- c>  */</c->
+  <c- g>--dampen-factor</c-><c- p>:</c-> calc<c- p>(</c-><c- mf>0.5</c-> <c- o>+</c-> (<c- mf>0.5</c-> <c- o>/</c-> <c- nf>env</c-><c- p>(</c-><c- n>preferred</c-><c- g>-text-scale</c-><c- p>)));</c->
+  <c- k>font-size</c-><c- p>:</c-> calc<c- p>(</c-><c- mi>2</c-><c- b>rem</c-> <c- o>*</c-> <c- nf>var</c-><c- p>(</c-><c- g>--dampen-factor</c-><c- p>));</c->
 <c- p>}</c->
+
 <c- p>&lt;/</c-><c- f>style</c-><c- p>></c->
+<c- p>&lt;</c-><c- f>h1</c-><c- p>></c->Header<c- p>&lt;/</c-><c- f>h1</c-><c- p>></c->
+This is some body text. The header grows slower than the body text.
 </pre>
+    
+	<img alt="Visual example of scaling headers vs body text" height="740" src="images/text-scale-example.png" width="1238">
+
    </div>
    <div class="example" id="ex-inverse">
     <a class="self-link" href="#ex-inverse"></a>
@@ -1430,15 +1486,20 @@ Only ~12-15 characters fit on a line.</p>
   <c- k>position</c-><c- p>:</c-> <c- kc>fixed</c-><c- p>;</c->
   <c- k>top</c-><c- p>:</c-> <c- mi>30</c-><c- b>px</c-><c- p>;</c->
   <c- k>right</c-><c- p>:</c-> <c- mi>30</c-><c- b>px</c-><c- p>;</c->
-  <c- c>/* Grow slightly slower than h1 example: */</c->
-  <c- g>--dampen-factor</c-><c- p>:</c-> calc<c- p>(</c-><c- mf>0.4</c-> <c- o>+</c-> <c- mf>0.6</c-> <c- o>/</c-> <c- nf>env</c-><c- p>(</c-><c- n>preferred</c-><c- g>-text-scale</c-><c- p>));</c->
+  <c- c>/*</c->
+<c- c>    Grow slower than the h1 example. The two numbers must still add up</c->
+<c- c>    to 1.0, but using a smaller first number (0.4 instead of 0.5)</c->
+<c- c>    makes the text scale up at a slower rate.</c->
+<c- c>  */</c->
+  <c- g>--dampen-factor</c-><c- p>:</c-> calc<c- p>(</c-><c- mf>0.4</c-> <c- o>+</c-> (<c- mf>0.6</c-> <c- o>/</c-> <c- nf>env</c-><c- p>(</c-><c- n>preferred</c-><c- g>-text-scale</c-><c- p>)));</c->
   <c- k>font-size</c-><c- p>:</c-> calc<c- p>(</c-><c- mf>1.5</c-><c- b>rem</c-> <c- o>*</c-> <c- nf>var</c-><c- p>(</c-><c- g>--dampen-factor</c-><c- p>));</c->
   <c- c>/* Resulting font sizes at various text scale factors:</c->
 <c- c>        button    body</c->
+<c- c>        ------    ----</c->
 <c- c>  1x    24px      16px</c->
 <c- c>  1.5x  28.8px    24px</c->
 <c- c>  2x    33.6px    32px</c->
-<c- c>  3x    43.2px    48px    &lt;-- inversion */</c->
+<c- c>  3x    43.2px    48px    &lt;-- body passes button: inversion! */</c->
 <c- p>}</c->
 <c- p>&lt;/</c-><c- f>style</c-><c- p>></c->
 <c- p>&lt;</c-><c- f>button</c-> <c- e>class</c-><c- o>=</c-><c- s>"floating-action-button"</c-><c- p>></c->➕Add<c- p>&lt;/</c-><c- f>button</c-><c- p>></c->
@@ -1962,6 +2023,7 @@ the <a class="css property" data-link-type="descriptor" href="#descdef-font-face
      <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/css/css-fonts/font-size-adjust-metrics-override.html" title="css/css-fonts/font-size-adjust-metrics-override.html">font-size-adjust-metrics-override.html</a> <a class="wpt-live" href="http://wpt.live/css/css-fonts/font-size-adjust-metrics-override.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/css/css-fonts/font-size-adjust-metrics-override.html"><small>(source)</small></a>
      <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/css/css-fonts/line-gap-override.html" title="css/css-fonts/line-gap-override.html">line-gap-override.html</a> <a class="wpt-live" href="http://wpt.live/css/css-fonts/line-gap-override.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/css/css-fonts/line-gap-override.html"><small>(source)</small></a>
      <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/css/css-fonts/metrics-override-normal-keyword.html" title="css/css-fonts/metrics-override-normal-keyword.html">metrics-override-normal-keyword.html</a> <a class="wpt-live" href="http://wpt.live/css/css-fonts/metrics-override-normal-keyword.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/css/css-fonts/metrics-override-normal-keyword.html"><small>(source)</small></a>
+     <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/css/css-fonts/parsing/font-face-metric-overrides.html" title="css/css-fonts/parsing/font-face-metric-overrides.html">font-face-metric-overrides.html</a> <a class="wpt-live" href="http://wpt.live/css/css-fonts/parsing/font-face-metric-overrides.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/css/css-fonts/parsing/font-face-metric-overrides.html"><small>(source)</small></a>
     </ul>
    </details>
    <p>The <a class="css property" data-link-type="property" href="#propdef-font-size-adjust" id="ref-for-propdef-font-size-adjust①⑤">font-size-adjust</a> property is applied after the <a class="css property" data-link-type="descriptor" href="#descdef-font-face-size-adjust" id="ref-for-descdef-font-face-size-adjust⑥">size-adjust</a> descriptor.</p>
@@ -2612,6 +2674,7 @@ Non-experimental implementations</span><a class="self-link" href="#w3c-testing">
      <li><span class="dfn-paneled" id="e8ff0bb4">em</span>
      <li><span class="dfn-paneled" id="e0ee1990">ex</span>
      <li><span class="dfn-paneled" id="35d9f24e">font-relative lengths</span>
+     <li><span class="dfn-paneled" id="9ddea951">px</span>
      <li><span class="dfn-paneled" id="e8bcf956">rem</span>
      <li><span class="dfn-paneled" id="938ba280">{A,B}</span>
      <li><span class="dfn-paneled" id="6ec67710">|</span>
@@ -2701,7 +2764,7 @@ Non-experimental implementations</span><a class="self-link" href="#w3c-testing">
    <dt id="biblio-webidl">[WEBIDL]
    <dd>Edgar Chen; Timothy Gu. <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
   </dl>
-  <h3 class="heading no-num no-ref settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
+  <h3 class="heading no-num no-ref settled" id="informative"><span class="content">Non-Normative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
    <dt id="biblio-css-display-4">[CSS-DISPLAY-4]
    <dd>Elika Etemad; Tab Atkins Jr.. <a href="https://drafts.csswg.org/css-display-4/"><cite>CSS Display Module Level 4</cite></a>. URL: <a href="https://drafts.csswg.org/css-display-4/">https://drafts.csswg.org/css-display-4/</a>
@@ -3125,6 +3188,7 @@ let dfnPanelData = {
 "938ba280": {"dfnID":"938ba280","dfnText":"{A,B}","external":true,"refSections":[{"refs":[{"id":"ref-for-mult-num-range"}],"title":"4.3. \nFont property descriptors: the font-size\n"},{"refs":[{"id":"ref-for-mult-num-range\u2460"},{"id":"ref-for-mult-num-range\u2461"},{"id":"ref-for-mult-num-range\u2462"}],"title":"4.5. \nLine Height Font Metrics Overrides:\nthe ascent-override, descent-override, and line-gap-override descriptors"},{"refs":[{"id":"ref-for-mult-num-range\u2463"},{"id":"ref-for-mult-num-range\u2464"},{"id":"ref-for-mult-num-range\u2465"},{"id":"ref-for-mult-num-range\u2466"}],"title":"4.6. \nSuperscript and subscript metrics overrides:\nthe superscript-position-override, subscript-position-override,superscript-size-override and subscript-size-override descriptors"}],"url":"https://drafts.csswg.org/css-values-4/#mult-num-range"},
 "977d3003": {"dfnID":"977d3003","dfnText":"<string>","external":true,"refSections":[{"refs":[{"id":"ref-for-string-value"}],"title":"4.2.1. Parsing the src descriptor"}],"url":"https://drafts.csswg.org/css-values-4/#string-value"},
 "9cd25054": {"dfnID":"9cd25054","dfnText":"computed value","external":true,"refSections":[{"refs":[{"id":"ref-for-computed-value"},{"id":"ref-for-computed-value\u2460"},{"id":"ref-for-computed-value\u2461"}],"title":"3.4. \nRelative sizing: the font-size-adjust property"},{"refs":[{"id":"ref-for-computed-value\u2462"},{"id":"ref-for-computed-value\u2463"}],"title":"4.4. \nGlyph Size Multiplier:\nthe size-adjust descriptor"},{"refs":[{"id":"ref-for-computed-value\u2464"}],"title":"4.5. \nLine Height Font Metrics Overrides:\nthe ascent-override, descent-override, and line-gap-override descriptors"}],"url":"https://drafts.csswg.org/css-cascade-5/#computed-value"},
+"9ddea951": {"dfnID":"9ddea951","dfnText":"px","external":true,"refSections":[{"refs":[{"id":"ref-for-px"}],"title":"2.3. The scale keyword"}],"url":"https://drafts.csswg.org/css-values-4/#px"},
 "a23d5e9f": {"dfnID":"a23d5e9f","dfnText":"name","external":true,"refSections":[{"refs":[{"id":"ref-for-attr-meta-name"},{"id":"ref-for-attr-meta-name\u2460"}],"title":"2. \nText-Scale meta element"}],"url":"https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-name"},
 "a2eb821e": {"dfnID":"a2eb821e","dfnText":"first available font","external":true,"refSections":[{"refs":[{"id":"ref-for-first-available-font"}],"title":"3.4. \nRelative sizing: the font-size-adjust property"},{"refs":[{"id":"ref-for-first-available-font\u2460"}],"title":"4.1. \nThe @font-face rule"}],"url":"https://drafts.csswg.org/css-fonts-4/#first-available-font"},
 "a4eb3c57": {"dfnID":"a4eb3c57","dfnText":"used value","external":true,"refSections":[{"refs":[{"id":"ref-for-used-value"},{"id":"ref-for-used-value\u2460"},{"id":"ref-for-used-value\u2461"}],"title":"3.4. \nRelative sizing: the font-size-adjust property"}],"url":"https://drafts.csswg.org/css-cascade-5/#used-value"},
@@ -3752,6 +3816,7 @@ let refsData = {
 "https://drafts.csswg.org/css-values-4/#mult-opt": {"displayText":"?","export":true,"for_":[],"level":"4","normative":true,"shortname":"css-values","spec":"css-values-4","status":"current","text":"?","type":"grammar","url":"https://drafts.csswg.org/css-values-4/#mult-opt"},
 "https://drafts.csswg.org/css-values-4/#number-value": {"displayText":"<number>","export":true,"for_":[],"level":"4","normative":true,"shortname":"css-values","spec":"css-values-4","status":"current","text":"<number>","type":"type","url":"https://drafts.csswg.org/css-values-4/#number-value"},
 "https://drafts.csswg.org/css-values-4/#percentage-value": {"displayText":"<percentage>","export":true,"for_":[],"level":"4","normative":true,"shortname":"css-values","spec":"css-values-4","status":"current","text":"<percentage>","type":"type","url":"https://drafts.csswg.org/css-values-4/#percentage-value"},
+"https://drafts.csswg.org/css-values-4/#px": {"displayText":"px","export":true,"for_":["<length>"],"level":"4","normative":true,"shortname":"css-values","spec":"css-values-4","status":"current","text":"px","type":"value","url":"https://drafts.csswg.org/css-values-4/#px"},
 "https://drafts.csswg.org/css-values-4/#rem": {"displayText":"rem","export":true,"for_":["<length>"],"level":"4","normative":true,"shortname":"css-values","spec":"css-values-4","status":"current","text":"rem","type":"value","url":"https://drafts.csswg.org/css-values-4/#rem"},
 "https://drafts.csswg.org/css-values-4/#string-value": {"displayText":"<string>","export":true,"for_":[],"level":"4","normative":true,"shortname":"css-values","spec":"css-values-4","status":"current","text":"<string>","type":"type","url":"https://drafts.csswg.org/css-values-4/#string-value"},
 "https://drafts.csswg.org/css-values-4/#url-value": {"displayText":"<url>","export":true,"for_":[],"level":"4","normative":true,"shortname":"css-values","spec":"css-values-4","status":"current","text":"<url>","type":"type","url":"https://drafts.csswg.org/css-values-4/#url-value"},
