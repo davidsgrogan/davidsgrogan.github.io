@@ -133,75 +133,75 @@
     <menubar role="list">
       <!-- File Menu -->
       <submenu>
-        <menuitem>File</menuitem>
+        <menuitem role="listitem">File</menuitem>
         <menulist>
-          <menuitem><a href="#" style="display: initial !important">New</a></menuitem>
+          <menuitem role="listitem"><a href="#" style="display: initial !important">New</a></menuitem>
           <!-- This item triggers a nested submenu (Level 2) -->
           <submenu>
-            <menuitem>Open Recent</menuitem>
+            <menuitem role="listitem">Open Recent</menuitem>
             <menulist>
-              <menuitem>Document1.txt</menuitem>
-              <menuitem>Report.docx</menuitem>
-              <menuitem>Spreadsheet.xlsx</menuitem>
+              <menuitem role="listitem">Document1.txt</menuitem>
+              <menuitem role="listitem">Report.docx</menuitem>
+              <menuitem role="listitem">Spreadsheet.xlsx</menuitem>
               <hr />
-              <menuitem>Clear List</menuitem>
+              <menuitem role="listitem">Clear List</menuitem>
             </menulist>
           </submenu>
           <hr />
-          <menuitem>Save</menuitem>
-          <menuitem>Save As...</menuitem>
-          <menuitem disabled>Print</menuitem>
+          <menuitem role="listitem">Save</menuitem>
+          <menuitem role="listitem">Save As...</menuitem>
+          <menuitem role="listitem" disabled>Print</menuitem>
           <hr />
-          <menuitem>Exit</menuitem>
+          <menuitem role="listitem">Exit</menuitem>
         </menulist>
       </submenu>
 
       <!-- Edit Menu -->
       <submenu>
-        <menuitem>Edit</menuitem>
+        <menuitem role="listitem">Edit</menuitem>
         <menulist>
-          <menuitem>Undo</menuitem>
-          <menuitem>Redo</menuitem>
+          <menuitem role="listitem">Undo</menuitem>
+          <menuitem role="listitem">Redo</menuitem>
           <hr />
-          <menuitem>Cut</menuitem>
-          <menuitem>Copy</menuitem>
-          <menuitem>Paste</menuitem>
+          <menuitem role="listitem">Cut</menuitem>
+          <menuitem role="listitem">Copy</menuitem>
+          <menuitem role="listitem">Paste</menuitem>
         </menulist>
       </submenu>
 
       <!-- View Menu -->
       <submenu>
-        <menuitem>View</menuitem>
+        <menuitem role="listitem">View</menuitem>
         <menulist>
           <!-- This item triggers a nested submenu (Level 2) -->
           <submenu>
-            <menuitem>Zoom</menuitem>
+            <menuitem role="listitem">Zoom</menuitem>
             <menulist>
               <fieldset checkable="single">
-                <menuitem>50%</menuitem>
-                <menuitem>75%</menuitem>
-                <menuitem defaultchecked>100%</menuitem>
-                <menuitem>150%</menuitem>
-                <menuitem>200%</menuitem>
+                <menuitem role="listitem">50%</menuitem>
+                <menuitem role="listitem">75%</menuitem>
+                <menuitem role="listitem" defaultchecked>100%</menuitem>
+                <menuitem role="listitem">150%</menuitem>
+                <menuitem role="listitem">200%</menuitem>
               </fieldset>
             </menulist>
           </submenu>
-          <menuitem>Full Screen</menuitem>
+          <menuitem role="listitem">Full Screen</menuitem>
           <hr />
           <fieldset checkable="multiple">
-            <menuitem defaultchecked>Show Ruler</menuitem>
-            <menuitem>Show Outline</menuitem>
-            <menuitem defaultchecked disabled>Show Comments</menuitem>
+            <menuitem role="listitem" defaultchecked>Show Ruler</menuitem>
+            <menuitem role="listitem">Show Outline</menuitem>
+            <menuitem role="listitem" defaultchecked disabled>Show Comments</menuitem>
           </fieldset>
         </menulist>
       </submenu>
 
       <!-- Help Menu -->
       <submenu>
-        <menuitem>Help</menuitem>
+        <menuitem role="listitem">Help</menuitem>
         <menulist>
-          <menuitem>About</menuitem>
-          <menuitem>Check for Updates...</menuitem>
+          <menuitem role="listitem">About</menuitem>
+          <menuitem role="listitem">Check for Updates...</menuitem>
         </menulist>
       </submenu>
     </menubar>
