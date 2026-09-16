@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Violated Content Model test page</title>
+
+  <style>
+    menuitem {
+      justify-content: space-between;
+      padding: 6px 10px;
+      cursor: default;
+      user-select: none;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+
+<h1>Menu Elements Test Page -- violated content models</h1>
+
+<section aria-labelledby="broken-content-models-heading">
+  <h2 id="broken-content-models-heading">Violated Content Models</h2>
+  <p>
+    When the author breaks the content model, Blink switches the top-level menulist or
+    menubar element to a dialog role. Other submenus (menulist elements) are changed to a list role. We
+    also switch keyboard navigation from arrow keys to the Tab key.</p>
+  <p> But,
+    does this actually work?? Can screenreader users access all the content in
+    "dialog mode"? How is keyboard navigation?
+  </p>
+  <section aria-labelledby="basic-broken">
+    <h3 id="basic-broken">Example 1: Bookmarks menubar</h3>
+    <p>
+      This is a menubar with a single menuitem, Bookmarks. Activating Bookmarks
+      shows four items, with a hr separator between the last two. The presence
+      of a button puts us in dialog mode, which in this case means the menulist
+      has a role of dialog instead of a role of menu. The items:
+    <ol>
+      <li>Add Bookmark -- this menuitem has a click handler that shows an alert</li>
+      <li>A button(!) -- both the button and the button menuitem have click handlers that show alerts</li>
+      <li>Delete Bookmark</li>
+      <li>Open Bookmark Manager</li>
+    </ol>
+    </p>
+    <menubar>
+      <submenu>
+        <menuitem>Bookmarks</menuitem>
+        <menulist>
+          <menuitem id="add-bookmark-item">Add Bookmark</menuitem>
+          <menuitem id="button-menuitem"><button id="inner-button">Some button</button></menuitem>
+          <menuitem>Delete Bookmark</menuitem>
+          <hr />
+          <menuitem>Open Bookmark Manager</menuitem>
+        </menulist>
+      </submenu>
+    </menubar>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const addBookmarkItem = document.getElementById("add-bookmark-item");
+      if (!addBookmarkItem) {
+        throw new Error("Critical Test Failure: The 'add-bookmark-item' element is missing from the DOM.");
+      }
+      addBookmarkItem.addEventListener("click", () => {
+        alert("Bookmark added!");
+      });
+
+      const buttonMenuitem = document.getElementById("button-menuitem");
+      if (!buttonMenuitem) {
+        throw new Error("Critical Test Failure: The 'button-menuitem' element is missing from the DOM.");
+      }
+      buttonMenuitem.addEventListener("click", () => {
+        alert("Button menuitem clicked!");
+      });
+
+      const innerButton = document.getElementById("inner-button");
+      if (!innerButton) {
+        throw new Error("Critical Test Failure: The 'inner-button' element is missing from the DOM.");
+      }
+      innerButton.addEventListener("click", (e) => {
+        alert("Inner button clicked!");
+      });
+    });
+  </script>
+
+  <section aria-labelledby="complex-broken">
+    <h3 id="complex-broken">Example 2: Broken File menu</h3>
+    <p>
+      This is a horizontal menubar containing several top-level submenus (File, Edit, View, Help).
+      Clicking these opens a dropdown list of menu items.
+    </p>
+
+    <ul>
+      <li>
+        <strong>Nested Submenus:</strong> The "File" menu contains a an "Open Recent" submenu, and
+        the "View" menu contains a "Zoom" submenu. These should open secondary dropdown lists when
+        activated.
+      </li>
+      <li>
+        <strong>Violation:</strong> The "File" submenu contains a link that breaks the content model: the first menuitem element's first child is an anchor element (link) labeled New.
+      </li>
+      <li>
+        <strong>Disabled Menu Items:</strong> The "File" menu contains a disabled "Print" item,
+        and the "View" menu contains a disabled but checked "Show Comments" item.
+      </li>
+      <li>
+        <strong>Single Checkable Items (Radio behavior):</strong> The "Zoom" submenu under "View"
+        has mutually exclusive options. Like radio buttons, checking one should deselect all
+        others. '100%' is initially checked.
+      </li>
+      <li>
+        <strong>Multiple Checkable Items (Checkbox behavior):</strong> The last three items in the
+        "View" menu are checkable. They should behave like checkboxes where multiple items can be
+        toggled on or off independently, except for the aforementioned "Show Comments", which is
+        checked by default and not modifiable by the user.
+      </li>
+      <li>
+        <strong>Separators:</strong> Some menus use horizontal lines (<code>&lt;hr&gt;</code>
+        elements) to visually group related items. There are 2 separators in the "File" menu, 1 in
+        the "Open Recent" submenu, 1 in the "Edit" menu, and 1 in the "View" menu.
+      </li>
+    </ul>
+
+    <p>Without further ado:</p>
+
+    <p>
+      This is the original File, Edit.. etc menu. Except this time there's a
+      link at File &gt; New.
+    </p>
+    <menubar>
+      <!-- File Menu -->
+      <submenu>
+        <menuitem>File</menuitem>
+        <menulist>
+          <menuitem><a href="#" style="display: initial !important">New</a></menuitem>
+          <!-- This item triggers a nested submenu (Level 2) -->
+          <submenu>
+            <menuitem>Open Recent</menuitem>
+            <menulist>
+              <menuitem>Document1.txt</menuitem>
+              <menuitem>Report.docx</menuitem>
+              <menuitem>Spreadsheet.xlsx</menuitem>
+              <hr />
+              <menuitem>Clear List</menuitem>
+            </menulist>
+          </submenu>
+          <hr />
+          <menuitem>Save</menuitem>
+          <menuitem>Save As...</menuitem>
+          <menuitem disabled>Print</menuitem>
+          <hr />
+          <menuitem>Exit</menuitem>
+        </menulist>
+      </submenu>
+
+      <!-- Edit Menu -->
+      <submenu>
+        <menuitem>Edit</menuitem>
+        <menulist>
+          <menuitem>Undo</menuitem>
+          <menuitem>Redo</menuitem>
+          <hr />
+          <menuitem>Cut</menuitem>
+          <menuitem>Copy</menuitem>
+          <menuitem>Paste</menuitem>
+        </menulist>
+      </submenu>
+
+      <!-- View Menu -->
+      <submenu>
+        <menuitem>View</menuitem>
+        <menulist>
+          <!-- This item triggers a nested submenu (Level 2) -->
+          <submenu>
+            <menuitem>Zoom</menuitem>
+            <menulist>
+              <fieldset checkable="single">
+                <menuitem>50%</menuitem>
+                <menuitem>75%</menuitem>
+                <menuitem defaultchecked>100%</menuitem>
+                <menuitem>150%</menuitem>
+                <menuitem>200%</menuitem>
+              </fieldset>
+            </menulist>
+          </submenu>
+          <menuitem>Full Screen</menuitem>
+          <hr />
+          <fieldset checkable="multiple">
+            <menuitem defaultchecked>Show Ruler</menuitem>
+            <menuitem>Show Outline</menuitem>
+            <menuitem defaultchecked disabled>Show Comments</menuitem>
+          </fieldset>
+        </menulist>
+      </submenu>
+
+      <!-- Help Menu -->
+      <submenu>
+        <menuitem>Help</menuitem>
+        <menulist>
+          <menuitem>About</menuitem>
+          <menuitem>Check for Updates...</menuitem>
+        </menulist>
+      </submenu>
+    </menubar>
+
+  </section>
+
+  <section aria-labelledby="forced-nav-heading">
+    <h3 id="forced-nav-heading">Example 3: Forced Navigation Menu</h3>
+    <p>
+      This example demonstrates an author explicitly disregarding the spec and using the menu elements for site navigation. By placing <code>&lt;a&gt;</code> tags inside the menu items and forcing <code>display: initial !important;</code>, they have overridden the UA's default accessibility safeguard (<code>display: none</code>).
+    </p>
+    <menubar>
+      <menuitem><a href="home.html" style="display: initial !important;">Home</a></menuitem>
+
+      <submenu>
+        <menuitem>Services</menuitem>
+        <menulist>
+          <menuitem><a href="services/web-dev.html" style="display: initial !important;">Web Development</a></menuitem>
+          <menuitem><a href="services/seo.html" style="display: initial !important;">SEO</a></menuitem>
+
+          <submenu>
+            <menuitem>Marketing</menuitem>
+            <menulist>
+              <menuitem><a href="marketing/social.html" style="display: initial !important;">Social Media</a></menuitem>
+              <menuitem><a href="marketing/email.html" style="display: initial !important;">Email Campaigns</a></menuitem>
+            </menulist>
+          </submenu>
+
+        </menulist>
+      </submenu>
+
+      <submenu>
+        <menuitem>About Us</menuitem>
+        <menulist>
+          <menuitem><a href="about/team.html" style="display: initial !important;">Our Team</a></menuitem>
+          <menuitem><a href="about/careers.html" style="display: initial !important;">Careers</a></menuitem>
+        </menulist>
+      </submenu>
+
+      <menuitem><a href="contact.html" style="display: initial !important;">Contact Us</a></menuitem>
+    </menubar>
+  </section>
+</section>
+
+<hr style="margin-bottom: 250px;">
+<!-- Blank space because of https://crbug.com/546207253 -->
+
+<script>
+  const supported = "HTMLMenuListElement" in window;
+  if (!supported) {
+    document.querySelector("h1").textContent =
+      "Menu elements are not supported by this browser!!";
+  }
+</script>
+
+</html>
