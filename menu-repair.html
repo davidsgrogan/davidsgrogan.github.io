@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+ <head>
+  <meta charset=UTF-8>
+  <meta content="width=device-width" name="viewport">
+  <title>Menu elements: repairing invalid content</title>
+  <meta name=description content="ARIA WG, TPAC 2026: the new HTML menu elements and browser repair of content-model violations">
+  <link rel="stylesheet" href="example_files/slides.css">
+  <script src="example_files/b6plus.js"></script>
+  <style>
+   /* ------------------------------------------------------------
+      Slide types used in this deck (everything else from the TPAC
+      template was dropped):
+        1. class="slide cover"   – title slide
+        2. class="slide part"    – section divider
+        3. class="slide"         – h2 + bullets / code / quote
+           (use <div class=columns> for side-by-side)
+        4. class="slide" with <div class=demo> – keyboard demo,
+           stepped with the arrow key (see below)
+        5. class="slide final"   – questions + links
+      No slide transitions; "quick" on BODY turns off the reveal
+      animation for class=next items.
+      ------------------------------------------------------------ */
+
+   /* Keyboard demo: a mock menu on the left, a log of key presses
+      and screen-reader announcements on the right. Each log line is
+      class=next, so it is revealed by the next key press. The line's
+      data-focus says which mock item (data-item) has focus at that
+      step; data-skip marks steps where the arrow key jumped over the
+      invalid content. */
+   .demo {display: grid; grid: "menu log" / 9.5em 1fr; gap: 1.2em;
+     align-items: start; margin-top: 0.4em}
+   .mock {font-size: 0.85em; line-height: 1.35}
+   .mbar {padding: 0.15em 0.25em; border: 1px solid #aaa;
+     border-radius: 0.3em; background: #ececec}
+   .mbtn {display: inline-block; padding: 0.05em 0.6em; border-radius: 0.2em}
+   .mlist {margin: 0.2em 0 0 0.25em; width: 8.5em; padding: 0.25em;
+     border: 1px solid #999; border-radius: 0.3em; background: white;
+     box-shadow: 0 0.2em 0.6em #0003}
+   .mi {padding: 0.05em 0.6em; border-radius: 0.2em}
+   .mi.sub {display: flex; justify-content: space-between}
+   .mi.sub::after {content: "▸"}
+   .mi.bad {margin: 0.15em 0.3em; border: 2px solid #666;
+     border-radius: 0.3em; background: #e8e8e8; text-align: center}
+   .msep {margin: 0.2em 0.4em; border-top: 1px solid #ccc}
+   .mock [data-item] {outline-offset: 0.05em}
+   .log {list-style: none; margin: 0; padding: 0; font-size: 0.85em}
+   .log li {margin: 0 0 0.35em; padding: 0.05em 0.3em; border-radius: 0.2em}
+   .log kbd {display: inline-block; min-width: 1.4em; padding: 0 0.3em;
+     border: 1px solid #888; border-bottom-width: 3px; border-radius: 0.25em;
+     background: #f4f4f4; text-align: center; font-family: inherit}
+   .log samp {font-family: inherit; font-style: italic}
+   .log samp::before {content: "\201C"} .log samp::after {content: "\201D"}
+   .full .log li.active {background: hsl(211,100%,93%)}
+
+   /* Before the first step: menu closed, focus on File. After it,
+      File stays highlighted as the open menu's parent. */
+   .full .demo:not(:has(.log .active, .log .visited)) .mlist {visibility: hidden}
+   .full .demo:has(.log .active, .log .visited) [data-item="0"] {background: #d0d0d0}
+   .full .demo:not(:has(.log .active, .log .visited)) [data-item="0"],
+   .full .demo:has(.log [data-focus="1"].active) [data-item="1"],
+   .full .demo:has(.log [data-focus="2"].active) [data-item="2"],
+   .full .demo:has(.log [data-focus="3"].active) [data-item="3"],
+   .full .demo:has(.log [data-focus="4"].active) [data-item="4"],
+   .full .demo:has(.log [data-focus="5"].active) [data-item="5"] {
+     outline: 0.15em solid hsl(211,100%,40%); background: hsl(211,100%,90%)}
+   .full .demo:has(.log [data-skip].active) .bad {
+     outline: 0.15em dashed hsl(356,75%,53%)}
+
+   /* Small role-mapping trees on the "attempt" slides. */
+   pre.roles {font-size: 0.8em; line-height: 1.45}
+   pre.roles b {color: hsl(356,75%,60%)}
+   /* Smaller code blocks, for slides with two of them. */
+   pre.small {font-size: 0.62em; line-height: 1.45}
+   .verdict {font-weight: bold}
+   /* (a) (b) (c) lists; the template numbers <ol> with its own counter. */
+   .slide ol[type=a] > li::before {content: "(" counter(ol, lower-alpha) ")\A0"}
+   blockquote {margin: 0.5em 0 0.5em 1em; padding-left: 0.8em;
+     border-left: 0.2em solid hsl(211,60%,60%); font-style: italic}
+  </style>
+ </head>
+ <body class="shower duration=20 hidemouse quick">
+
+  <section class=comment>
+   <p>Slides for the ARIA WG meeting at TPAC 2026. To start the slide
+   show, press ‘A’. Return to the index with ‘A’ or ‘Esc’. In slide
+   mode, press ‘?’ for a list of commands. Notes like this one are
+   shown between slides in the index and on the second screen.</p>
+  </section>
+
+  <div class=progress></div>
+  <div class=clock></div>
+  <div role=region aria-live=assertive>Leaving slide mode.</div>
+
+
+  <!-- ============================================================ -->
+  <section class="slide cover" id="cover">
+   <h1>Menu elements: repairing invalid content</h1>
+   <address>David Grogan, Google<br>Lucas Radaelli, Google</address>
+  </section>
+
+  <section class=comment>
+   <p>Follow-up to <a href="https://github.com/w3c/aria/issues/2782"
+   >w3c/aria#2782</a>.</p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide" id="intro">
+   <h2>We are adding menu elements to HTML</h2>
+   <table class=striped>
+    <tr><th>Element</th><th>Implicit role</th></tr>
+    <tr><td><code>&lt;menubar&gt;</code></td><td><code>menubar</code></td></tr>
+    <tr><td><code>&lt;menulist&gt;</code> (a popover)</td><td><code>menu</code></td></tr>
+    <tr><td><code>&lt;menuitem&gt;</code></td><td><code>menuitem</code></td></tr>
+    <tr><td><code>&lt;menuitemcheckbox&gt;</code>, <code>&lt;menuitemradio&gt;</code></td>
+        <td><code>menuitemcheckbox</code>, <code>menuitemradio</code></td></tr>
+    <tr><td><code>&lt;submenu&gt;</code></td><td>none (<code>display: contents</code>)</td></tr>
+   </table>
+   <p class=note>Keyboard model follows the APG menu / menubar pattern.
+   <a href="https://open-ui.org/components/menu.explainer/">Explainer</a> ·
+   <a href="https://github.com/whatwg/html/pull/12011">whatwg/html#12011</a></p>
+  </section>
+
+  <section class=comment>
+   <p>Arrow keys move between menuitems, one tab stop for the whole
+   menu, Esc closes the current menulist and returns focus to its
+   invoker.</p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide" id="not-nav">
+   <h2>Application menus, not navigation menus</h2>
+   <div class=columns>
+    <section>
+     <h3>These</h3>
+     <ul>
+      <li>File / Edit / View menubars</li>
+      <li>“Actions ▾” buttons</li>
+      <li>Table column menus</li>
+      <li>Video player settings</li>
+     </ul>
+    </section>
+    <section>
+     <h3>Not these</h3>
+     <ul>
+      <li>Site navigation</li>
+      <li>Links in a <code>&lt;nav&gt;</code></li>
+      <li>Disclosure navigation</li>
+     </ul>
+     <p class=note><code>&lt;a&gt;</code> isn’t allowed in a
+     menu.</p>
+    </section>
+   </div>
+  </section>
+
+  <section class=comment>
+   <p>Navigation menus will get a separate proposal (OpenUI
+   #1193).</p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide" id="html">
+   <h2>Building one in HTML</h2>
+   <div class=columns>
+    <pre class=small>
+&lt;menubar&gt;
+  &lt;submenu&gt;
+    &lt;menuitem&gt;File&lt;/menuitem&gt;
+    &lt;menulist&gt;
+      &lt;menuitem&gt;New&lt;/menuitem&gt;
+      &lt;menuitem&gt;Share…&lt;/menuitem&gt;
+      &lt;submenu&gt;
+        &lt;menuitem&gt;Open Recent&lt;/menuitem&gt;
+        &lt;menulist&gt;…&lt;/menulist&gt;
+      &lt;/submenu&gt;
+      &lt;hr&gt;
+      &lt;menuitem&gt;Save&lt;/menuitem&gt;
+      …
+    &lt;/menulist&gt;
+  &lt;/submenu&gt;
+&lt;/menubar&gt;</pre>
+    <pre class=small>
+&lt;!-- Or from any button: --&gt;
+&lt;button commandfor=file
+        command=toggle-menu&gt;
+  File
+&lt;/button&gt;
+
+&lt;menulist id=file&gt;
+  &lt;menuitem&gt;New&lt;/menuitem&gt;
+  …
+&lt;/menulist&gt;</pre>
+   </div>
+   <p class=note>No ARIA, no JS. The accessibility tree is the
+   interesting part.</p>
+  </section>
+
+  <section class=comment>
+   <p>Go quickly. The button gets implicit aria-haspopup=menu and
+   aria-expanded.</p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide" id="good">
+   <h2>When things go well</h2>
+   <div class=demo>
+    <div class=mock aria-hidden=true>
+     <div class=mbar><span class=mbtn data-item=0>File</span></div>
+     <div class=mlist>
+      <div class=mi data-item=1>New</div>
+      <div class=mi data-item=2>Share…</div>
+      <div class="mi sub" data-item=3>Open Recent</div>
+      <div class=msep></div>
+      <div class=mi data-item=4>Save</div>
+      <div class=mi data-item=5>Save As…</div>
+      <div class=msep></div>
+      <div class=mi>Exit</div>
+     </div>
+    </div>
+    <ol class=log>
+     <li class=next data-focus=1><kbd>Enter</kbd> <samp>New, menu item, 1 of 6</samp></li>
+     <li class=next data-focus=2><kbd>↓</kbd> <samp>Share…, menu item, 2 of 6</samp></li>
+     <li class=next data-focus=3><kbd>↓</kbd> <samp>Open Recent, submenu, 3 of 6</samp></li>
+     <li class=next data-focus=4><kbd>↓</kbd> <samp>Save, menu item, 4 of 6</samp></li>
+    </ol>
+   </div>
+   <p class=next>What is announced matches what the arrow keys do.</p>
+  </section>
+
+  <section class=comment>
+   <p>Press → to step through. The announcement text is
+   approximate; <strong>TODO: replace with real NVDA/JAWS/VoiceOver
+   output.</strong></p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide" id="bad">
+   <h2>When authors ignore the content model</h2>
+   <div class=demo>
+    <div class=mock aria-hidden=true>
+     <div class=mbar><span class=mbtn data-item=0>File</span></div>
+     <div class=mlist>
+      <div class=mi data-item=1>New</div>
+      <div class="mi bad">Share…</div>
+      <div class="mi sub" data-item=3>Open Recent</div>
+      <div class=msep></div>
+      <div class=mi data-item=4>Save</div>
+      <div class=mi data-item=5>Save As…</div>
+      <div class=msep></div>
+      <div class=mi>Exit</div>
+     </div>
+    </div>
+    <ol class=log>
+     <li class=next data-focus=1><kbd>Enter</kbd> <samp>New, menu item, 1 of 5</samp></li>
+     <li class=next data-focus=3 data-skip><kbd>↓</kbd> <samp>Open Recent, submenu, 2 of 5</samp></li>
+     <li class=next data-focus=1 data-skip><kbd>↑</kbd> <samp>New, menu item, 1 of 5</samp></li>
+    </ol>
+   </div>
+   <p class=next><code>&lt;button&gt;Share…&lt;/button&gt;</code>
+   is never reached. Screen-reader users don’t know it’s there.</p>
+  </section>
+
+  <section class=comment>
+   <p>Same menu, but Share… is a &lt;button&gt; instead of a
+   &lt;menuitem&gt;. Arrow keys only stop on menuitems, so the
+   button gets skipped. A sighted mouse user can still click it. A
+   sighted keyboard user can see it and get frustrated, but a
+   screen-reader user never learns it exists.</p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide part" id="repair">
+   <h1>So the browser should repair it</h1>
+  </section>
+
+  <section class=comment>
+   <p>Like &lt;select&gt;, which falls back when it has
+   interactive content.</p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide" id="options">
+   <h2>Options</h2>
+   <ol type=a>
+    <li><strong>Hide it:</strong> <code>display: none</code> the whole
+     menu
+     <ul><li>Authors notice right away, but it breaks pages</li></ul></li>
+    <li><strong>Change the keyboard</strong> so everything is reachable,
+     and change the <strong>roles</strong> to match
+     <ul><li>Keeps keyboard and announcements consistent, but which
+     roles?</li></ul></li>
+    <li><strong>Let arrow keys reach</strong> non-menuitems; keep the
+     menu roles
+     <ul><li>Smallest change, but a <code>menu</code> then owns
+     things it isn’t allowed to own</li></ul></li>
+   </ol>
+  </section>
+
+  <section class=comment>
+   <p>We’ve been working on (b).</p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide" id="triggers">
+   <h2>What triggers repair</h2>
+   <div class=columns>
+    <section>
+     <h3>Repairs</h3>
+     <ul>
+      <li>Interactive elements: <code>&lt;button&gt;</code>,
+       <code>&lt;input&gt;</code>, …</li>
+      <li><code>&lt;a&gt;</code></li>
+      <li>Text outside a <code>&lt;menuitem&gt;</code> or
+       <code>&lt;legend&gt;</code></li>
+      <li><code>tabindex</code>, <code>contenteditable</code></li>
+     </ul>
+    </section>
+    <section>
+     <h3>Doesn’t (yet)</h3>
+     <ul>
+      <li>Structural only, e.g. a <code>&lt;div&gt;</code> in a
+       <code>&lt;submenu&gt;</code></li>
+      <li>Malformed <code>&lt;submenu&gt;</code></li>
+      <li>CSS generated content</li>
+     </ul>
+    </section>
+   </div>
+   <p class=note>In the Chromium prototype, one violation anywhere
+   repairs the <em>whole</em> menu tree, so users never mix Tab and
+   arrows within one menu.</p>
+  </section>
+
+  <section class=comment>
+   <p>Implemented with a mutation observer on the top-level menu,
+   like &lt;select&gt;. Updates are batched in a microtask. The
+   whole-tree rule came from early testing: repairing only the menulist
+   that had the violation meant switching between Tab and arrow keys
+   inside one logical menu.</p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide" id="try1">
+   <h2>Attempt 1: dialog + Tab</h2>
+   <div class=columns>
+    <pre class=roles>
+menubar          → <b>dialog</b>
+  menuitem File
+  menulist       → <b>dialog</b>
+    menuitem New
+    button Share
+    …</pre>
+    <section>
+     <ul>
+      <li>What the group suggested in
+       <a href="https://github.com/w3c/aria/issues/2782">#2782</a></li>
+      <li>Tab replaces arrow keys</li>
+      <li class=verdict>✗ Every submenu became a nested dialog</li>
+     </ul>
+    </section>
+   </div>
+  </section>
+
+  <section class=comment>
+   <p>Menuitems kept their menuitem role in attempts 1 and 2.</p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide" id="try2">
+   <h2>Attempt 2: dialog outside, lists inside</h2>
+   <div class=columns>
+    <pre class=roles>
+menubar          → <b>dialog</b>
+  menuitem File
+  menulist       → <b>list</b>
+    menuitem New
+    button Share
+    …</pre>
+    <section>
+     <ul>
+      <li>No more nested dialogs</li>
+      <li>X of Y now counts the invalid content too</li>
+      <li class=verdict>✗ Esc doesn’t “close” the dialog</li>
+     </ul>
+     <p class=note>Focus stays on the menubar. SR users expect a
+     dialog to close and focus to move, but a menubar can’t
+     close.</p>
+    </section>
+   </div>
+  </section>
+
+  <section class=comment>
+   <p>With the button counted, the broken File menu is “X of 6”
+   again (New 1, Share… 2, Open Recent 3, …) instead of
+   “X of 5” with the button left out.</p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide" id="try3">
+   <h2>Attempt 3: lists everywhere</h2>
+   <div class=columns>
+    <pre class=roles>
+menubar              → <b>list</b>
+  menuitem File      → <b>listitem</b>
+  menulist           → <b>list</b>
+    menuitem         → <b>listitem</b>
+    menuitemcheckbox → <b>checkbox</b>
+    menuitemradio    → <b>radio</b>
+    button Share</pre>
+    <section>
+     <ul>
+      <li>Items leave the menu roles. Otherwise NVDA keeps saying
+       “menu”.</li>
+      <li><code>listitem</code> can’t be checked, so checkbox/radio</li>
+      <li class=verdict>✗ NVDA didn’t announce expanded/collapsed,
+       and read the HTML tag name at the end</li>
+     </ul>
+    </section>
+   </div>
+  </section>
+
+  <section class=comment>
+   <p>This is what Chromium does today (Oct 2026). NVDA seemed
+   confused. <strong>TODO: add the exact NVDA output.</strong></p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide" id="try4">
+   <h2>Attempt 4 (not tried yet): tree</h2>
+   <div class=columns>
+    <pre class=roles>
+menubar          → <b>tree</b>
+  menuitem File  → <b>treeitem</b>
+  menulist       → <b>group</b>
+    menuitem     → <b>treeitem</b>
+    button Share</pre>
+    <section>
+     <ul>
+      <li><code>treeitem</code> supports <code>aria-expanded</code>
+       and <code>aria-checked</code></li>
+      <li>But a tree is navigated with arrow keys, not Tab…</li>
+      <li>…and it’s a big stretch for a menubar</li>
+     </ul>
+    </section>
+   </div>
+  </section>
+
+  <section class=comment>
+   <p>The mapping on this slide is a sketch. If the tree is navigated
+   with arrows, we’re drifting toward option (c).</p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide" id="option-c">
+   <h2>Should we just let arrow keys reach everything?</h2>
+   <ul>
+    <li>Keep <code>menubar</code> / <code>menu</code> /
+     <code>menuitem</code></li>
+    <li>Arrow keys also stop on the button, link, input…</li>
+    <li>Announcements would match the keyboard again</li>
+    <li>But <code>menu</code> would own children it isn’t allowed
+     to own</li>
+   </ul>
+   <p><strong>How do screen readers handle a button inside
+   <code>role=menu</code>?</strong></p>
+  </section>
+
+  <section class=comment>
+   <p>That's option (c) from earlier. This is the main question for
+   the group.</p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide" id="spec">
+   <h2>What about standardization?</h2>
+   <p>ARIA, <a href="https://w3c.github.io/aria/#document-handling_author-errors"
+   >Handling author errors</a>:</p>
+   <blockquote>
+    <p>User agents are not responsible for logical validation, such
+    as the following: […]</p>
+    <p>4. Elements that do not correctly observe required child /
+    parent role relationships or that appear elsewhere than in their
+    required parent.</p>
+   </blockquote>
+   <p>So any repair is currently up to each browser.</p>
+  </section>
+
+  <section class=comment>
+   <p>With native elements, the browser knows the roles are wrong,
+   because it assigned them.</p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide" id="heuristics">
+   <h2>Alternative: a documented heuristic?</h2>
+   <p><a href="https://github.com/w3c/aria/blob/main/documentation/browser_accessibility_heuristics.md"
+   >Browser accessibility heuristics</a> already lists:</p>
+   <ul>
+    <li><code>aria-hidden</code> on the root is ignored (now in the
+     spec)</li>
+    <li>Data tables vs. layout tables</li>
+    <li>Erroneous <code>aria-modal</code> ignored (WebKit)</li>
+   </ul>
+   <p>Where should menu repair go?
+   HTML? HTML-AAM? ARIA? That list?</p>
+  </section>
+
+  <section class=comment>
+   <p>Interop matters: if Chromium repairs to lists and another
+   engine repairs differently, screen-reader users get different
+   experiences on the same page.</p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide final" id="questions">
+   <div>
+    <h2>Questions for the group</h2>
+    <ol>
+     <li>Repair by changing roles (b), or let arrows reach everything (c)?</li>
+     <li>If (b): which roles?</li>
+     <li>Where should the repair be specified?</li>
+    </ol>
+   </div>
+   <div>
+    <h2>Links</h2>
+    <ul>
+     <li><a href="https://open-ui.org/components/menu.explainer/">Menu explainer</a></li>
+     <li><a href="https://github.com/whatwg/html/pull/12011">whatwg/html#12011</a></li>
+     <li><a href="https://github.com/w3c/aria/issues/2782">w3c/aria#2782</a></li>
+     <li><a href="https://crbug.com/425682466">crbug.com/425682466</a></li>
+    </ul>
+   </div>
+  </section>
+
+ </body>
+</html>
