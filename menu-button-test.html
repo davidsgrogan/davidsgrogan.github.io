@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Test: a button inside role=menu</title>
+<style>
+  body {font: 18px/1.5 system-ui, sans-serif; max-width: 46em; margin: 2em auto; padding: 0 1em}
+  section {margin: 2em 0; padding: 1em 1.2em; border: 1px solid #bbb; border-radius: 0.4em}
+  h2 {margin-top: 0; font-size: 1.15em}
+  .wrap {position: relative; display: inline-block}
+  [role=menu] {position: absolute; top: 100%; left: 0; z-index: 1; min-width: 11em;
+    margin-top: 0.2em; padding: 0.3em 0; border: 1px solid #333; background: white;
+    box-shadow: 0 0.2em 0.6em #0003}
+  [role=menu][hidden] {display: none}
+  [role=menuitem] {padding: 0.2em 0.9em; cursor: default}
+  [role=menu] > button {display: block; margin: 0.2em 0.9em}
+  [role=menuitem]:focus, [role=menu] button:focus {outline: 2px solid #1a73e8; outline-offset: -2px}
+  #log {margin-top: 2em; padding: 0.5em 0.8em; background: #f2f2f2}
+  code {font-size: 0.95em}
+</style>
+</head>
+<body>
+
+<h1>Test: a button inside <code>role=menu</code></h1>
+
+<p>All three menus have the same items. They differ only in where the
+<b>Share…</b> button is and whether the arrow keys reach it.</p>
+
+<p>Keyboard: on a <b>File</b> button, press Enter, Space or Down Arrow
+to open the menu. In the menu: Up/Down Arrow, Home and End move focus;
+Escape closes the menu and returns focus to <b>File</b>; Tab closes it
+and moves on.</p>
+
+<p>Things to note in each screen reader: does it announce the button
+when focus lands on it, does it still say it's in a menu, what is the
+"X of Y" count, and can the virtual cursor (browse mode) reach the
+button?</p>
+
+<section>
+  <h2>1. Button between menuitems; arrow keys reach it</h2>
+  <p>Option (b) from the slides: keep the menu roles, but let the arrow
+  keys stop on the button too.</p>
+  <div class="wrap">
+    <button class="trigger" id="t1" aria-haspopup="menu" aria-expanded="false" aria-controls="m1">File</button>
+    <div role="menu" id="m1" aria-labelledby="t1" data-arrows="all" hidden>
+      <div role="menuitem" tabindex="-1">New</div>
+      <button tabindex="-1">Share…</button>
+      <div role="menuitem" tabindex="-1">Open Recent</div>
+      <div role="menuitem" tabindex="-1">Save</div>
+      <div role="menuitem" tabindex="-1">Exit</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2. Button between menuitems; arrow keys skip it</h2>
+  <p>What happens today with no repair: the arrow keys only stop on
+  menuitems.</p>
+  <div class="wrap">
+    <button class="trigger" id="t2" aria-haspopup="menu" aria-expanded="false" aria-controls="m2">File</button>
+    <div role="menu" id="m2" aria-labelledby="t2" data-arrows="menuitems" hidden>
+      <div role="menuitem" tabindex="-1">New</div>
+      <button tabindex="-1">Share…</button>
+      <div role="menuitem" tabindex="-1">Open Recent</div>
+      <div role="menuitem" tabindex="-1">Save</div>
+      <div role="menuitem" tabindex="-1">Exit</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>3. Button inside a menuitem</h2>
+  <p>Allowed by ARIA, forbidden by the HTML menu elements. Chrome's own
+  video controls do this: their ⋮ menu items are
+  <code>&lt;label role=menuitem&gt;</code> wrapping a
+  <code>&lt;button&gt;</code>. The arrow keys move between menuitems.</p>
+  <div class="wrap">
+    <button class="trigger" id="t3" aria-haspopup="menu" aria-expanded="false" aria-controls="m3">File</button>
+    <div role="menu" id="m3" aria-labelledby="t3" data-arrows="menuitems" hidden>
+      <div role="menuitem" tabindex="-1">New</div>
+      <div role="menuitem" tabindex="-1">Share <button tabindex="-1">Copy link</button></div>
+      <div role="menuitem" tabindex="-1">Open Recent</div>
+      <div role="menuitem" tabindex="-1">Save</div>
+      <div role="menuitem" tabindex="-1">Exit</div>
+    </div>
+  </div>
+</section>
+
+<p>Also worth trying: Chrome's built-in <code>&lt;video controls&gt;</code>.
+Its ⋮ → Playback speed submenu is <code>role=menu</code> with a
+"Back to options" <code>role=button</code> directly inside it.</p>
+
+<!-- Deliberately not a live region, so it doesn't add announcements. -->
+<p id="log">Last activated: (none)</p>
+
+<script>
+for (const trigger of document.querySelectorAll('.trigger')) {
+  const menu = document.getElementById(trigger.getAttribute('aria-controls'));
+
+  // The elements the arrow keys stop on.
+  const items = () => [...menu.querySelectorAll(
+      menu.dataset.arrows === 'all'
+          ? ':scope > [role=menuitem], :scope > button'
+          : ':scope > [role=menuitem]')];
+
+  function open(index) {
+    menu.hidden = false;
+    trigger.setAttribute('aria-expanded', 'true');
+    const list = items();
+    list[(index + list.length) % list.length].focus();
+  }
+
+  function close(returnFocus) {
+    if (menu.hidden) return;
+    menu.hidden = true;
+    trigger.setAttribute('aria-expanded', 'false');
+    if (returnFocus) trigger.focus();
+  }
+
+  // Enter and Space on a <button> fire click, so they open via this.
+  trigger.addEventListener('click', () => menu.hidden ? open(0) : close(false));
+  trigger.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); open(0); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); open(-1); }
+  });
+
+  menu.addEventListener('keydown', (e) => {
+    const list = items();
+    // In menu 3, focus can be on a button inside a menuitem.
+    const current = list.indexOf(document.activeElement.closest(
+        menu.dataset.arrows === 'all' ? '[role=menuitem], button' : '[role=menuitem]'));
+    switch (e.key) {
+      case 'ArrowDown': e.preventDefault(); list[(current + 1) % list.length].focus(); break;
+      case 'ArrowUp': e.preventDefault(); list[(current - 1 + list.length) % list.length].focus(); break;
+      case 'Home': e.preventDefault(); list[0].focus(); break;
+      case 'End': e.preventDefault(); list[list.length - 1].focus(); break;
+      case 'Escape': e.preventDefault(); close(true); break;
+      case 'Tab': close(false); break;
+      case 'Enter':
+      case ' ':
+        // Native buttons already fire click on Enter/Space.
+        if (e.target.getAttribute('role') === 'menuitem') {
+          e.preventDefault();
+          e.target.click();
+        }
+        break;
+    }
+  });
+
+  menu.addEventListener('click', (e) => {
+    const target = e.target.closest('button, [role=menuitem]');
+    if (!target) return;
+    const name = target.tagName === 'BUTTON' ? `button "${target.textContent}"`
+                                             : `menuitem "${target.textContent.trim()}"`;
+    document.getElementById('log').textContent =
+        `Last activated: ${name} in menu ${menu.id.slice(1)}`;
+    close(true);
+  });
+
+  // Close when focus leaves both the trigger and the menu.
+  menu.addEventListener('focusout', () => setTimeout(() => {
+    if (!menu.contains(document.activeElement) && document.activeElement !== trigger) {
+      close(false);
+    }
+  }));
+  document.addEventListener('click', (e) => {
+    if (!menu.contains(e.target) && e.target !== trigger) close(false);
+  });
+}
+</script>
+</body>
+</html>
