@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Violated Content Model test page -- tree / treeitem roles</title>
+
+  <style>
+    menuitem,
+    menuitemcheckbox,
+    menuitemradio {
+      justify-content: space-between;
+      padding: 6px 10px;
+      cursor: default;
+      user-select: none;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+
+<h1>Menu Elements Test Page -- violated content model, tree / treeitem roles</h1>
+
+<section aria-labelledby="complex-broken">
+  <h2 id="complex-broken">Broken File menu with explicit tree roles</h2>
+  <p>
+    This is the same broken File, Edit, View, Help menubar from ex3.html (with a
+    link at File &gt; New), except explicit ARIA roles have been added:
+  </p>
+  <ul>
+    <li><code>&lt;menubar&gt;</code> has <code>role="tree"</code></li>
+    <li><code>&lt;menuitem&gt;</code> has <code>role="treeitem"</code></li>
+    <li><code>&lt;menulist&gt;</code> has <code>role="group"</code></li>
+  </ul>
+
+  <menubar role="tree" aria-label="Broken File menu">
+    <!-- File Menu -->
+    <submenu>
+      <menuitem role="treeitem">File</menuitem>
+      <menulist role="group">
+        <menuitem role="treeitem"><a href="#" style="display: initial !important">New</a></menuitem>
+        <!-- This item triggers a nested submenu (Level 2) -->
+        <submenu>
+          <menuitem role="treeitem">Open Recent</menuitem>
+          <menulist role="group">
+            <menuitem role="treeitem">Document1.txt</menuitem>
+            <menuitem role="treeitem">Report.docx</menuitem>
+            <menuitem role="treeitem">Spreadsheet.xlsx</menuitem>
+            <hr />
+            <menuitem role="treeitem">Clear List</menuitem>
+          </menulist>
+        </submenu>
+        <hr />
+        <menuitem role="treeitem">Save</menuitem>
+        <menuitem role="treeitem">Save As...</menuitem>
+        <menuitem role="treeitem" disabled>Print</menuitem>
+        <hr />
+        <menuitem role="treeitem">Exit</menuitem>
+      </menulist>
+    </submenu>
+
+    <!-- Edit Menu -->
+    <submenu>
+      <menuitem role="treeitem">Edit</menuitem>
+      <menulist role="group">
+        <menuitem role="treeitem">Undo</menuitem>
+        <menuitem role="treeitem">Redo</menuitem>
+        <hr />
+        <menuitem role="treeitem">Cut</menuitem>
+        <menuitem role="treeitem">Copy</menuitem>
+        <menuitem role="treeitem">Paste</menuitem>
+      </menulist>
+    </submenu>
+
+    <!-- View Menu -->
+    <submenu>
+      <menuitem role="treeitem">View</menuitem>
+      <menulist role="group">
+        <!-- This item triggers a nested submenu (Level 2) -->
+        <submenu>
+          <menuitem role="treeitem">Zoom</menuitem>
+          <menulist role="group">
+            <menuitemradio role="treeitem">50%</menuitemradio>
+            <menuitemradio role="treeitem">75%</menuitemradio>
+            <menuitemradio role="treeitem" defaultchecked>100%</menuitemradio>
+            <menuitemradio role="treeitem">150%</menuitemradio>
+            <menuitemradio role="treeitem">200%</menuitemradio>
+          </menulist>
+        </submenu>
+        <menuitem role="treeitem">Full Screen</menuitem>
+        <hr />
+        <menuitemcheckbox role="treeitem" defaultchecked>Show Ruler</menuitemcheckbox>
+        <menuitemcheckbox role="treeitem">Show Outline</menuitemcheckbox>
+        <menuitemcheckbox role="treeitem" defaultchecked disabled>Show Comments</menuitemcheckbox>
+      </menulist>
+    </submenu>
+
+    <!-- Help Menu -->
+    <submenu>
+      <menuitem role="treeitem">Help</menuitem>
+      <menulist role="group">
+        <menuitem role="treeitem">About</menuitem>
+        <menuitem role="treeitem">Check for Updates...</menuitem>
+      </menulist>
+    </submenu>
+  </menubar>
+</section>
+
+<hr style="margin-bottom: 250px;">
+<!-- Blank space because of https://crbug.com/546207253 -->
+
+<script>
+  const supported = "HTMLMenuListElement" in window;
+  if (!supported) {
+    document.querySelector("h1").textContent =
+      "Menu elements are not supported by this browser!!";
+  }
+</script>
+
+</html>
