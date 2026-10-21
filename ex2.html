@@ -9,7 +9,9 @@
   <title>Menu Elements Test Page</title>
 
   <style>
-    menuitem {
+    menuitem,
+    menuitemcheckbox,
+    menuitemradio {
       justify-content: space-between;
       padding: 6px 10px;
       cursor: default;
@@ -109,22 +111,18 @@
           <submenu>
             <menuitem>Zoom</menuitem>
             <menulist>
-              <fieldset checkable="single">
-                <menuitem>50%</menuitem>
-                <menuitem>75%</menuitem>
-                <menuitem defaultchecked>100%</menuitem>
-                <menuitem>150%</menuitem>
-                <menuitem>200%</menuitem>
-              </fieldset>
+              <menuitemradio>50%</menuitemradio>
+              <menuitemradio>75%</menuitemradio>
+              <menuitemradio defaultchecked>100%</menuitemradio>
+              <menuitemradio>150%</menuitemradio>
+              <menuitemradio>200%</menuitemradio>
             </menulist>
           </submenu>
           <menuitem>Full Screen</menuitem>
           <hr />
-          <fieldset checkable="multiple">
-            <menuitem defaultchecked>Show Ruler</menuitem>
-            <menuitem>Show Outline</menuitem>
-            <menuitem defaultchecked disabled>Show Comments</menuitem>
-          </fieldset>
+          <menuitemcheckbox defaultchecked>Show Ruler</menuitemcheckbox>
+          <menuitemcheckbox>Show Outline</menuitemcheckbox>
+          <menuitemcheckbox defaultchecked disabled>Show Comments</menuitemcheckbox>
         </menulist>
       </submenu>
 
@@ -287,22 +285,18 @@
           <submenu>
             <menuitem>Zoom</menuitem>
             <menulist>
-              <fieldset checkable="single">
-                <menuitem>50%</menuitem>
-                <menuitem>75%</menuitem>
-                <menuitem defaultchecked>100%</menuitem>
-                <menuitem>150%</menuitem>
-                <menuitem>200%</menuitem>
-              </fieldset>
+              <menuitemradio>50%</menuitemradio>
+              <menuitemradio>75%</menuitemradio>
+              <menuitemradio defaultchecked>100%</menuitemradio>
+              <menuitemradio>150%</menuitemradio>
+              <menuitemradio>200%</menuitemradio>
             </menulist>
           </submenu>
           <menuitem>Full Screen</menuitem>
           <hr />
-          <fieldset checkable="multiple">
-            <menuitem defaultchecked>Show Ruler</menuitem>
-            <menuitem>Show Outline</menuitem>
-            <menuitem defaultchecked disabled>Show Comments</menuitem>
-          </fieldset>
+          <menuitemcheckbox defaultchecked>Show Ruler</menuitemcheckbox>
+          <menuitemcheckbox>Show Outline</menuitemcheckbox>
+          <menuitemcheckbox defaultchecked disabled>Show Comments</menuitemcheckbox>
         </menulist>
       </submenu>
 

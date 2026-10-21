@@ -56,6 +56,12 @@
    .log samp {font-family: inherit; font-style: italic}
    .log samp::before {content: "\201C"} .log samp::after {content: "\201D"}
    .full .log li.active {background: hsl(211,100%,93%)}
+   .log li.takeaway {margin-top: 0.9em; font-weight: bold}
+   .slide ol.log > li.takeaway::before {content: none}
+   /* Reminders for the presenter, pinned to the slide's bottom-right
+      corner so they don't move the content. Delete before presenting. */
+   .slide .todo {position: absolute; right: 1rem; bottom: 0.6rem; margin: 0;
+     color: hsl(356,75%,45%); font-size: 0.6em; font-weight: bold}
 
    /* Before the first step: menu closed, focus on File. */
    .full .demo:not(:has(.log .active, .log .visited)) .mlist {visibility: hidden}
@@ -83,7 +89,9 @@
  </head>
  <body class="shower duration=20 hidemouse quick">
 
-  <section class=comment>
+  <!-- "long" makes this note full width, so in the index each slide
+       shares a row with its own notes. -->
+  <section class="long comment">
    <p>Slides for the ARIA WG meeting at TPAC 2026. To start the slide
    show, press ‘A’. Return to the index with ‘A’ or ‘Esc’. In slide
    mode, press ‘?’ for a list of commands. Notes like this one are
@@ -160,6 +168,13 @@
   <section class=comment>
    <p>Navigation menus will get a separate proposal (OpenUI
    #1193).</p>
+   <p>Video player settings: Chrome’s own built-in video controls use
+   menu roles. The ⋮ overflow menu is role=menu, and its items are
+   &lt;label role=menuitem&gt; elements wrapping a &lt;button&gt;. The
+   Playback speed and Captions submenus are role=menu with
+   menuitemcheckbox items, and a “Back to options” header that is
+   role=button, i.e. a button directly inside a menu (see
+   blink/renderer/modules/media_controls/elements/).</p>
   </section>
 
 
@@ -187,7 +202,7 @@
     <pre class=small>
 &lt;!-- Or from any button: --&gt;
 &lt;button commandfor=file
-        command=toggle-menu&gt;
+        command=toggle-popover&gt;
   File
 &lt;/button&gt;
 
@@ -203,6 +218,51 @@
   <section class=comment>
    <p>Go quickly. The button gets implicit aria-haspopup=menu and
    aria-expanded.</p>
+   <p>Changed since we presented to ARIA in May: submenus used to be
+   connected with ID references (command=toggle-menu commandfor=…). Now
+   they’re nested in the DOM with &lt;submenu&gt;, and the toggle-menu
+   command is gone; a button opens a standalone menulist with
+   toggle-popover or popovertarget.</p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide" id="good">
+   <h2>When things go well</h2>
+   <div class=demo>
+    <div class=mock aria-hidden=true>
+     <div class=mbar><span class=mbtn data-item=0>File</span><span class=mbtn>Edit</span><span class=mbtn>View</span><span class=mbtn>Help</span></div>
+     <div class=mlist>
+      <div class=mi data-item=1>New</div>
+      <div class=mi data-item=2>Share…</div>
+      <div class="mi sub" data-item=3>Open Recent</div>
+      <div class=msep></div>
+      <div class=mi data-item=4>Save</div>
+      <div class=mi data-item=5>Save As…</div>
+      <div class=msep></div>
+      <div class=mi>Exit</div>
+     </div>
+    </div>
+    <ol class=log>
+     <li class=next data-focus=1><kbd>Enter</kbd> <samp>New, menu item, 1 of 6</samp></li>
+     <li class=next data-focus=2><kbd>↓</kbd> <samp>Share…, menu item, 2 of 6</samp></li>
+     <li class=next data-focus=3><kbd>↓</kbd> <samp>Open Recent, submenu, 3 of 6</samp></li>
+     <li class=next data-focus=4><kbd>↓</kbd> <samp>Save, menu item, 4 of 6</samp></li>
+     <li class="next takeaway" data-focus=4>What is announced matches what
+      the arrow keys do.</li>
+    </ol>
+   </div>
+   <p class=todo>TODO: use real NVDA output (it won’t say “submenu”)</p>
+  </section>
+
+  <section class=comment>
+   <p>Press → to step through. The announcement text is
+   approximate; <strong>TODO: replace with real NVDA/JAWS/VoiceOver
+   output.</strong></p>
+   <p>If asked about disabled menuitems (soft disabling): we talked
+   about this a lot with Scott O’Hara. Our conclusion: we don’t want
+   to add soft disabling just for menus. It should be a platform
+   feature that works for any disableable element.</p>
   </section>
 
 
@@ -246,42 +306,9 @@
 
 
   <!-- ============================================================ -->
-  <section class="slide" id="good">
-   <h2>When things go well</h2>
-   <div class=demo>
-    <div class=mock aria-hidden=true>
-     <div class=mbar><span class=mbtn data-item=0>File</span><span class=mbtn>Edit</span><span class=mbtn>View</span><span class=mbtn>Help</span></div>
-     <div class=mlist>
-      <div class=mi data-item=1>New</div>
-      <div class=mi data-item=2>Share…</div>
-      <div class="mi sub" data-item=3>Open Recent</div>
-      <div class=msep></div>
-      <div class=mi data-item=4>Save</div>
-      <div class=mi data-item=5>Save As…</div>
-      <div class=msep></div>
-      <div class=mi>Exit</div>
-     </div>
-    </div>
-    <ol class=log>
-     <li class=next data-focus=1><kbd>Enter</kbd> <samp>New, menu item, 1 of 6</samp></li>
-     <li class=next data-focus=2><kbd>↓</kbd> <samp>Share…, menu item, 2 of 6</samp></li>
-     <li class=next data-focus=3><kbd>↓</kbd> <samp>Open Recent, submenu, 3 of 6</samp></li>
-     <li class=next data-focus=4><kbd>↓</kbd> <samp>Save, menu item, 4 of 6</samp></li>
-    </ol>
-   </div>
-   <p class=next>What is announced matches what the arrow keys do.</p>
-  </section>
-
-  <section class=comment>
-   <p>Press → to step through. The announcement text is
-   approximate; <strong>TODO: replace with real NVDA/JAWS/VoiceOver
-   output.</strong></p>
-  </section>
-
-
-  <!-- ============================================================ -->
   <section class="slide" id="bad">
    <h2>When authors ignore the content model</h2>
+   <p class=note>What would happen if the browser did no repair:</p>
    <div class=demo>
     <div class=mock aria-hidden=true>
      <div class=mbar><span class=mbtn data-item=0>File</span><span class=mbtn>Edit</span><span class=mbtn>View</span><span class=mbtn>Help</span></div>
@@ -300,10 +327,11 @@
      <li class=next data-focus=1><kbd>Enter</kbd> <samp>New, menu item, 1 of 5</samp></li>
      <li class=next data-focus=3 data-skip><kbd>↓</kbd> <samp>Open Recent, submenu, 2 of 5</samp></li>
      <li class=next data-focus=1 data-skip><kbd>↑</kbd> <samp>New, menu item, 1 of 5</samp></li>
+     <li class="next takeaway" data-focus=1 data-skip><code>&lt;button&gt;Share…&lt;/button&gt;</code>
+      is never reached. Screen-reader users don’t know it’s there.</li>
     </ol>
    </div>
-   <p class=next><code>&lt;button&gt;Share…&lt;/button&gt;</code>
-   is never reached. Screen-reader users don’t know it’s there.</p>
+   <p class=todo>TODO: use real NVDA output (it won’t say “submenu”)</p>
   </section>
 
   <section class=comment>
@@ -336,6 +364,8 @@
      confusing</em></li>
     <li>Using roles that already exist, so the keyboard and the
      announcements agree</li>
+    <li>And tell the author: a DevTools console warning, and a red
+     squiggle on the element in DevTools</li>
    </ul>
    <p class=note>Success means screen-reader users can find and use
    everything. It won’t be a great menu.</p>
@@ -351,15 +381,11 @@
 
   <!-- ============================================================ -->
   <section class="slide" id="options">
-   <h2>Options</h2>
+   <h2>Modeled on customizable <code>&lt;select&gt;</code></h2>
+   <p>When a <code>&lt;select&gt;</code> picker has interactive content,
+   it becomes a <code>dialog</code> and Tab reaches everything.
+   Menus nest, so we can’t just copy that. Two directions:</p>
    <ol type=a>
-    <li><strong>Hide it:</strong> <code>display: none</code> the menu
-     (rejected for <code>&lt;selectmenu&gt;</code>,
-     <a href="https://github.com/openui/open-ui/issues/540">openui#540</a>)
-     <ul>
-      <li>Pages would rely on it, so we could never allow it later</li>
-      <li>Authors would fall back to <code>&lt;div&gt;</code>s, with no warnings</li>
-     </ul></li>
     <li><strong>Change the keyboard and roles</strong> so everything
      is reachable
      <ul><li>Consistent, but which roles?</li></ul></li>
@@ -371,16 +397,28 @@
   </section>
 
   <section class=comment>
-   <p>We’ve been working on (b).</p>
-   <p>On (a): OpenUI weighed removing, hiding or breaking invalid
-   content in <code>&lt;selectmenu&gt;</code> in 2022 (#540). Besides the
-   two points on the slide, content silently disappearing would
-   confuse authors, and the platform has no precedent for the DOM
-   undoing what an author put there. Removing it only at the layout
-   level has the same lock-in problem. They resolved to keep the
-   control working and have the browser warn the developer instead.
-   Hiding would at least make authors notice right away, but it
-   breaks their pages.</p>
+   <p>We’ve been working on (a). These two are where we want
+   feedback.</p>
+   <p>Why not a straight copy of &lt;select&gt;: a select has one
+   popup, so one dialog. Menus nest, so “dialog everywhere” gives
+   nested dialogs (attempt 1).</p>
+   <p>If someone suggests hiding the menu or the invalid content
+   (display: none): we decided against that for customizable select
+   in <a href="https://github.com/openui/open-ui/issues/540"
+   >openui#540</a> (2022), and we’re following that precedent.</p>
+   <ul>
+    <li>It’s hard to unbreak things. If we hide the content, pages come
+     to rely on that, and we can’t allow it later even once it can be
+     made accessible. For select, that was secondary actions (buttons
+     in options). For menus, we don’t want to paint ourselves into a
+     corner and limit what ARIA actions could do.</li>
+    <li>Authors would fall back to &lt;div&gt;s, which are less
+     accessible and get no warnings or guidance.</li>
+    <li>HTML doesn’t remove or hide author content. Content silently
+     disappearing would confuse authors.</li>
+    <li>Instead: repair it, warn the developer, and keep the door open
+     to improving it later.</li>
+   </ul>
   </section>
 
 
@@ -441,7 +479,7 @@ menubar          → <b>dialog</b>
      <ul>
       <li>One violation anywhere switches the <em>whole</em> menu tree,
        so users never mix Tab and arrows in one menu</li>
-      <li>What the group suggested in
+      <li>Discussed in
        <a href="https://github.com/w3c/aria/issues/2782">#2782</a></li>
       <li>Tab replaces arrow keys</li>
       <li class=verdict>✗ Every submenu became a nested dialog</li>
@@ -452,6 +490,10 @@ menubar          → <b>dialog</b>
 
   <section class=comment>
    <p>Menuitems kept their menuitem role in attempts 1 and 2.</p>
+   <p>Scott O’Hara hinted at this back in May (at OpenUI, not in the
+   ARIA discussion): when a menu tree has invalid content, probably
+   leave the top-level menubar as something other than a dialog.</p>
+   <p>Lucas said he has never run into nested dialogs in the wild.</p>
   </section>
 
 
@@ -500,11 +542,12 @@ menubar              → <b>list</b>
     button Share</pre>
     <section>
      <ul>
-      <li>Items leave the menu roles. Otherwise NVDA keeps saying
-       “menu”.</li>
-      <li><code>listitem</code> can’t be checked, so checkbox/radio</li>
-      <li class=verdict>✗ NVDA didn’t announce expanded/collapsed,
-       and read the HTML tag name at the end</li>
+      <li>Items leave the menu roles, or NVDA keeps saying “menu”</li>
+      <li>Checkable items: checkbox/radio</li>
+      <li class=verdict>✗ <code>listitem</code> can’t be expanded or
+       collapsed</li>
+      <li class=verdict>✗ NVDA sometimes said “submenu”: only the HTML
+       tag name</li>
      </ul>
     </section>
    </div>
@@ -513,6 +556,11 @@ menubar              → <b>list</b>
   <section class=comment>
    <p>This is what Chromium does today (Oct 2026). NVDA seemed
    confused. <strong>TODO: add the exact NVDA output.</strong></p>
+   <p>Why checkbox/radio: ARIA’s listitem supports only aria-posinset
+   and aria-setsize, so it can’t be checked. For the same reason it
+   can’t be expanded or collapsed, so “Open Recent” loses its submenu
+   state. NVDA still sometimes said “submenu”, even though that word
+   now only exists as the HTML tag name.</p>
   </section>
 
 
@@ -535,11 +583,12 @@ menubar          → <b>tree</b>
      </ul>
     </section>
    </div>
+   <p class=todo>TODO: update with the results of testing with Lucas</p>
   </section>
 
   <section class=comment>
    <p>The mapping on this slide is a sketch. If the tree is navigated
-   with arrows, we’re drifting toward option (c).</p>
+   with arrows, we’re drifting toward option (b).</p>
   </section>
 
 
@@ -559,7 +608,7 @@ menubar          → <b>tree</b>
   </section>
 
   <section class=comment>
-   <p>That's option (c) from earlier. This is the main question for
+   <p>That's option (b) from earlier. This is the main question for
    the group.</p>
   </section>
 
@@ -612,8 +661,8 @@ menubar          → <b>tree</b>
    <div>
     <h2>Questions for the group</h2>
     <ol>
-     <li>Repair by changing roles (b), or let arrows reach everything (c)?</li>
-     <li>If (b): which roles?</li>
+     <li>Repair by changing roles (a), or let arrows reach everything (b)?</li>
+     <li>If (a): which roles?</li>
      <li>Where should the repair be specified?</li>
     </ol>
    </div>
