@@ -29,22 +29,25 @@
       data-focus says which mock item (data-item) has focus at that
       step; data-skip marks steps where the arrow key jumped over the
       invalid content. */
-   .demo {display: grid; grid: "menu log" / 9.5em 1fr; gap: 1.2em;
+   .demo {display: grid; grid: "menu log" / 12.5em 1fr; gap: 1.2em;
      align-items: start; margin-top: 0.4em}
-   .mock {font-size: 0.85em; line-height: 1.35}
-   .mbar {padding: 0.15em 0.25em; border: 1px solid #aaa;
-     border-radius: 0.3em; background: #ececec}
-   .mbtn {display: inline-block; padding: 0.05em 0.6em; border-radius: 0.2em}
-   .mlist {margin: 0.2em 0 0 0.25em; width: 8.5em; padding: 0.25em;
-     border: 1px solid #999; border-radius: 0.3em; background: white;
-     box-shadow: 0 0.2em 0.6em #0003}
-   .mi {padding: 0.05em 0.6em; border-radius: 0.2em}
-   .mi.sub {display: flex; justify-content: space-between}
-   .mi.sub::after {content: "▸"}
-   .mi.bad {margin: 0.15em 0.3em; border: 2px solid #666;
-     border-radius: 0.3em; background: #e8e8e8; text-align: center}
-   .msep {margin: 0.2em 0.4em; border-top: 1px solid #ccc}
-   .mock [data-item] {outline-offset: 0.05em}
+   /* The mock imitates Chrome's current default rendering of
+      <menubar>/<menulist>: default serif font, thin black borders,
+      rounded menubar, square menulist overlapping the bar. */
+   .mock {font: 0.75em/1.2 "Times New Roman", Times, serif; color: black;
+     text-shadow: none}
+   .mbar {display: flex; width: max-content; padding: 0.5em 0.4em;
+     border: 1px solid black; border-radius: 0.25em; background: white}
+   .mbtn {padding: 0.1em 0.95em}
+   .mlist {position: relative; width: 9.3em; margin: -0.25em 0 0 0.35em;
+     padding: 0.25em 0; border: 1px solid black; background: white}
+   .mi {padding: 0.55em 1em}
+   .mi.sub::after {content: "\A0\25B6"; font-size: 0.8em}
+   .mi.bad {display: block; width: max-content; margin: 0.4em 1em;
+     padding: 0.1em 0.5em; font: 0.75em system-ui, sans-serif;
+     border: 1px solid #767676; border-radius: 0.2em; background: #efefef}
+   .msep {margin: 0.45em 0.35em; border-top: 1px solid black}
+   .mock [data-item] {outline-offset: -0.15em}
    .log {list-style: none; margin: 0; padding: 0; font-size: 0.85em}
    .log li {margin: 0 0 0.35em; padding: 0.05em 0.3em; border-radius: 0.2em}
    .log kbd {display: inline-block; min-width: 1.4em; padding: 0 0.3em;
@@ -54,17 +57,15 @@
    .log samp::before {content: "\201C"} .log samp::after {content: "\201D"}
    .full .log li.active {background: hsl(211,100%,93%)}
 
-   /* Before the first step: menu closed, focus on File. After it,
-      File stays highlighted as the open menu's parent. */
+   /* Before the first step: menu closed, focus on File. */
    .full .demo:not(:has(.log .active, .log .visited)) .mlist {visibility: hidden}
-   .full .demo:has(.log .active, .log .visited) [data-item="0"] {background: #d0d0d0}
    .full .demo:not(:has(.log .active, .log .visited)) [data-item="0"],
    .full .demo:has(.log [data-focus="1"].active) [data-item="1"],
    .full .demo:has(.log [data-focus="2"].active) [data-item="2"],
    .full .demo:has(.log [data-focus="3"].active) [data-item="3"],
    .full .demo:has(.log [data-focus="4"].active) [data-item="4"],
    .full .demo:has(.log [data-focus="5"].active) [data-item="5"] {
-     outline: 0.15em solid hsl(211,100%,40%); background: hsl(211,100%,90%)}
+     outline: 0.15em solid hsl(211,100%,45%)}
    .full .demo:has(.log [data-skip].active) .bad {
      outline: 0.15em dashed hsl(356,75%,53%)}
 
@@ -164,7 +165,7 @@
 
   <!-- ============================================================ -->
   <section class="slide" id="html">
-   <h2>Building one in HTML</h2>
+   <h2>Example markup</h2>
    <div class=columns>
     <pre class=small>
 &lt;menubar&gt;
@@ -206,11 +207,50 @@
 
 
   <!-- ============================================================ -->
+  <section class="slide" id="content-model">
+   <h2>The content model</h2>
+   <div class=columns>
+    <section>
+     <h3>Allowed</h3>
+     <ul>
+      <li>Menu items: <code>&lt;menuitem&gt;</code> and its checkbox
+       and radio versions</li>
+      <li><code>&lt;submenu&gt;</code> = menuitem + menulist</li>
+      <li>Separators and groups: <code>&lt;hr&gt;</code>,
+       <code>&lt;fieldset&gt;</code>, <code>&lt;div&gt;</code></li>
+     </ul>
+    </section>
+    <section>
+     <h3>Not allowed</h3>
+     <ul>
+      <li>Other interactive elements: <code>&lt;button&gt;</code>,
+       <code>&lt;input&gt;</code>, …</li>
+      <li><code>&lt;a&gt;</code> (hidden by default)</li>
+      <li>Text outside a <code>&lt;menuitem&gt;</code> or
+       <code>&lt;legend&gt;</code></li>
+     </ul>
+    </section>
+   </div>
+   <p class=note>Text and images go inside a menuitem. The arrow keys
+   only stop on menuitems.</p>
+  </section>
+
+  <section class=comment>
+   <p>This content model is stricter than ARIA’s. The big difference:
+   HTML forbids interactive content <em>inside</em> a menuitem (no
+   button, link, input or tabindex inside it), while ARIA allows it.
+   The menuitem role puts no limits on its children, and its children
+   aren’t presentational.</p>
+   <p>Anchors get a default display: none in menus.</p>
+  </section>
+
+
+  <!-- ============================================================ -->
   <section class="slide" id="good">
    <h2>When things go well</h2>
    <div class=demo>
     <div class=mock aria-hidden=true>
-     <div class=mbar><span class=mbtn data-item=0>File</span></div>
+     <div class=mbar><span class=mbtn data-item=0>File</span><span class=mbtn>Edit</span><span class=mbtn>View</span><span class=mbtn>Help</span></div>
      <div class=mlist>
       <div class=mi data-item=1>New</div>
       <div class=mi data-item=2>Share…</div>
@@ -244,7 +284,7 @@
    <h2>When authors ignore the content model</h2>
    <div class=demo>
     <div class=mock aria-hidden=true>
-     <div class=mbar><span class=mbtn data-item=0>File</span></div>
+     <div class=mbar><span class=mbtn data-item=0>File</span><span class=mbtn>Edit</span><span class=mbtn>View</span><span class=mbtn>Help</span></div>
      <div class=mlist>
       <div class=mi data-item=1>New</div>
       <div class="mi bad">Share…</div>
@@ -277,7 +317,7 @@
 
   <!-- ============================================================ -->
   <section class="slide part" id="repair">
-   <h1>So the browser should repair it</h1>
+   <h1>Improving the broken experience</h1>
   </section>
 
   <section class=comment>
@@ -287,16 +327,42 @@
 
 
   <!-- ============================================================ -->
+  <section class="slide" id="goal">
+   <h2>The goal: less confusing, not fixed</h2>
+   <ul>
+    <li>Only the author can really fix it: put the content in
+     menuitems, or don’t use a menu</li>
+    <li>The browser can only make a broken menu <em>less
+     confusing</em></li>
+    <li>Using roles that already exist, so the keyboard and the
+     announcements agree</li>
+   </ul>
+   <p class=note>Success means screen-reader users can find and use
+   everything. It won’t be a great menu.</p>
+  </section>
+
+  <section class=comment>
+   <p>Set expectations before the options: none of these attempts
+   produce a good experience. Each one tries to describe broken
+   content honestly using semantics that already exist, rather than
+   inventing new ones.</p>
+  </section>
+
+
+  <!-- ============================================================ -->
   <section class="slide" id="options">
    <h2>Options</h2>
    <ol type=a>
-    <li><strong>Hide it:</strong> <code>display: none</code> the whole
-     menu
-     <ul><li>Authors notice right away, but it breaks pages</li></ul></li>
-    <li><strong>Change the keyboard</strong> so everything is reachable,
-     and change the <strong>roles</strong> to match
-     <ul><li>Keeps keyboard and announcements consistent, but which
-     roles?</li></ul></li>
+    <li><strong>Hide it:</strong> <code>display: none</code> the menu
+     (rejected for <code>&lt;selectmenu&gt;</code>,
+     <a href="https://github.com/openui/open-ui/issues/540">openui#540</a>)
+     <ul>
+      <li>Pages would rely on it, so we could never allow it later</li>
+      <li>Authors would fall back to <code>&lt;div&gt;</code>s, with no warnings</li>
+     </ul></li>
+    <li><strong>Change the keyboard and roles</strong> so everything
+     is reachable
+     <ul><li>Consistent, but which roles?</li></ul></li>
     <li><strong>Let arrow keys reach</strong> non-menuitems; keep the
      menu roles
      <ul><li>Smallest change, but a <code>menu</code> then owns
@@ -306,10 +372,21 @@
 
   <section class=comment>
    <p>We’ve been working on (b).</p>
+   <p>On (a): OpenUI weighed removing, hiding or breaking invalid
+   content in <code>&lt;selectmenu&gt;</code> in 2022 (#540). Besides the
+   two points on the slide, content silently disappearing would
+   confuse authors, and the platform has no precedent for the DOM
+   undoing what an author put there. Removing it only at the layout
+   level has the same lock-in problem. They resolved to keep the
+   control working and have the browser warn the developer instead.
+   Hiding would at least make authors notice right away, but it
+   breaks their pages.</p>
   </section>
 
 
   <!-- ============================================================ -->
+  <!-- DISABLED SLIDE: delete this line and the matching "END DISABLED
+       SLIDE" line below to bring it back.
   <section class="slide" id="triggers">
    <h2>What triggers repair</h2>
    <div class=columns>
@@ -346,6 +423,7 @@
    that had the violation meant switching between Tab and arrow keys
    inside one logical menu.</p>
   </section>
+  END DISABLED SLIDE -->
 
 
   <!-- ============================================================ -->
@@ -361,6 +439,8 @@ menubar          → <b>dialog</b>
     …</pre>
     <section>
      <ul>
+      <li>One violation anywhere switches the <em>whole</em> menu tree,
+       so users never mix Tab and arrows in one menu</li>
       <li>What the group suggested in
        <a href="https://github.com/w3c/aria/issues/2782">#2782</a></li>
       <li>Tab replaces arrow keys</li>
