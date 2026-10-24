@@ -189,10 +189,7 @@
     &lt;menulist&gt;
       &lt;menuitem&gt;New&lt;/menuitem&gt;
       &lt;menuitem&gt;Share…&lt;/menuitem&gt;
-      &lt;submenu&gt;
-        &lt;menuitem&gt;Open Recent&lt;/menuitem&gt;
-        &lt;menulist&gt;…&lt;/menulist&gt;
-      &lt;/submenu&gt;
+      &lt;menuitem&gt;Open…&lt;/menuitem&gt;
       &lt;hr&gt;
       &lt;menuitem&gt;Save&lt;/menuitem&gt;
       …
@@ -235,7 +232,7 @@
      <div class=mlist>
       <div class=mi data-item=1>New</div>
       <div class=mi data-item=2>Share…</div>
-      <div class="mi sub" data-item=3>Open Recent</div>
+      <div class=mi data-item=3>Open…</div>
       <div class=msep></div>
       <div class=mi data-item=4>Save</div>
       <div class=mi data-item=5>Save As…</div>
@@ -244,25 +241,23 @@
      </div>
     </div>
     <ol class=log>
-     <li class=next data-focus=1><kbd>Enter</kbd> <samp>New, menu item, 1 of 6</samp></li>
-     <li class=next data-focus=2><kbd>↓</kbd> <samp>Share…, menu item, 2 of 6</samp></li>
-     <li class=next data-focus=3><kbd>↓</kbd> <samp>Open Recent, submenu, 3 of 6</samp></li>
-     <li class=next data-focus=4><kbd>↓</kbd> <samp>Save, menu item, 4 of 6</samp></li>
+     <li class=next data-focus=1><kbd>Enter</kbd> <samp>New 1 of 6</samp></li>
+     <li class=next data-focus=2><kbd>↓</kbd> <samp>Share… 2 of 6</samp></li>
+     <li class=next data-focus=3><kbd>↓</kbd> <samp>Open… 3 of 6</samp></li>
+     <li class=next data-focus=4><kbd>↓</kbd> <samp>Save 4 of 6</samp></li>
      <li class="next takeaway" data-focus=4>What is announced matches what
       the arrow keys do.</li>
     </ol>
    </div>
-   <p class=todo>TODO: use real NVDA output (it won’t say “submenu”)</p>
   </section>
 
   <section class=comment>
-   <p>Press → to step through. The announcement text is
-   approximate; <strong>TODO: replace with real NVDA/JAWS/VoiceOver
-   output.</strong></p>
-   <p>If asked about disabled menuitems (soft disabling): we talked
-   about this a lot with Scott O’Hara. Our conclusion: we don’t want
+   <p>Press → to step through. NVDA doesn’t say “menu item” when
+   arrowing through these menus (checked with the real elements).</p>
+   <p>Soft disabling IF NECESSARY: we talked
+   about this at Open UI a lot with Scott O'Hara. Conclusion: we don’t want
    to add soft disabling just for menus. It should be a platform
-   feature that works for any disableable element.</p>
+   feature that works for any disableable element. We have an open issue for this.</p>
   </section>
 
 
@@ -315,7 +310,7 @@
      <div class=mlist>
       <div class=mi data-item=1>New</div>
       <div class="mi bad">Share…</div>
-      <div class="mi sub" data-item=3>Open Recent</div>
+      <div class=mi data-item=3>Open…</div>
       <div class=msep></div>
       <div class=mi data-item=4>Save</div>
       <div class=mi data-item=5>Save As…</div>
@@ -324,14 +319,14 @@
      </div>
     </div>
     <ol class=log>
-     <li class=next data-focus=1><kbd>Enter</kbd> <samp>New, menu item, 1 of 5</samp></li>
-     <li class=next data-focus=3 data-skip><kbd>↓</kbd> <samp>Open Recent, submenu, 2 of 5</samp></li>
-     <li class=next data-focus=1 data-skip><kbd>↑</kbd> <samp>New, menu item, 1 of 5</samp></li>
+     <li class=next data-focus=1><kbd>Enter</kbd> <samp>New 1 of 5</samp></li>
+     <li class=next data-focus=3 data-skip><kbd>↓</kbd> <samp>Open… 2 of 5</samp></li>
+     <li class=next data-focus=1 data-skip><kbd>↑</kbd> <samp>New 1 of 5</samp></li>
      <li class="next takeaway" data-focus=1 data-skip><code>&lt;button&gt;Share…&lt;/button&gt;</code>
-      is never reached. Screen-reader users don’t know it’s there.</li>
+       is never reached. Screen-reader users don’t know it’s there.<br>THIS IS THE BROKEN EXPERIENCE!
+     </li>
     </ol>
    </div>
-   <p class=todo>TODO: use real NVDA output (it won’t say “submenu”)</p>
   </section>
 
   <section class=comment>
@@ -372,10 +367,14 @@
   </section>
 
   <section class=comment>
-   <p>Set expectations before the options: none of these attempts
-   produce a good experience. Each one tries to describe broken
-   content honestly using semantics that already exist, rather than
-   inventing new ones.</p>
+   <p>Set expectations before the options: none of these attempts produce a
+   good experience. Each one tries to describe broken content honestly using
+   semantics that already exist, rather than inventing new ones.</p>
+
+   <p>Devtools: the Blink web platform team recently, last few years, convinced
+   the chrome devtools team to show console warnings when pages use new
+   primitives in an a11y-unfriendly manner. That unblocked us to do the same
+   here.</p>
   </section>
 
 
@@ -384,11 +383,13 @@
    <h2>Modeled on customizable <code>&lt;select&gt;</code></h2>
    <p>When a <code>&lt;select&gt;</code> picker has interactive content,
    it becomes a <code>dialog</code> and Tab reaches everything.
-   Menus nest, so we can’t just copy that. Two directions:</p>
+   Menus nest, so we can’t just copy that. Two possible directions:</p>
    <ol type=a>
     <li><strong>Change the keyboard and roles</strong> so everything
      is reachable
-     <ul><li>Consistent, but which roles?</li></ul></li>
+     <ul><li>Consistent, but which roles?</li>
+       <li>We've been focused here</li>
+     </ul></li>
     <li><strong>Let arrow keys reach</strong> non-menuitems; keep the
      menu roles
      <ul><li>Smallest change, but a <code>menu</code> then owns
@@ -478,7 +479,7 @@ menubar          → <b>dialog</b>
     <section>
      <ul>
       <li>One violation anywhere switches the <em>whole</em> menu tree,
-       so users never mix Tab and arrows in one menu</li>
+       so users don't have to mix Tab and arrows navigating a single menu structure</li>
       <li>Discussed in
        <a href="https://github.com/w3c/aria/issues/2782">#2782</a></li>
       <li>Tab replaces arrow keys</li>
@@ -490,9 +491,6 @@ menubar          → <b>dialog</b>
 
   <section class=comment>
    <p>Menuitems kept their menuitem role in attempts 1 and 2.</p>
-   <p>Scott O’Hara hinted at this back in May (at OpenUI, not in the
-   ARIA discussion): when a menu tree has invalid content, probably
-   leave the top-level menubar as something other than a dialog.</p>
    <p>Lucas said he has never run into nested dialogs in the wild.</p>
   </section>
 
@@ -511,7 +509,7 @@ menubar          → <b>dialog</b>
     <section>
      <ul>
       <li>No more nested dialogs</li>
-      <li>X of Y now counts the invalid content too</li>
+      <li>X of Y (posInSet / setSize) counts the invalid content too</li>
       <li class=verdict>✗ Esc doesn’t “close” the dialog</li>
      </ul>
      <p class=note>Focus stays on the menubar. SR users expect a
@@ -525,29 +523,32 @@ menubar          → <b>dialog</b>
    <p>With the button counted, the broken File menu is “X of 6”
    again (New 1, Share… 2, Open Recent 3, …) instead of
    “X of 5” with the button left out.</p>
+   <p>But can't CLOSE the outer dialog / menubar because a menubar always takes up space in the page</p>
+   <p>Scott hinted at this back in May (at OpenUI, not in the
+   ARIA discussion): when a menu tree has invalid content, probably
+   leave the top-level menubar as something other than a dialog.</p>
   </section>
 
 
   <!-- ============================================================ -->
   <section class="slide" id="try3">
    <h2>Attempt 3: lists everywhere</h2>
+     TODO: add the labels to this tree. File is there, but what about New, open, etc?
    <div class=columns>
     <pre class=roles>
 menubar              → <b>list</b>
   menuitem File      → <b>listitem</b>
   menulist           → <b>list</b>
     menuitem         → <b>listitem</b>
-    menuitemcheckbox → <b>checkbox</b>
-    menuitemradio    → <b>radio</b>
     button Share</pre>
     <section>
      <ul>
-      <li>Items leave the menu roles, or NVDA keeps saying “menu”</li>
+      <li>Items leave the menu roles, or NVDA repeats “menu” a lot</li>
       <li>Checkable items: checkbox/radio</li>
       <li class=verdict>✗ <code>listitem</code> can’t be expanded or
        collapsed</li>
-      <li class=verdict>✗ NVDA sometimes said “submenu”: only the HTML
-       tag name</li>
+      <li class=verdict>✗ NVDA still said “submenu” on list items,
+       mixing menu and list language</li>
      </ul>
     </section>
    </div>
@@ -559,14 +560,18 @@ menubar              → <b>list</b>
    <p>Why checkbox/radio: ARIA’s listitem supports only aria-posinset
    and aria-setsize, so it can’t be checked. For the same reason it
    can’t be expanded or collapsed, so “Open Recent” loses its submenu
-   state. NVDA still sometimes said “submenu”, even though that word
-   now only exists as the HTML tag name.</p>
+   state. NVDA still sometimes said “submenu”. We first thought it was
+   reading the HTML tag name, but it may instead come from
+   aria-haspopup=menu: Chromium sets that on a menuitem with a submenu,
+   and it may survive the change to listitem. NVDA says “submenu” for
+   any menu item with a popup, e.g. “File submenu 1 of 4” in a valid
+   menubar.</p>
   </section>
 
 
   <!-- ============================================================ -->
   <section class="slide" id="try4">
-   <h2>Attempt 4 (not tried yet): tree</h2>
+   <h2>Attempt 4: tree</h2>
    <div class=columns>
     <pre class=roles>
 menubar          → <b>tree</b>
@@ -578,38 +583,38 @@ menubar          → <b>tree</b>
      <ul>
       <li><code>treeitem</code> supports <code>aria-expanded</code>
        and <code>aria-checked</code></li>
-      <li>But a tree is navigated with arrow keys, not Tab…</li>
-      <li>…and it’s a big stretch for a menubar</li>
+      <li>TODO(adapt Lucas's comments from Wed testing about TAB)</li>
      </ul>
     </section>
    </div>
-   <p class=todo>TODO: update with the results of testing with Lucas</p>
+   <p class=todo>TODO: update this to include our ARIA-owns, or just shift it in the diagram and include that we do this with aria-owns</p>
   </section>
 
   <section class=comment>
-   <p>The mapping on this slide is a sketch. If the tree is navigated
-   with arrows, we’re drifting toward option (b).</p>
+   <p>Promising results in initial testing, but we're far from positive.</p>
   </section>
 
 
   <!-- ============================================================ -->
-  <section class="slide" id="option-c">
-   <h2>Should we just let arrow keys reach everything?</h2>
+  <section class="slide" id="option-b">
+   <h2>OR, should we just let arrow keys reach everything?</h2>
    <ul>
     <li>Keep <code>menubar</code> / <code>menu</code> /
-     <code>menuitem</code></li>
-    <li>Arrow keys also stop on the button, link, input…</li>
-    <li>Announcements would match the keyboard again</li>
-    <li>But <code>menu</code> would own children it isn’t allowed
-     to own</li>
+     <code>menuitem</code> roles on the menu HTML elements</li>
+    <li>Arrow keys stop on the button, link, input… in addition to menuitems</li>
+    <li>We'd probably include the violating elements in setSize</li>
+    <li>But <code>menu</code> would have children with roles that ARIA disallows…</li>
    </ul>
-   <p><strong>How do screen readers handle a button inside
-   <code>role=menu</code>?</strong></p>
   </section>
 
   <section class=comment>
    <p>That's option (b) from earlier. This is the main question for
    the group.</p>
+   <p>Will users be better served, across all the screen readers that you're familiar with, by menu elements falling back to some set of non-menu roles when there's interactive content (option a), or by trying to treat that interactive content as a menuitem? (option B)
+   </p>
+   <p>
+   Wrap violations in menuitems would not be good for SR users -- what would TAB do if they were focused on one of these menuitems with interactive descendants? The expect it would jump to the next form control (or something) on the page, not to a different place inside the menu.
+   </p>
   </section>
 
 
@@ -629,30 +634,31 @@ menubar          → <b>tree</b>
   </section>
 
   <section class=comment>
-   <p>With native elements, the browser knows the roles are wrong,
-   because it assigned them.</p>
+   <p></p>
   </section>
 
 
   <!-- ============================================================ -->
   <section class="slide" id="heuristics">
-   <h2>Alternative: a documented heuristic?</h2>
-   <p><a href="https://github.com/w3c/aria/blob/main/documentation/browser_accessibility_heuristics.md"
-   >Browser accessibility heuristics</a> already lists:</p>
+   <h2>Or just document the repair?</h2>
+   <p>ARIA already has a page, <a href="https://github.com/w3c/aria/blob/main/documentation/browser_accessibility_heuristics.md"
+   >Browser accessibility heuristics</a>, that documents stuff like:</p>
    <ul>
+    <li>Erroneous <code>aria-modal</code> ignored (WebKit)</li>
+    <li>Data tables vs. layout tables (TODO: WTF is this)</li>
     <li><code>aria-hidden</code> on the root is ignored (now in the
      spec)</li>
-    <li>Data tables vs. layout tables</li>
-    <li>Erroneous <code>aria-modal</code> ignored (WebKit)</li>
    </ul>
    <p>Where should menu repair go?
-   HTML? HTML-AAM? ARIA? That list?</p>
+   HTML? HTML-AAM? ARIA? That documentation page?</p>
   </section>
 
   <section class=comment>
-   <p>Interop matters: if Chromium repairs to lists and another
-   engine repairs differently, screen-reader users get different
+   <p>if Chromium repairs to trees and another
+   engine repairs differently, screen-reader users get vastly different
    experiences on the same page.</p>
+   <p>Maybe if we find a good repair solution, we standardize, but if it's not great, we'll just document it, so as to not lock in other implementers?
+   </p>
   </section>
 
 
@@ -670,9 +676,9 @@ menubar          → <b>tree</b>
     <h2>Links</h2>
     <ul>
      <li><a href="https://open-ui.org/components/menu.explainer/">Menu explainer</a></li>
-     <li><a href="https://github.com/whatwg/html/pull/12011">whatwg/html#12011</a></li>
-     <li><a href="https://github.com/w3c/aria/issues/2782">w3c/aria#2782</a></li>
-     <li><a href="https://crbug.com/425682466">crbug.com/425682466</a></li>
+     <li><a href="https://github.com/whatwg/html/pull/12011">HTML spec PR (whatwg/html#12011)</a></li>
+     <li><a href="https://github.com/w3c/aria/issues/2782">Menu a11y discussion (w3c/aria#2782)</a></li>
+     <li><a href="https://crbug.com/425682466">chromium tracking bug</a></li>
     </ul>
    </div>
   </section>
