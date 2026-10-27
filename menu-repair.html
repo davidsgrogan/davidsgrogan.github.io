@@ -81,6 +81,14 @@
    /* Smaller code blocks, for slides with two of them. */
    pre.small {font-size: 0.62em; line-height: 1.45}
    .verdict {font-weight: bold}
+   /* Team names under each author on the cover. */
+   .cover address .team {display: block; margin-bottom: 0.3em;
+     font-size: 0.6em; font-weight: normal}
+   .cover address .team:last-child {margin-bottom: 0}
+   /* Emphasis shown as plain italics instead of the template's
+      highlighter. Still <em>, so the emphasis is in the markup. */
+   .slide em.italic {font-style: italic; background: none; padding: 0;
+     text-shadow: inherit}
    /* (a) (b) (c) lists; the template numbers <ol> with its own counter. */
    .slide ol[type=a] > li::before {content: "(" counter(ol, lower-alpha) ")\A0"}
    blockquote {margin: 0.5em 0 0.5em 1em; padding-left: 0.8em;
@@ -106,7 +114,8 @@
   <!-- ============================================================ -->
   <section class="slide cover" id="cover">
    <h1>Menu elements: repairing invalid content</h1>
-   <address>David Grogan, Google<br>Lucas Radaelli, Google</address>
+   <address>David Grogan <small class=team>Google · Chrome Web Platform</small>
+    Lucas Radaelli <small class=team>Google · Chrome Accessibility</small></address>
   </section>
 
   <section class=comment>
@@ -245,8 +254,8 @@
      <li class=next data-focus=2><kbd>↓</kbd> <samp>Share… 2 of 6</samp></li>
      <li class=next data-focus=3><kbd>↓</kbd> <samp>Open… 3 of 6</samp></li>
      <li class=next data-focus=4><kbd>↓</kbd> <samp>Save 4 of 6</samp></li>
-     <li class="next takeaway" data-focus=4>What is announced matches what
-      the arrow keys do.</li>
+     <li class="next takeaway" data-focus=4>Every item is reached via
+      arrow keys</li>
     </ol>
    </div>
   </section>
@@ -350,56 +359,31 @@
 
 
   <!-- ============================================================ -->
-  <section class="slide" id="goal">
-   <h2>The goal: less confusing, not fixed</h2>
-   <ul>
-    <li>Only the author can really fix it: put the content in
-     menuitems, or don’t use a menu</li>
-    <li>The browser can only make a broken menu <em>less
-     confusing</em></li>
-    <li>Using roles that already exist, so the keyboard and the
-     announcements agree</li>
-    <li>And tell the author: a DevTools console warning, and a red
-     squiggle on the element in DevTools</li>
-   </ul>
-   <p class=note>Success means screen-reader users can find and use
-   everything. It won’t be a great menu.</p>
-  </section>
-
-  <section class=comment>
-   <p>Set expectations before the options: none of these attempts produce a
-   good experience. Each one tries to describe broken content honestly using
-   semantics that already exist, rather than inventing new ones.</p>
-
-   <p>Devtools: the Blink web platform team recently, last few years, convinced
-   the chrome devtools team to show console warnings when pages use new
-   primitives in an a11y-unfriendly manner. That unblocked us to do the same
-   here.</p>
-  </section>
-
-
-  <!-- ============================================================ -->
   <section class="slide" id="options">
-   <h2>Modeled on customizable <code>&lt;select&gt;</code></h2>
-   <p>When a <code>&lt;select&gt;</code> picker has interactive content,
-   it becomes a <code>dialog</code> and Tab reaches everything.
-   Menus nest, so we can’t just copy that. Two possible directions:</p>
+   <h2>Three options</h2>
    <ol type=a>
     <li><strong>Change the keyboard and roles</strong> so everything
      is reachable
-     <ul><li>Consistent, but which roles?</li>
-       <li>We've been focused here</li>
+     <ul><li>Modeled on customizable <code>&lt;select&gt;</code>: its
+      picker becomes a <code>dialog</code> <em class=italic>and Tab
+      reaches everything</em></li>
+      <li>Menus nest, so not a straight copy. Which roles? (attempts 1–5)</li>
      </ul></li>
     <li><strong>Let arrow keys reach</strong> non-menuitems; keep the
      menu roles
      <ul><li>Smallest change, but a <code>menu</code> then owns
      things it isn’t allowed to own</li></ul></li>
+    <li><strong>Do nothing:</strong> keep the broken experience
+     <ul><li>As in the “no repair” demo: the button stays unreachable</li></ul></li>
    </ol>
   </section>
 
   <section class=comment>
-   <p>We’ve been working on (a). These two are where we want
+   <p>We’ve been working on (a). All three are where we want
    feedback.</p>
+   <p>(c) is here because someone may argue the browser shouldn’t
+   guess at all: leave the menu as the author wrote it, and rely on the
+   DevTools warning to get it fixed.</p>
    <p>Why not a straight copy of &lt;select&gt;: a select has one
    popup, so one dialog. Menus nest, so “dialog everywhere” gives
    nested dialogs (attempt 1).</p>
@@ -420,6 +404,32 @@
     <li>Instead: repair it, warn the developer, and keep the door open
      to improving it later.</li>
    </ul>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide" id="goal">
+   <h2>The goal: less confusing, not fixed</h2>
+   <ul>
+    <li>Only the author can really fix it: put the content in
+     menuitems, or don’t use a menu</li>
+    <li>The browser can only make a broken menu <em>less
+     confusing</em></li>
+    <li>And tell the author: a DevTools console warning, and a red
+     squiggle on the element in DevTools</li>
+   </ul>
+   <p class=note>Success means screen-reader users can find and use
+   everything. It won’t be a great menu.</p>
+  </section>
+
+  <section class=comment>
+   <p>Set expectations before the attempts: none of them produce a
+   good experience.</p>
+
+   <p>Devtools: the Blink web platform team recently, last few years, convinced
+   the chrome devtools team to show console warnings when pages use new
+   primitives in an a11y-unfriendly manner. That unblocked us to do the same
+   here.</p>
   </section>
 
 
@@ -467,7 +477,7 @@
 
   <!-- ============================================================ -->
   <section class="slide" id="try1">
-   <h2>Attempt 1: dialog + Tab</h2>
+   <h2>Attempt 1: dialog role everywhere</h2>
    <div class=columns>
     <pre class=roles>
 menubar          → <b>dialog</b>
@@ -533,17 +543,19 @@ menubar          → <b>dialog</b>
   <!-- ============================================================ -->
   <section class="slide" id="try3">
    <h2>Attempt 3: lists everywhere</h2>
-     TODO: add the labels to this tree. File is there, but what about New, open, etc?
    <div class=columns>
     <pre class=roles>
 menubar              → <b>list</b>
   menuitem File      → <b>listitem</b>
   menulist           → <b>list</b>
-    menuitem         → <b>listitem</b>
-    button Share</pre>
+    menuitem New     → <b>listitem</b>
+    button Share
+    menuitem Open…   → <b>listitem</b>
+    …</pre>
     <section>
      <ul>
-      <li>Items leave the menu roles, or NVDA repeats “menu” a lot</li>
+      <li>Menuitems become listitems too: left as menuitems, NVDA kept
+      saying “menu”</li>
       <li>Checkable items: checkbox/radio</li>
       <li class=verdict>✗ <code>listitem</code> can’t be expanded or
        collapsed</li>
@@ -574,24 +586,69 @@ menubar              → <b>list</b>
    <h2>Attempt 4: tree</h2>
    <div class=columns>
     <pre class=roles>
-menubar          → <b>tree</b>
-  menuitem File  → <b>treeitem</b>
-  menulist       → <b>group</b>
-    menuitem     → <b>treeitem</b>
-    button Share</pre>
+menubar              → <b>tree</b>
+  menuitem File      → <b>treeitem</b>
+  menulist           → <b>group</b>
+    menuitem New     → <b>treeitem</b>
+    button Share
+    menuitem Open…   → <b>treeitem</b>
+    …</pre>
     <section>
      <ul>
       <li><code>treeitem</code> supports <code>aria-expanded</code>
        and <code>aria-checked</code></li>
-      <li>TODO(adapt Lucas's comments from Wed testing about TAB)</li>
+      <li>Tab key reached everything in NVDA focus mode, great</li>
+      <li>But we only tested NVDA so far, and noticed this is non-compliant.</li>
      </ul>
     </section>
    </div>
-   <p class=todo>TODO: update this to include our ARIA-owns, or just shift it in the diagram and include that we do this with aria-owns</p>
   </section>
 
   <section class=comment>
    <p>Promising results in initial testing, but we're far from positive.</p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <section class="slide" id="try5">
+   <h2>Attempt 5: tree, with the group owned</h2>
+   <div class=columns>
+    <pre class=roles>
+menubar              → <b>tree</b>
+  menuitem File      → <b>treeitem</b>
+    menulist         → <b>group</b>
+      menuitem New   → <b>treeitem</b>
+      button Share
+      menuitem Open… → <b>treeitem</b>
+      …</pre>
+    <section>
+     <ul>
+      <li>Same roles as attempt 4</li>
+      <li>New: while a menulist is open, the menuitem next to it in the
+       <code>&lt;submenu&gt;</code> gets an implicit
+       <code>aria-owns</code> pointing at it</li>
+      <li>So the group is the treeitem’s child, as ARIA requires</li>
+      <li class=verdict>⚠ UNTESTED</li>
+     </ul>
+    </section>
+   </div>
+  </section>
+
+  <section class=comment>
+   <p>Fixes what was non-compliant in attempt 4. ARIA says a treeitem’s
+   parent must be a tree or a “group with accessibility parent
+   treeitem”, so a submenu’s group has to be a child of the treeitem
+   that opens it, not its sibling. The DOM has them as siblings inside
+   &lt;submenu&gt;, so the treeitem implicitly owns the group.</p>
+   <p>Only while the menulist is open: a closed menulist is a hidden
+   popover, so it isn’t in the accessibility tree anyway.</p>
+   <p>The same rule applies at every level, e.g. Open Recent inside
+   File.</p>
+   <p>Caveat: invalid content placed directly in the &lt;menubar&gt;
+   (not inside a submenu) is still non-compliant in attempts 4 and 5.
+   It would be a child of the tree, and ARIA only allows treeitem
+   children in a tree. The example on the slide has the button inside
+   a submenu, so it’s compliant.</p>
   </section>
 
 
@@ -645,7 +702,8 @@ menubar          → <b>tree</b>
    >Browser accessibility heuristics</a>, that documents stuff like:</p>
    <ul>
     <li>Erroneous <code>aria-modal</code> ignored (WebKit)</li>
-    <li>Data tables vs. layout tables (TODO: WTF is this)</li>
+    <li>Guessing whether a <code>&lt;table&gt;</code> is data or
+     layout</li>
     <li><code>aria-hidden</code> on the root is ignored (now in the
      spec)</li>
    </ul>
@@ -654,6 +712,14 @@ menubar          → <b>tree</b>
   </section>
 
   <section class=comment>
+   <p>Data vs. layout tables: browsers guess whether a &lt;table&gt; holds
+   data or is only used for page layout. A data table is exposed as a
+   table, with headers and cells a screen reader can navigate; a layout
+   table is flattened so its cells read as ordinary content. Every
+   major engine guesses from clues like &lt;th&gt;, &lt;caption&gt;,
+   borders, size and nesting, the rules differ between engines, and
+   none of it is specified. Menu repair would be the same kind of
+   thing.</p>
    <p>if Chromium repairs to trees and another
    engine repairs differently, screen-reader users get vastly different
    experiences on the same page.</p>
@@ -667,7 +733,8 @@ menubar          → <b>tree</b>
    <div>
     <h2>Questions for the group</h2>
     <ol>
-     <li>Repair by changing roles (a), or let arrows reach everything (b)?</li>
+     <li>Change roles (a), let arrows reach everything (b), or leave it
+      broken (c)?</li>
      <li>If (a): which roles?</li>
      <li>Where should the repair be specified?</li>
     </ol>
