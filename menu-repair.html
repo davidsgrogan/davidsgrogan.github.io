@@ -531,7 +531,7 @@ menubar          → <b>dialog</b>
 
   <section class=comment>
    <p>With the button counted, the broken File menu is “X of 6”
-   again (New 1, Share… 2, Open Recent 3, …) instead of
+   again (New 1, Share… 2, Open… 3, …) instead of
    “X of 5” with the button left out.</p>
    <p>But can't CLOSE the outer dialog / menubar because a menubar always takes up space in the page</p>
    <p>Scott hinted at this back in May (at OpenUI, not in the
@@ -571,7 +571,7 @@ menubar              → <b>list</b>
    confused. <strong>TODO: add the exact NVDA output.</strong></p>
    <p>Why checkbox/radio: ARIA’s listitem supports only aria-posinset
    and aria-setsize, so it can’t be checked. For the same reason it
-   can’t be expanded or collapsed, so “Open Recent” loses its submenu
+   can’t be expanded or collapsed, so “File” loses its submenu
    state. NVDA still sometimes said “submenu”. We first thought it was
    reading the HTML tag name, but it may instead come from
    aria-haspopup=menu: Chromium sets that on a menuitem with a submenu,
@@ -642,7 +642,7 @@ menubar              → <b>tree</b>
    &lt;submenu&gt;, so the treeitem implicitly owns the group.</p>
    <p>Only while the menulist is open: a closed menulist is a hidden
    popover, so it isn’t in the accessibility tree anyway.</p>
-   <p>The same rule applies at every level, e.g. Open Recent inside
+   <p>The same rule applies at every level, e.g. a submenu inside
    File.</p>
    <p>Caveat: invalid content placed directly in the &lt;menubar&gt;
    (not inside a submenu) is still non-compliant in attempts 4 and 5.
@@ -667,6 +667,13 @@ menubar              → <b>tree</b>
   <section class=comment>
    <p>That's option (b) from earlier. This is the main question for
    the group.</p>
+   <p>NVDA + Chrome test (ARIA mock-up: role=menu with a &lt;button&gt;
+   between menuitems, arrow keys reaching it): NVDA stayed in focus
+   mode on the button, so the arrow keys kept working. It said “New 1
+   of 4”, “Share button”, “Open Recent 2 of 4”, “Save 3 of 4”. So the button
+   is announced, but the count skips it (4 items, 5 arrow stops).
+   Counting it would need a position on a button, which ARIA doesn’t
+   list as supported for that role. Only NVDA tested so far.</p>
    <p>Will users be better served, across all the screen readers that you're familiar with, by menu elements falling back to some set of non-menu roles when there's interactive content (option a), or by trying to treat that interactive content as a menuitem? (option B)
    </p>
    <p>
